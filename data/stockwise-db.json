@@ -1,0 +1,640 @@
+{
+  "products": [
+    {
+      "id": "prod_1",
+      "barcode": "8901030383848",
+      "name": "India Gate Basmati Rice Feast Rozzana",
+      "category": "Grains & Flours",
+      "unit": "kg",
+      "sellingPrice": 135,
+      "mrp": 155,
+      "reorderLevel": 15,
+      "description": "Aged long-grain aromatic basmati rice for daily meals",
+      "createdAt": "2026-10-13T06:43:41.223Z",
+      "updatedAt": "2026-10-13T06:43:41.223Z"
+    },
+    {
+      "id": "prod_2",
+      "barcode": "8901725181222",
+      "name": "Aashirvaad Shudh Chakki Atta (100% Whole Wheat)",
+      "category": "Grains & Flours",
+      "unit": "kg",
+      "sellingPrice": 48,
+      "mrp": 54,
+      "reorderLevel": 20,
+      "description": "Stone ground whole wheat flour with natural dietary fiber",
+      "createdAt": "2026-10-13T06:43:41.223Z",
+      "updatedAt": "2026-10-13T06:43:41.223Z"
+    },
+    {
+      "id": "prod_3",
+      "barcode": "8901262010053",
+      "name": "Amul Taaza Homogenised Toned Milk",
+      "category": "Dairy & Eggs",
+      "unit": "L",
+      "sellingPrice": 72,
+      "mrp": 75,
+      "reorderLevel": 12,
+      "description": "UHT treated long life toned milk 1 Liter pack",
+      "createdAt": "2026-10-13T06:43:41.223Z",
+      "updatedAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "prod_4",
+      "barcode": "8901262020021",
+      "name": "Amul Salted Pasteurized Butter",
+      "category": "Dairy & Eggs",
+      "unit": "pack",
+      "sellingPrice": 285,
+      "mrp": 300,
+      "reorderLevel": 8,
+      "description": "Rich creamy salted butter 500g slab",
+      "createdAt": "2026-10-13T06:43:41.224Z",
+      "updatedAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "prod_5",
+      "barcode": "8901058852951",
+      "name": "Fortune Sunlite Refined Sunflower Oil",
+      "category": "Oils & Ghee",
+      "unit": "L",
+      "sellingPrice": 145,
+      "mrp": 165,
+      "reorderLevel": 10,
+      "description": "Light and healthy cooking oil rich in Vitamin E",
+      "createdAt": "2026-10-13T06:43:41.224Z",
+      "updatedAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "prod_6",
+      "barcode": "8901063142054",
+      "name": "Britannia 100% Whole Wheat Brown Bread",
+      "category": "Bakery & Bread",
+      "unit": "pack",
+      "sellingPrice": 50,
+      "mrp": 55,
+      "reorderLevel": 10,
+      "description": "Fresh sliced brown bread loaf 400g with wheat bran",
+      "createdAt": "2026-10-13T06:43:41.224Z",
+      "updatedAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "prod_7",
+      "barcode": "8901030012540",
+      "name": "Brooke Bond Red Label Natural Care Tea",
+      "category": "Beverages & Tea",
+      "unit": "pack",
+      "sellingPrice": 310,
+      "mrp": 340,
+      "reorderLevel": 8,
+      "description": "Black tea infused with 5 Ayurvedic herbs 500g",
+      "createdAt": "2026-10-13T06:43:41.224Z",
+      "updatedAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "prod_8",
+      "barcode": "8901058859103",
+      "name": "Tata Sampann Unpolished Toor Dal",
+      "category": "Pulses & Lentils",
+      "unit": "kg",
+      "sellingPrice": 175,
+      "mrp": 195,
+      "reorderLevel": 12,
+      "description": "Pure protein unpolished arhar toor dal",
+      "createdAt": "2026-10-13T06:43:41.224Z",
+      "updatedAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "prod_9",
+      "barcode": "8901058863216",
+      "name": "Maggi 2-Minute Masala Instant Noodles (4-Pack)",
+      "category": "Snacks & Packaged",
+      "unit": "pack",
+      "sellingPrice": 56,
+      "mrp": 60,
+      "reorderLevel": 15,
+      "description": "Favorite masala instant noodles 280g value pack",
+      "createdAt": "2026-10-13T06:43:41.224Z",
+      "updatedAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "prod_10",
+      "barcode": "8901030825416",
+      "name": "Surf Excel Matic Top Load Liquid Detergent",
+      "category": "Personal & Household",
+      "unit": "L",
+      "sellingPrice": 220,
+      "mrp": 245,
+      "reorderLevel": 6,
+      "description": "Tough stain removal liquid laundry detergent 1L bottle",
+      "createdAt": "2026-10-13T06:43:41.224Z",
+      "updatedAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "prod_11",
+      "barcode": "8901725112349",
+      "name": "Catch Super Garam Masala Powder",
+      "category": "Spices & Condiments",
+      "unit": "pack",
+      "sellingPrice": 85,
+      "mrp": 95,
+      "reorderLevel": 10,
+      "description": "Aromatic roasted whole spice blend 100g carton",
+      "createdAt": "2026-10-13T06:43:41.224Z",
+      "updatedAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "prod_12",
+      "barcode": "8902080004128",
+      "name": "Farm Fresh Organic Brown Eggs (Tray of 12)",
+      "category": "Dairy & Eggs",
+      "unit": "box",
+      "sellingPrice": 130,
+      "mrp": 140,
+      "reorderLevel": 10,
+      "description": "Free range, nutrient-rich brown eggs tray",
+      "createdAt": "2026-10-13T06:43:41.224Z",
+      "updatedAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "barcode": "999999999901",
+      "name": "Test Audit Organic Oats",
+      "category": "Grains & Flours",
+      "unit": "pack",
+      "sellingPrice": 80,
+      "mrp": 90,
+      "reorderLevel": 10,
+      "description": "",
+      "id": "prod_1791874598997_usjs",
+      "createdAt": "2026-10-13T06:56:38.997Z",
+      "updatedAt": "2026-10-13T06:56:38.997Z"
+    }
+  ],
+  "batches": [
+    {
+      "id": "batch_1",
+      "productId": "prod_1",
+      "batchNumber": "RICE-2026-B1",
+      "initialQuantity": 40,
+      "quantity": 13,
+      "purchasePrice": 110,
+      "purchaseDate": "2026-06-15",
+      "expiryDate": "2026-11-07",
+      "supplier": "Agro Foods Distributors",
+      "status": "active",
+      "createdAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "batch_2",
+      "productId": "prod_1",
+      "batchNumber": "RICE-2026-B2",
+      "initialQuantity": 50,
+      "quantity": 48,
+      "purchasePrice": 112,
+      "purchaseDate": "2026-09-23",
+      "expiryDate": "2027-07-20",
+      "supplier": "Punjab Agro Direct",
+      "status": "active",
+      "createdAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "batch_3",
+      "productId": "prod_2",
+      "batchNumber": "ATTA-OCT-01",
+      "initialQuantity": 30,
+      "quantity": 8,
+      "purchasePrice": 38,
+      "purchaseDate": "2026-07-25",
+      "expiryDate": "2026-10-18",
+      "supplier": "ITC Direct Supply",
+      "status": "active",
+      "notes": "Priority clearance on shelf 2",
+      "createdAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "batch_4",
+      "productId": "prod_2",
+      "batchNumber": "ATTA-NOV-02",
+      "initialQuantity": 60,
+      "quantity": 55,
+      "purchasePrice": 39,
+      "purchaseDate": "2026-10-03",
+      "expiryDate": "2027-01-11",
+      "supplier": "ITC Direct Supply",
+      "status": "active",
+      "createdAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "batch_5",
+      "productId": "prod_3",
+      "batchNumber": "MILK-EXP-99",
+      "initialQuantity": 25,
+      "quantity": 5,
+      "purchasePrice": 58,
+      "purchaseDate": "2026-07-10",
+      "expiryDate": "2026-10-10",
+      "supplier": "Gujarat Milk Federation",
+      "status": "expired",
+      "notes": "Hold for return / vendor credit memo",
+      "createdAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "batch_6",
+      "productId": "prod_3",
+      "batchNumber": "MILK-OCT-18",
+      "initialQuantity": 35,
+      "quantity": 22,
+      "purchasePrice": 59,
+      "purchaseDate": "2026-09-13",
+      "expiryDate": "2026-10-17",
+      "supplier": "Gujarat Milk Federation",
+      "status": "active",
+      "createdAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "batch_7",
+      "productId": "prod_4",
+      "batchNumber": "BUTTER-B44",
+      "initialQuantity": 20,
+      "quantity": 6,
+      "purchasePrice": 240,
+      "purchaseDate": "2026-08-14",
+      "expiryDate": "2026-10-31",
+      "supplier": "Dairy Cold Chain Logistics",
+      "status": "active",
+      "createdAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "batch_8",
+      "productId": "prod_5",
+      "batchNumber": "OIL-2026-N1",
+      "initialQuantity": 40,
+      "quantity": 28,
+      "purchasePrice": 120,
+      "purchaseDate": "2026-09-28",
+      "expiryDate": "2027-05-11",
+      "supplier": "Adani Wilmar Agency",
+      "status": "active",
+      "createdAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "batch_9",
+      "productId": "prod_6",
+      "batchNumber": "BREAD-WK40",
+      "initialQuantity": 20,
+      "quantity": 4,
+      "purchasePrice": 38,
+      "purchaseDate": "2026-10-07",
+      "expiryDate": "2026-10-12",
+      "supplier": "Daily Bakers Logistics",
+      "status": "expired",
+      "notes": "Damaged/Expired bread for scrap log",
+      "createdAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "batch_10",
+      "productId": "prod_6",
+      "batchNumber": "BREAD-WK41",
+      "initialQuantity": 25,
+      "quantity": 18,
+      "purchasePrice": 38,
+      "purchaseDate": "2026-10-12",
+      "expiryDate": "2026-10-15",
+      "supplier": "Daily Bakers Logistics",
+      "status": "active",
+      "createdAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "batch_11",
+      "productId": "prod_7",
+      "batchNumber": "TEA-HUL-78",
+      "initialQuantity": 30,
+      "quantity": 19,
+      "purchasePrice": 250,
+      "purchaseDate": "2026-08-29",
+      "expiryDate": "2027-08-29",
+      "supplier": "Hindustan Unilever Depot",
+      "status": "active",
+      "createdAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "batch_12",
+      "productId": "prod_8",
+      "batchNumber": "DAL-TT-08",
+      "initialQuantity": 25,
+      "quantity": 7,
+      "purchasePrice": 145,
+      "purchaseDate": "2026-07-15",
+      "expiryDate": "2026-10-25",
+      "supplier": "Tata Consumer Products",
+      "status": "active",
+      "createdAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "batch_13",
+      "productId": "prod_9",
+      "batchNumber": "MAGGI-NST-12",
+      "initialQuantity": 80,
+      "quantity": 62,
+      "purchasePrice": 44,
+      "purchaseDate": "2026-09-23",
+      "expiryDate": "2027-04-11",
+      "supplier": "Nestle India Distribution",
+      "status": "active",
+      "createdAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "batch_14",
+      "productId": "prod_10",
+      "batchNumber": "SURF-HUL-55",
+      "initialQuantity": 20,
+      "quantity": 14,
+      "purchasePrice": 175,
+      "purchaseDate": "2026-09-13",
+      "expiryDate": "2028-01-06",
+      "supplier": "Hindustan Unilever Depot",
+      "status": "active",
+      "createdAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "batch_15",
+      "productId": "prod_11",
+      "batchNumber": "MASALA-C22",
+      "initialQuantity": 25,
+      "quantity": 9,
+      "purchasePrice": 65,
+      "purchaseDate": "2026-06-25",
+      "expiryDate": "2026-11-10",
+      "supplier": "DS Group Spices",
+      "status": "active",
+      "createdAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "id": "batch_16",
+      "productId": "prod_12",
+      "batchNumber": "EGGS-TR-102",
+      "initialQuantity": 30,
+      "quantity": 12,
+      "purchasePrice": 95,
+      "purchaseDate": "2026-10-09",
+      "expiryDate": "2026-10-16",
+      "supplier": "Valley Organic Poultry Farm",
+      "status": "active",
+      "createdAt": "2026-10-13T06:43:41.224Z"
+    },
+    {
+      "productId": "prod_1",
+      "batchNumber": "TEST-EXIST-01",
+      "initialQuantity": 10,
+      "quantity": 10,
+      "purchasePrice": 110,
+      "purchaseDate": "2026-10-13",
+      "expiryDate": "2027-04-15",
+      "supplier": "",
+      "notes": "",
+      "status": "active",
+      "id": "batch_1791874598984_bm3a",
+      "createdAt": "2026-10-13T06:56:38.984Z"
+    },
+    {
+      "productId": "prod_1791874598997_usjs",
+      "batchNumber": "OATS-BATCH-01",
+      "initialQuantity": 25,
+      "quantity": 20,
+      "purchasePrice": 60,
+      "purchaseDate": "2026-10-13",
+      "expiryDate": "2027-10-13",
+      "supplier": "",
+      "notes": "",
+      "status": "active",
+      "id": "batch_1791874598997_qks2",
+      "createdAt": "2026-10-13T06:56:38.997Z"
+    }
+  ],
+  "sales": [
+    {
+      "id": "sale_1",
+      "invoiceNumber": "INV-20261012-0001",
+      "date": "2026-10-13T01:43:41.224Z",
+      "customerName": "Aarav Sharma",
+      "customerPhone": "+91 98231 09871",
+      "cashier": "Pooja V.",
+      "paymentMethod": "upi",
+      "subtotal": 620,
+      "discountTotal": 20,
+      "taxRate": 5,
+      "taxTotal": 30,
+      "grandTotal": 630,
+      "status": "completed",
+      "items": [
+        {
+          "productId": "prod_1",
+          "productName": "India Gate Basmati Rice Feast Rozzana",
+          "barcode": "8901030383848",
+          "unit": "kg",
+          "quantity": 2,
+          "sellingPrice": 135,
+          "discount": 0,
+          "total": 270,
+          "batchAllocations": [
+            {
+              "batchId": "batch_1",
+              "batchNumber": "RICE-2026-B1",
+              "quantity": 2,
+              "expiryDate": "2026-11-07",
+              "purchasePrice": 110
+            }
+          ]
+        },
+        {
+          "productId": "prod_4",
+          "productName": "Amul Salted Pasteurized Butter",
+          "barcode": "8901262020021",
+          "unit": "pack",
+          "quantity": 1,
+          "sellingPrice": 285,
+          "discount": 10,
+          "total": 275,
+          "batchAllocations": [
+            {
+              "batchId": "batch_7",
+              "batchNumber": "BUTTER-B44",
+              "quantity": 1,
+              "expiryDate": "2026-10-31",
+              "purchasePrice": 240
+            }
+          ]
+        },
+        {
+          "productId": "prod_3",
+          "productName": "Amul Taaza Homogenised Toned Milk",
+          "barcode": "8901262010053",
+          "unit": "L",
+          "quantity": 1,
+          "sellingPrice": 72,
+          "discount": 0,
+          "total": 72,
+          "batchAllocations": [
+            {
+              "batchId": "batch_6",
+              "batchNumber": "MILK-OCT-18",
+              "quantity": 1,
+              "expiryDate": "2026-10-17",
+              "purchasePrice": 59
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sale_2",
+      "invoiceNumber": "INV-20261012-0002",
+      "date": "2026-10-13T04:43:41.224Z",
+      "customerName": "Sneha Patel",
+      "customerPhone": "+91 97120 44552",
+      "cashier": "Pooja V.",
+      "paymentMethod": "cash",
+      "amountTendered": 500,
+      "changeReturned": 115,
+      "subtotal": 371,
+      "discountTotal": 5,
+      "taxRate": 5,
+      "taxTotal": 18.3,
+      "grandTotal": 384.3,
+      "status": "completed",
+      "items": [
+        {
+          "productId": "prod_2",
+          "productName": "Aashirvaad Shudh Chakki Atta (100% Whole Wheat)",
+          "barcode": "8901725181222",
+          "unit": "kg",
+          "quantity": 5,
+          "sellingPrice": 48,
+          "discount": 0,
+          "total": 240,
+          "batchAllocations": [
+            {
+              "batchId": "batch_3",
+              "batchNumber": "ATTA-OCT-01",
+              "quantity": 5,
+              "expiryDate": "2026-10-18",
+              "purchasePrice": 38
+            }
+          ]
+        },
+        {
+          "productId": "prod_9",
+          "productName": "Maggi 2-Minute Masala Instant Noodles (4-Pack)",
+          "barcode": "8901058863216",
+          "unit": "pack",
+          "quantity": 2,
+          "sellingPrice": 56,
+          "discount": 0,
+          "total": 112,
+          "batchAllocations": [
+            {
+              "batchId": "batch_13",
+              "batchNumber": "MAGGI-NST-12",
+              "quantity": 2,
+              "expiryDate": "2027-04-11",
+              "purchasePrice": 44
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sale_1791873836115_z5cy",
+      "invoiceNumber": "INV-20261013-0003",
+      "date": "2026-10-13T06:43:56.115Z",
+      "customerName": "Walk-in Customer",
+      "customerPhone": "",
+      "items": [
+        {
+          "productId": "prod_1",
+          "productName": "India Gate Basmati Rice Feast Rozzana",
+          "barcode": "8901030383848",
+          "unit": "kg",
+          "quantity": 1,
+          "sellingPrice": 135,
+          "discount": 0,
+          "total": 135,
+          "batchAllocations": [
+            {
+              "batchId": "batch_1",
+              "batchNumber": "RICE-2026-B1",
+              "quantity": 1,
+              "expiryDate": "2026-11-07",
+              "purchasePrice": 110
+            }
+          ]
+        }
+      ],
+      "subtotal": 135,
+      "discountTotal": 0,
+      "taxRate": 5,
+      "taxTotal": 6.75,
+      "grandTotal": 141.75,
+      "paymentMethod": "cash",
+      "amountTendered": 150,
+      "changeReturned": 8.25,
+      "cashier": "Admin / Cashier",
+      "notes": "",
+      "status": "completed"
+    },
+    {
+      "id": "sale_1791874599009_hapd",
+      "invoiceNumber": "INV-20261013-0004",
+      "date": "2026-10-13T06:56:39.009Z",
+      "customerName": "Walk-in Customer",
+      "customerPhone": "",
+      "items": [
+        {
+          "productId": "prod_1791874598997_usjs",
+          "productName": "Test Audit Organic Oats",
+          "barcode": "999999999901",
+          "unit": "pack",
+          "quantity": 5,
+          "sellingPrice": 80,
+          "discount": 0,
+          "total": 400,
+          "batchAllocations": [
+            {
+              "batchId": "batch_1791874598997_qks2",
+              "batchNumber": "OATS-BATCH-01",
+              "quantity": 5,
+              "expiryDate": "2027-10-13",
+              "purchasePrice": 60
+            }
+          ]
+        }
+      ],
+      "subtotal": 400,
+      "discountTotal": 0,
+      "taxRate": 5,
+      "taxTotal": 20,
+      "grandTotal": 420,
+      "paymentMethod": "cash",
+      "amountTendered": 500,
+      "changeReturned": 80,
+      "cashier": "Admin / Cashier",
+      "notes": "",
+      "status": "completed"
+    }
+  ],
+  "settings": {
+    "storeName": "StockWise Supermarket",
+    "tagline": "Fresh Groceries • Smart Inventory • Instant Billing",
+    "address": "Shop 14, Central Market Boulevard, Green City",
+    "phone": "+1 (555) 349-8200",
+    "email": "billing@stockwise.grocer",
+    "gstNumber": "GSTIN07AABCG1234F1Z",
+    "currency": "₹",
+    "currencyCode": "INR",
+    "taxRate": 5,
+    "taxEnabled": true,
+    "lowStockThreshold": 10,
+    "receiptFooter": "Thank you for shopping with StockWise! Freshness guaranteed. Keep bill for quick returns within 3 days."
+  },
+  "lastInvoiceSequence": 4
+}
