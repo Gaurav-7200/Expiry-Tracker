@@ -18,9 +18,6 @@ import {
   Store,
   ChevronRight,
   ShieldCheck,
-  Camera,
-  CheckCircle,
-  Plus,
 } from 'lucide-react';
 import { api } from './services/api';
 import { sounds } from './utils/audio';
@@ -28,14 +25,12 @@ import { sounds } from './utils/audio';
 import { Dashboard } from './components/Dashboard';
 import { PosBilling } from './components/PosBilling';
 import { ProductManagement } from './components/ProductManagement';
-import { StockReceiving } from './components/StockReceiving';
+import { StockIntake } from './components/StockIntake';
 import { BatchInventory } from './components/BatchInventory';
 import { ExpiryTracker } from './components/ExpiryTracker';
 import { ExpiryCalendar } from './components/ExpiryCalendar';
 import { SalesHistory } from './components/SalesHistory';
 import { StoreSettings } from './components/StoreSettings';
-import { CameraScannerModal } from './components/CameraScannerModal';
-import { QuaggaTestComponent } from './components/QuaggaTestComponent';
 
 export default function App() {
   // Valid application tab identifiers
@@ -43,26 +38,27 @@ export default function App() {
     'dashboard',
     'pos',
     'products',
-    'receiving',
+    'intake',
     'batches',
     'expiry',
     'calendar',
     'sales',
     'settings',
-    'quagga-poc',
   ];
 
-  // Initialize activeTab safely from URL hash or localStorage
+  // Initialize activeTab safely from URL hash or localStorage (aliasing 'receiving' to 'intake')
   const getInitialTab = () => {
     if (typeof window !== 'undefined') {
       try {
         const hash = window.location.hash.replace('#', '').trim();
+        if (hash === 'receiving') return 'intake';
         if (VALID_TABS.includes(hash)) return hash;
       } catch (e) {
         // ignore hash error
       }
       try {
         const saved = localStorage.getItem('stockwise_active_tab');
+        if (saved === 'receiving') return 'intake';
         if (saved && VALID_TABS.includes(saved)) return saved;
       } catch (e) {
         // ignore storage error
@@ -72,27 +68,25 @@ export default function App() {
   };
 
   const [activeTab, setActiveTab] = useState(getInitialTab);
-  const [receivingBarcode, setReceivingBarcode] = useState('');
+  const [intakeBarcode, setIntakeBarcode] = useState('');
+  const [editingProductIdFromIntake, setEditingProductIdFromIntake] = useState(null);
   const [posInitialBarcode, setPosInitialBarcode] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(sounds.enabled);
 
-  // Global Camera Scanner state
-  const [isGlobalScannerOpen, setIsGlobalScannerOpen] = useState(false);
-  const [scannedResult, setScannedResult] = useState(null);
-
   // Sync tab changes safely to URL hash and localStorage
   const handleTabChange = useCallback((newTab) => {
-    if (!VALID_TABS.includes(newTab)) return;
-    setActiveTab(newTab);
+    const targetTab = newTab === 'receiving' ? 'intake' : newTab;
+    if (!VALID_TABS.includes(targetTab)) return;
+    setActiveTab(targetTab);
     if (typeof window !== 'undefined') {
       try {
-        window.location.hash = newTab;
+        window.location.hash = targetTab;
       } catch (e) {
         // ignore hash error
       }
       try {
-        localStorage.setItem('stockwise_active_tab', newTab);
+        localStorage.setItem('stockwise_active_tab', targetTab);
       } catch (e) {
         // ignore storage error
       }
@@ -104,10 +98,11 @@ export default function App() {
     const onHashChange = () => {
       try {
         const hash = window.location.hash.replace('#', '').trim();
-        if (hash && VALID_TABS.includes(hash)) {
-          setActiveTab(hash);
+        const targetTab = hash === 'receiving' ? 'intake' : hash;
+        if (targetTab && VALID_TABS.includes(targetTab)) {
+          setActiveTab(targetTab);
           try {
-            localStorage.setItem('stockwise_active_tab', hash);
+            localStorage.setItem('stockwise_active_tab', targetTab);
           } catch (e) {}
         }
       } catch (e) {}
@@ -170,10 +165,18 @@ export default function App() {
     loadData(true);
   }, [loadData]);
 
-  // Navigate to stock receiving with pre-filled barcode
-  const handleNavigateToReceiving = (barcode) => {
-    if (barcode) setReceivingBarcode(barcode);
-    handleTabChange('receiving');
+  // Navigate to Stock Intake with pre-filled barcode
+  const handleNavigateToIntake = (barcode) => {
+    if (barcode) setIntakeBarcode(barcode);
+    handleTabChange('intake');
+    setMobileMenuOpen(false);
+  };
+  const handleNavigateToReceiving = handleNavigateToIntake;
+
+  // Navigate to edit a specific product inside Products Catalog
+  const handleNavigateToEditProduct = (productId) => {
+    setEditingProductIdFromIntake(productId);
+    handleTabChange('products');
     setMobileMenuOpen(false);
   };
 
@@ -182,38 +185,6 @@ export default function App() {
     sounds.enabled = next;
     setSoundEnabled(next);
     if (next) sounds.playScanBeep();
-  };
-
-  // Handler for global camera barcode scan (SCAN → DECODE → DATABASE LOOKUP)
-  const handleGlobalBarcodeScanned = async (code) => {
-    setIsGlobalScannerOpen(false);
-    const cleanCode = code ? String(code).trim() : '';
-    if (!cleanCode) return;
-
-    // If currently on POS, feed directly into POS billing
-    if (activeTab === 'pos') {
-      setPosInitialBarcode(cleanCode);
-      return;
-    }
-
-    // If currently on Stock Receiving, feed directly into Receiving
-    if (activeTab === 'receiving') {
-      setReceivingBarcode(cleanCode);
-      return;
-    }
-
-    // Backend database lookup for exact match
-    let matched = null;
-    try {
-      matched = await api.getProductByBarcode(cleanCode);
-    } catch (e) {
-      matched = products.find((p) => p.barcode === cleanCode) || null;
-    }
-
-    setScannedResult({
-      code: cleanCode,
-      product: matched,
-    });
   };
 
   // Sidebar navigation menu items
@@ -238,8 +209,8 @@ export default function App() {
       badge: products.length || null,
     },
     {
-      id: 'receiving',
-      label: 'Stock Receiving',
+      id: 'intake',
+      label: 'Stock Intake',
       icon: ScanBarcode,
       badge: null,
     },
@@ -276,13 +247,6 @@ export default function App() {
       label: 'Store Settings',
       icon: Settings,
       badge: null,
-    },
-    {
-      id: 'quagga-poc',
-      label: '1D Barcode PoC',
-      icon: ScanBarcode,
-      badge: 'Quagga2',
-      badgeColor: 'bg-indigo-600 text-white',
     },
   ];
 
@@ -329,36 +293,8 @@ export default function App() {
             </button>
           </div>
 
-          {/* Quick POS & Camera Launch in Sidebar */}
-          <div className="p-3 space-y-2">
-            <button
-              type="button"
-              onClick={() => {
-                handleTabChange('pos');
-                setMobileMenuOpen(false);
-              }}
-              className="w-full py-2.5 px-3 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 active:from-emerald-700 active:to-teal-800 text-white font-bold text-xs rounded-xl shadow-xs transition flex items-center justify-center gap-2 cursor-pointer group"
-            >
-              <ShoppingCart className="w-4 h-4 text-emerald-200 group-hover:scale-110 transition" />
-              <span>Open POS Register</span>
-            </button>
-
-            {/* Camera Barcode Scanner Shortcut in Sidebar */}
-            <button
-              type="button"
-              onClick={() => {
-                setIsGlobalScannerOpen(true);
-                setMobileMenuOpen(false);
-              }}
-              className="w-full py-2 px-3 bg-stone-800/90 hover:bg-stone-700 active:bg-stone-800 text-emerald-300 font-semibold text-xs rounded-xl border border-stone-700/70 transition flex items-center justify-center gap-2 cursor-pointer group"
-            >
-              <Camera className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition" />
-              <span>📷 Camera Barcode Scan</span>
-            </button>
-          </div>
-
           {/* Nav Items List */}
-          <nav className="px-3 py-2 space-y-1">
+          <nav className="px-3 py-4 space-y-1">
             {navItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -446,32 +382,6 @@ export default function App() {
           </div>
 
           <div className="flex items-center gap-2 sm:gap-2.5">
-            {/* Prominent Camera Scanner Button in Header */}
-            <button
-              type="button"
-              onClick={() => setIsGlobalScannerOpen(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 active:from-emerald-700 text-white rounded-lg text-xs font-bold transition shadow-xs cursor-pointer group"
-              title="Open Barcode Scanner using Phone Camera or Webcam"
-            >
-              <Camera className="w-3.5 h-3.5 text-emerald-200 group-hover:scale-110 transition" />
-              <span>📷 Camera Scan</span>
-            </button>
-
-            {/* Quagga2 1D Barcode PoC Lab Button */}
-            <button
-              type="button"
-              onClick={() => handleTabChange('quagga-poc')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-xs cursor-pointer ${
-                activeTab === 'quagga-poc'
-                  ? 'bg-indigo-600 text-white'
-                  : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200'
-              }`}
-              title="Open Quagga2 1D Retail Barcode Proof of Concept"
-            >
-              <ScanBarcode className="w-3.5 h-3.5" />
-              <span>🔬 1D PoC</span>
-            </button>
-
             {/* Audio Toggle */}
             <button
               type="button"
@@ -496,30 +406,6 @@ export default function App() {
             >
               <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin text-emerald-700' : ''}`} />
             </button>
-
-            {/* Inward Stock shortcut */}
-            {activeTab !== 'receiving' && (
-              <button
-                type="button"
-                onClick={() => handleNavigateToReceiving()}
-                className="hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-800 text-xs font-semibold rounded-lg transition cursor-pointer"
-              >
-                <ScanBarcode className="w-3.5 h-3.5 text-emerald-700" />
-                Receive Stock
-              </button>
-            )}
-
-            {/* POS Fast launch */}
-            {activeTab !== 'pos' && (
-              <button
-                type="button"
-                onClick={() => handleTabChange('pos')}
-                className="flex items-center gap-1.5 px-3.5 py-1.5 bg-stone-900 hover:bg-black text-white text-xs font-bold rounded-lg shadow-xs transition cursor-pointer"
-              >
-                <ShoppingCart className="w-3.5 h-3.5 text-emerald-300" />
-                POS Register
-              </button>
-            )}
           </div>
         </header>
 
@@ -542,7 +428,7 @@ export default function App() {
               initialBarcode={posInitialBarcode}
               onClearInitialBarcode={() => setPosInitialBarcode('')}
               onSaleCompleted={() => loadData(false)}
-              onNavigateToReceiving={(code) => handleNavigateToReceiving(code)}
+              onNavigateToReceiving={(code) => handleNavigateToIntake(code)}
             />
           )}
 
@@ -551,19 +437,23 @@ export default function App() {
               products={products}
               settings={settings}
               onProductsUpdated={() => loadData(false)}
-              onNavigateToReceiving={(code) => handleNavigateToReceiving(code)}
+              onNavigateToReceiving={(code) => handleNavigateToIntake(code)}
+              onNavigateToIntake={(code) => handleNavigateToIntake(code)}
+              initialEditProductId={editingProductIdFromIntake}
+              onClearInitialEditProductId={() => setEditingProductIdFromIntake(null)}
             />
           )}
 
-          {activeTab === 'receiving' && (
-            <StockReceiving
+          {(activeTab === 'intake' || activeTab === 'receiving') && (
+            <StockIntake
               products={products}
               settings={settings}
-              initialBarcode={receivingBarcode}
+              initialBarcode={intakeBarcode}
               onStockUpdated={() => {
-                setReceivingBarcode('');
+                setIntakeBarcode('');
                 loadData(false);
               }}
+              onNavigateToEditProduct={handleNavigateToEditProduct}
             />
           )}
 
@@ -603,131 +493,8 @@ export default function App() {
               onResetData={() => loadData(false)}
             />
           )}
-
-          {activeTab === 'quagga-poc' && (
-            <QuaggaTestComponent />
-          )}
         </main>
       </div>
-
-      {/* Floating Quick Camera Scanner Button (always visible on phone and desktop) */}
-      <button
-        type="button"
-        onClick={() => setIsGlobalScannerOpen(true)}
-        className="fixed bottom-5 right-5 z-40 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 active:scale-95 text-white p-3.5 sm:px-4 sm:py-3 rounded-full shadow-2xl border-2 border-emerald-400/50 flex items-center gap-2 cursor-pointer transition-all duration-200 group no-print"
-        title="Tap to scan barcode with Phone Camera or Webcam"
-      >
-        <Camera className="w-5 h-5 group-hover:rotate-12 transition-transform text-white" />
-        <span className="font-bold text-xs">📷 Scan Barcode</span>
-      </button>
-
-      {/* Global Camera Scanner Modal */}
-      <CameraScannerModal
-        isOpen={isGlobalScannerOpen}
-        onClose={() => setIsGlobalScannerOpen(false)}
-        onScanSuccess={handleGlobalBarcodeScanned}
-        title="StockWise Camera Barcode Scanner"
-        continuous={false}
-      />
-
-      {/* Scanned Barcode Action Sheet Modal (when scanned outside POS/Receiving) */}
-      {scannedResult && (
-        <div className="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-md w-full border border-stone-200 shadow-2xl overflow-hidden p-6 space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-emerald-800 font-bold text-sm">
-                <CheckCircle className="w-5 h-5 text-emerald-600" />
-                <span>Barcode Scanned Successfully</span>
-              </div>
-              <button
-                type="button"
-                onClick={() => setScannedResult(null)}
-                className="p-1 text-stone-400 hover:text-stone-700 rounded-lg cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            <div className="p-4 bg-stone-50 rounded-2xl border border-stone-200 space-y-2">
-              <div className="text-[11px] font-mono text-stone-500 uppercase tracking-wider">
-                Scanned Code: <span className="font-bold text-stone-900">{scannedResult.code}</span>
-              </div>
-
-              {scannedResult.product ? (
-                <div>
-                  <h4 className="font-extrabold text-base text-stone-900">
-                    {scannedResult.product.name}
-                  </h4>
-                  <p className="text-xs text-stone-500">
-                    Category: {scannedResult.product.category} • Price: {settings.currency}
-                    {scannedResult.product.sellingPrice}
-                  </p>
-                  <div className="mt-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-900 text-xs font-semibold">
-                    <span>Available Stock: {scannedResult.product.availableStock} {scannedResult.product.unit}</span>
-                  </div>
-                </div>
-              ) : (
-                <div className="py-2">
-                  <p className="font-bold text-sm text-stone-800">New / Unregistered Barcode</p>
-                  <p className="text-xs text-stone-500 mt-0.5">
-                    This barcode is not in your catalog yet. You can receive stock and register it now.
-                  </p>
-                </div>
-              )}
-            </div>
-
-            <div className="space-y-2 pt-1">
-              {scannedResult.product && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    const code = scannedResult.code;
-                    setScannedResult(null);
-                    setPosInitialBarcode(code);
-                    handleTabChange('pos');
-                  }}
-                  className="w-full py-3 bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white rounded-xl font-bold text-xs transition shadow-sm flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <ShoppingCart className="w-4 h-4 text-emerald-200" />
-                  <span>Add to POS Bill & Open Register</span>
-                </button>
-              )}
-
-              <button
-                type="button"
-                onClick={() => {
-                  const code = scannedResult.code;
-                  setScannedResult(null);
-                  handleNavigateToReceiving(code);
-                }}
-                className={`w-full py-3 rounded-xl font-bold text-xs transition flex items-center justify-center gap-2 cursor-pointer ${
-                  scannedResult.product
-                    ? 'bg-stone-100 hover:bg-stone-200 text-stone-800'
-                    : 'bg-emerald-700 hover:bg-emerald-800 text-white shadow-sm'
-                }`}
-              >
-                <Plus className="w-4 h-4" />
-                <span>
-                  {scannedResult.product
-                    ? 'Inward New Stock Batch for this Item'
-                    : 'Inward Stock & Register New Product'}
-                </span>
-              </button>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setScannedResult(null);
-                  handleTabChange('products');
-                }}
-                className="w-full py-2.5 text-xs text-stone-500 hover:text-stone-800 font-semibold cursor-pointer"
-              >
-                View in Products Catalog
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

@@ -67,11 +67,11 @@ export const Dashboard = ({
           </button>
           <button
             type="button"
-            onClick={() => onNavigate('receiving')}
+            onClick={() => onNavigate('intake')}
             className="px-4 py-2.5 bg-emerald-900/60 hover:bg-emerald-900 text-white border border-emerald-500/40 font-medium text-sm rounded-xl transition flex items-center gap-2 cursor-pointer"
           >
             <ScanBarcode className="w-4 h-4 text-emerald-300" />
-            Receive Stock
+            Stock Intake
           </button>
         </div>
       </div>
@@ -423,10 +423,10 @@ export const Dashboard = ({
             </div>
             <button
               type="button"
-              onClick={() => onNavigate('receiving')}
+              onClick={() => onNavigate('intake')}
               className="text-xs font-semibold text-emerald-700 hover:text-emerald-800 flex items-center gap-1 cursor-pointer"
             >
-              Receive Stock <ExternalLink className="w-3 h-3" />
+              Stock Intake <ExternalLink className="w-3 h-3" />
             </button>
           </div>
 

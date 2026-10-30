@@ -355,7 +355,7 @@ export const PosBilling = ({
                 title="Scan barcode directly with your phone camera or laptop webcam"
               >
                 <Camera className="w-4 h-4 text-emerald-200" />
-                <span className="font-semibold">📷 Camera Scan</span>
+                <span className="font-semibold">Camera Scan</span>
               </button>
 
               <button

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   Package,
   Plus,
@@ -13,11 +13,9 @@ import {
   CheckCircle,
   X,
   ExternalLink,
-  Camera,
 } from 'lucide-react';
 import { api } from '../services/api';
 import { sounds } from '../utils/audio';
-import { CameraScannerModal } from './CameraScannerModal';
 
 const CATEGORIES = [
   'All',
@@ -39,15 +37,17 @@ export const ProductManagement = ({
   settings,
   onProductsUpdated,
   onNavigateToReceiving,
+  onNavigateToIntake,
+  initialEditProductId,
+  onClearInitialEditProductId,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [stockFilter, setStockFilter] = useState('all');
 
-  // Modal state
+  // Modal state - ONLY for editing existing products
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingProductId, setEditingProductId] = useState(null);
-  const [duplicateFoundProduct, setDuplicateFoundProduct] = useState(null);
   const [modalBarcode, setModalBarcode] = useState('');
   const [modalName, setModalName] = useState('');
   const [modalCategory, setModalCategory] = useState('Grains & Flours');
@@ -57,124 +57,32 @@ export const ProductManagement = ({
   const [modalReorderLevel, setModalReorderLevel] = useState('10');
   const [modalDescription, setModalDescription] = useState('');
   const [modalError, setModalError] = useState(null);
-  const [modalSuccessBanner, setModalSuccessBanner] = useState(null);
-  const [modalInfoBanner, setModalInfoBanner] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
-  const [isScannerOpen, setIsScannerOpen] = useState(false);
 
   const nameInputRef = useRef(null);
 
-  // ============================================================================
-  // PRODUCT LOOKUP HELPER
-  // Zero latency memory lookup first; falls back to backend API.
-  // Supports 13-digit EAN-13 leading "0" check for UPC-A.
-  // ============================================================================
-  const lookupProductByBarcode = async (rawCode) => {
-    if (!rawCode) return null;
-    const cleanCode = String(rawCode).trim();
-    if (!cleanCode) return null;
-
-    // 1. Look up in already-loaded products list first (zero latency)
-    let match = products.find((p) => p.barcode && String(p.barcode).trim() === cleanCode);
-    if (!match && cleanCode.length === 13 && cleanCode.startsWith('0')) {
-      const trimmed12 = cleanCode.slice(1);
-      match = products.find((p) => p.barcode && String(p.barcode).trim() === trimmed12);
-    }
-    if (match) return match;
-
-    // 2. Fall back to backend API endpoint
-    try {
-      let apiMatch = await api.getProductByBarcode(cleanCode);
-      if (!apiMatch && cleanCode.length === 13 && cleanCode.startsWith('0')) {
-        apiMatch = await api.getProductByBarcode(cleanCode.slice(1));
-      }
-      return apiMatch || null;
-    } catch (err) {
-      console.warn('[ProductManagement] API lookup error:', err);
-      return null;
+  const handleNavigateIntake = (barcode) => {
+    if (onNavigateToIntake) {
+      onNavigateToIntake(barcode);
+    } else if (onNavigateToReceiving) {
+      onNavigateToReceiving(barcode);
     }
   };
 
-  // ============================================================================
-  // SCAN → DECODE → DATABASE LOOKUP → AUTOFILL / DUP GUARD
-  // ============================================================================
-  const handleScanBarcodeSuccess = async (scannedCode) => {
-    const cleanCode = scannedCode ? String(scannedCode).trim() : '';
-    if (!cleanCode) return;
-
-    console.log('[ProductForm] Barcode scanned:', cleanCode);
-    setIsScannerOpen(false);
-    setModalError(null);
-
-    // In Edit mode, scanning should only fill the barcode field, never replace the product being edited
-    if (editingProductId) {
-      setModalBarcode(cleanCode);
-      setModalSuccessBanner(null);
-      setModalInfoBanner(`Updated barcode to "${cleanCode}".`);
-      sounds.playScanBeep();
-      return;
-    }
-
-    // In Add mode: look up the code in existing products
-    try {
-      const matchedProduct = await lookupProductByBarcode(cleanCode);
-
-      if (matchedProduct) {
-        // Scanned code found (in Add mode):
-        // Show message "Product already exists, details loaded"
-        // Fill product fields from existing product
-        // Block saving duplicate (disabled Save button)
-        // Show "Edit this product instead" button
-        setDuplicateFoundProduct(matchedProduct);
-        setModalBarcode(matchedProduct.barcode || cleanCode);
-        setModalName(matchedProduct.name || '');
-        setModalCategory(matchedProduct.category || 'Grains & Flours');
-        setModalUnit(matchedProduct.unit || 'pcs');
-        setModalSellingPrice(
-          matchedProduct.sellingPrice !== undefined && matchedProduct.sellingPrice !== null
-            ? matchedProduct.sellingPrice.toString()
-            : ''
-        );
-        setModalMrp(
-          matchedProduct.mrp !== undefined && matchedProduct.mrp !== null
-            ? matchedProduct.mrp.toString()
-            : ''
-        );
-        setModalReorderLevel(
-          matchedProduct.reorderLevel !== undefined && matchedProduct.reorderLevel !== null
-            ? matchedProduct.reorderLevel.toString()
-            : '10'
-        );
-        setModalDescription(matchedProduct.description || '');
-
-        setModalSuccessBanner('Product already exists, details loaded');
-        setModalInfoBanner(null);
-        sounds.playScanBeep();
-        setIsModalOpen(true);
-      } else {
-        // Scanned code not found:
-        // Fill only the barcode and move focus to the Product Name field
-        setDuplicateFoundProduct(null);
-        setModalBarcode(cleanCode);
-        setModalSuccessBanner(null);
-        setModalInfoBanner(`New barcode "${cleanCode}" scanned. Fill in product details to save.`);
-        sounds.playScanBeep();
-        setIsModalOpen(true);
-        setTimeout(() => {
-          nameInputRef.current?.focus();
-        }, 120);
+  // Open edit modal directly if initialEditProductId is provided
+  useEffect(() => {
+    if (initialEditProductId && products && products.length > 0) {
+      const prodToEdit = products.find(
+        (p) => String(p.id) === String(initialEditProductId) || String(p.barcode) === String(initialEditProductId)
+      );
+      if (prodToEdit) {
+        openEditModal(prodToEdit);
       }
-    } catch (err) {
-      console.warn('[ProductForm] Database lookup error:', err);
-      setDuplicateFoundProduct(null);
-      setModalBarcode(cleanCode);
-      setModalInfoBanner(`Scanned barcode: ${cleanCode}`);
-      setIsModalOpen(true);
-      setTimeout(() => {
-        nameInputRef.current?.focus();
-      }, 120);
+      if (onClearInitialEditProductId) {
+        onClearInitialEditProductId();
+      }
     }
-  };
+  }, [initialEditProductId, products]);
 
   // View batches modal state
   const [inspectProduct, setInspectProduct] = useState(null);
@@ -200,26 +108,8 @@ export const ProductManagement = ({
     return matchesCat && matchesSearch && matchesStock;
   });
 
-  const openAddModal = () => {
-    setEditingProductId(null);
-    setDuplicateFoundProduct(null);
-    setModalBarcode(''); // Empty by default: scan real 1D barcode or type explicitly
-    setModalName('');
-    setModalCategory('Grains & Flours');
-    setModalUnit('pcs');
-    setModalSellingPrice('');
-    setModalMrp('');
-    setModalReorderLevel('10');
-    setModalDescription('');
-    setModalError(null);
-    setModalSuccessBanner(null);
-    setModalInfoBanner(null);
-    setIsModalOpen(true);
-  };
-
   const openEditModal = (product) => {
     setEditingProductId(product.id);
-    setDuplicateFoundProduct(null);
     setModalBarcode(product.barcode);
     setModalName(product.name);
     setModalCategory(product.category);
@@ -229,8 +119,6 @@ export const ProductManagement = ({
     setModalReorderLevel(product.reorderLevel !== undefined ? product.reorderLevel.toString() : '10');
     setModalDescription(product.description || '');
     setModalError(null);
-    setModalSuccessBanner(null);
-    setModalInfoBanner(null);
     setIsModalOpen(true);
   };
 
@@ -326,17 +214,7 @@ export const ProductManagement = ({
         <div className="flex flex-wrap items-center gap-2.5 self-start md:self-auto">
           <button
             type="button"
-            onClick={() => setIsScannerOpen(true)}
-            className="px-4 py-2.5 bg-stone-100 hover:bg-stone-200 active:bg-stone-300 border border-stone-300 text-stone-800 font-bold text-xs rounded-xl transition shadow-xs flex items-center gap-2 cursor-pointer"
-            title="Scan physical 1D barcode with camera to lookup and autofill product"
-          >
-            <Camera className="w-4 h-4 text-emerald-700" />
-            Scan &amp; Lookup
-          </button>
-
-          <button
-            type="button"
-            onClick={openAddModal}
+            onClick={() => handleNavigateIntake()}
             className="px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white font-bold text-xs rounded-xl transition shadow-xs flex items-center gap-2 cursor-pointer"
           >
             <Plus className="w-4 h-4" />
@@ -520,9 +398,9 @@ export const ProductManagement = ({
                         <div className="inline-flex items-center gap-1">
                           <button
                             type="button"
-                            onClick={() => onNavigateToReceiving(product.barcode)}
+                            onClick={() => handleNavigateIntake(product.barcode)}
                             className="p-1.5 text-emerald-700 hover:text-emerald-900 hover:bg-emerald-50 rounded-lg transition cursor-pointer"
-                            title="Receive more stock for this barcode"
+                            title="Add stock / batch for this barcode"
                           >
                             <Plus className="w-4 h-4" />
                           </button>
@@ -553,14 +431,12 @@ export const ProductManagement = ({
         </div>
       </div>
 
-      {/* Add / Edit Product Modal */}
+      {/* Edit Product Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl max-w-lg w-full border border-stone-200 shadow-2xl overflow-hidden">
             <div className="p-4 bg-emerald-800 text-white flex items-center justify-between">
-              <h3 className="font-bold text-base">
-                {editingProductId ? 'Edit Product Details' : 'Add New Product'}
-              </h3>
+              <h3 className="font-bold text-base">Edit Product Details</h3>
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
@@ -578,64 +454,19 @@ export const ProductManagement = ({
                 </div>
               )}
 
-              {/* Exact Match Database Autofill Banner */}
-              {modalSuccessBanner && (
-                <div className="p-3 bg-emerald-50 border border-emerald-300 rounded-xl text-emerald-900 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 shrink-0 text-emerald-600" />
-                    <span className="font-semibold">{modalSuccessBanner}</span>
-                  </div>
-                  {duplicateFoundProduct && !editingProductId && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setEditingProductId(duplicateFoundProduct.id);
-                        setDuplicateFoundProduct(null);
-                        setModalSuccessBanner(`Switched to editing "${duplicateFoundProduct.name}". You can now update this product.`);
-                      }}
-                      className="px-3 py-1 bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs rounded-lg transition cursor-pointer shrink-0"
-                    >
-                      Edit this product instead
-                    </button>
-                  )}
-                </div>
-              )}
-
-              {/* New Scanned Barcode Banner */}
-              {modalInfoBanner && (
-                <div className="p-3 bg-blue-50 border border-blue-200 rounded-xl text-blue-900 flex items-center gap-2">
-                  <Package className="w-4 h-4 shrink-0 text-blue-600" />
-                  <span>{modalInfoBanner}</span>
-                </div>
-              )}
-
               <div>
-                <div className="flex items-center justify-between mb-1">
-                  <label className="font-semibold text-stone-700">Barcode (1D EAN / UPC / Code 128) *</label>
-                  <button
-                    type="button"
-                    onClick={() => setIsScannerOpen(true)}
-                    className="text-xs text-emerald-700 hover:text-emerald-800 font-bold flex items-center gap-1.5 px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 rounded-lg border border-emerald-200 cursor-pointer transition"
-                    title="Scan barcode with camera"
-                  >
-                    <Camera className="w-3.5 h-3.5 text-emerald-600" />
-                    <span>Scan</span>
-                  </button>
-                </div>
+                <label className="font-semibold text-stone-700 block mb-1">
+                  Barcode (1D EAN / UPC / Code 128) *
+                </label>
                 <input
                   type="text"
                   required
                   value={modalBarcode}
                   onChange={(e) => {
-                    const val = e.target.value;
-                    setModalBarcode(val);
-                    if (duplicateFoundProduct && val.trim() !== duplicateFoundProduct.barcode) {
-                      setDuplicateFoundProduct(null);
-                      setModalSuccessBanner(null);
-                    }
+                    setModalBarcode(e.target.value);
                     setModalError(null);
                   }}
-                  placeholder="Scan with camera or enter product barcode"
+                  placeholder="Product barcode"
                   className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg font-mono focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
                 />
               </div>
@@ -742,47 +573,21 @@ export const ProductManagement = ({
                 />
               </div>
 
-              <div className="pt-3 border-t border-stone-200 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5">
-                <div>
-                  {duplicateFoundProduct && !editingProductId && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setEditingProductId(duplicateFoundProduct.id);
-                        setDuplicateFoundProduct(null);
-                        setModalSuccessBanner(`Switched to editing "${duplicateFoundProduct.name}". You can now update this product.`);
-                      }}
-                      className="px-3 py-2 bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs rounded-lg transition cursor-pointer shadow-xs"
-                    >
-                      Edit this product instead
-                    </button>
-                  )}
-                </div>
-                <div className="flex items-center justify-end gap-2.5">
-                  <button
-                    type="button"
-                    onClick={() => setIsModalOpen(false)}
-                    className="px-4 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium transition cursor-pointer"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    disabled={isSaving || Boolean(duplicateFoundProduct && !editingProductId)}
-                    className={`px-5 py-2 rounded-lg font-bold transition shadow-xs ${
-                      duplicateFoundProduct && !editingProductId
-                        ? 'bg-stone-300 text-stone-500 cursor-not-allowed'
-                        : 'bg-emerald-700 hover:bg-emerald-800 text-white cursor-pointer'
-                    }`}
-                    title={
-                      duplicateFoundProduct && !editingProductId
-                        ? 'Product already exists. Click "Edit this product instead" to modify it.'
-                        : 'Save Product'
-                    }
-                  >
-                    {isSaving ? 'Saving...' : 'Save Product'}
-                  </button>
-                </div>
+              <div className="pt-3 border-t border-stone-200 flex items-center justify-end gap-2.5">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium transition cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSaving}
+                  className="px-5 py-2 rounded-lg font-bold transition shadow-xs bg-emerald-700 hover:bg-emerald-800 text-white cursor-pointer"
+                >
+                  {isSaving ? 'Saving...' : 'Save Changes'}
+                </button>
               </div>
             </form>
           </div>
@@ -820,17 +625,17 @@ export const ProductManagement = ({
                   onClick={() => {
                     const code = inspectProduct.barcode;
                     setInspectProduct(null);
-                    onNavigateToReceiving(code);
+                    handleNavigateIntake(code);
                   }}
                   className="text-xs font-semibold text-emerald-700 hover:underline flex items-center gap-1 cursor-pointer"
                 >
-                  <Plus className="w-3.5 h-3.5" /> Receive New Batch
+                  <Plus className="w-3.5 h-3.5" /> Add Stock Batch
                 </button>
               </div>
 
               {inspectProduct.batches.length === 0 ? (
                 <div className="p-6 text-center text-xs text-stone-500 bg-stone-50 rounded-xl">
-                  No stock batches recorded yet for this product. Use "Receive Stock" to inward batches.
+                  No stock batches recorded yet for this product. Use "Stock Intake" to inward batches.
                 </div>
               ) : (
                 <div className="space-y-2 max-h-[300px] overflow-y-auto">
@@ -917,15 +722,6 @@ export const ProductManagement = ({
           </div>
         </div>
       )}
-
-      {/* Camera Barcode Scanner Modal */}
-      <CameraScannerModal
-        isOpen={isScannerOpen}
-        onClose={() => setIsScannerOpen(false)}
-        onScanSuccess={handleScanBarcodeSuccess}
-        title="Scan Product Barcode"
-        continuous={false}
-      />
     </div>
   );
 };
