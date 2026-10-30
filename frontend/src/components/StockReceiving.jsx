@@ -86,6 +86,7 @@ export const StockReceiving = ({
   const [receivedHistory, setReceivedHistory] = useState([]);
 
   const barcodeInputRef = useRef(null);
+  const batchNumberInputRef = useRef(null);
 
   useEffect(() => {
     barcodeInputRef.current?.focus();
@@ -94,40 +95,73 @@ export const StockReceiving = ({
     }
   }, [initialBarcode]);
 
-  // Lookup barcode in existing products list
-  const handleLookup = (codeToSearch) => {
-    const cleanCode = codeToSearch.trim();
+  // Lookup barcode in existing products list first (zero latency), fallback to API
+  const handleLookup = async (codeToSearch) => {
+    if (!codeToSearch) {
+      setLookedUpProduct(null);
+      setIsNewProductMode(false);
+      setStatusFeedback(null);
+      return;
+    }
+    const cleanCode = String(codeToSearch).trim();
     if (!cleanCode) {
       setLookedUpProduct(null);
       setIsNewProductMode(false);
+      setStatusFeedback(null);
       return;
     }
 
-    const found = products.find((p) => p.barcode === cleanCode);
+    // 1. Look up in already-loaded products list first (zero latency)
+    let found = products.find((p) => p.barcode && String(p.barcode).trim() === cleanCode);
+    if (!found && cleanCode.length === 13 && cleanCode.startsWith('0')) {
+      const trimmed12 = cleanCode.slice(1);
+      found = products.find((p) => p.barcode && String(p.barcode).trim() === trimmed12);
+    }
+
+    // 2. Fall back to backend API endpoint
+    if (!found) {
+      try {
+        found = await api.getProductByBarcode(cleanCode);
+        if (!found && cleanCode.length === 13 && cleanCode.startsWith('0')) {
+          found = await api.getProductByBarcode(cleanCode.slice(1));
+        }
+      } catch (err) {
+        console.warn('[StockReceiving] API lookup error:', err);
+      }
+    }
+
     if (found) {
       setLookedUpProduct(found);
       setIsNewProductMode(false);
-      // Pre-fill cost price estimate if previous batches exist
-      if (found.batches && found.batches.length > 0) {
-        setPurchasePrice(found.batches[found.batches.length - 1].purchasePrice.toString());
-      }
+      setStatusFeedback(null);
       sounds.playScanBeep();
+      // Move focus to Batch Number input; never autofill batch-specific fields
+      setTimeout(() => {
+        batchNumberInputRef.current?.focus();
+      }, 100);
     } else {
       setLookedUpProduct(null);
-      setIsNewProductMode(true);
+      setIsNewProductMode(false);
+      sounds.playErrorBuzz();
+      setStatusFeedback({
+        type: 'error',
+        message: 'Product not found. Please add it in Add Product first.',
+      });
     }
   };
 
   const handleBarcodeKeyDown = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      handleLookup(barcode);
+      void handleLookup(barcode);
     }
   };
 
   const handleCameraScan = (code) => {
-    setBarcode(code);
-    handleLookup(code);
+    const clean = code ? String(code).trim() : '';
+    setBarcode(clean);
+    setIsCameraModalOpen(false);
+    void handleLookup(clean);
   };
 
   const handleQuickExpiry = (days) => {
@@ -140,6 +174,15 @@ export const StockReceiving = ({
 
     if (!cleanBarcode) {
       setStatusFeedback({ type: 'error', message: 'Barcode is required.' });
+      return;
+    }
+
+    if (!lookedUpProduct) {
+      sounds.playErrorBuzz();
+      setStatusFeedback({
+        type: 'error',
+        message: 'Product not found. Please add it in Add Product first.',
+      });
       return;
     }
 
@@ -294,20 +337,20 @@ export const StockReceiving = ({
                 <ScanBarcode className="w-5 h-5 text-stone-400 absolute left-3 top-3.5" />
               </div>
 
-              {/* Live Camera Scanner Button - High Visibility */}
+              {/* Live Camera Scanner Button */}
               <button
                 type="button"
                 onClick={() => setIsCameraModalOpen(true)}
                 className="px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-bold text-xs rounded-xl transition shadow-md flex items-center gap-2 cursor-pointer shrink-0"
-                title="Scan barcode directly using phone camera or computer webcam"
+                title="Scan barcode with camera"
               >
                 <Camera className="w-4 h-4 text-emerald-200" />
-                <span>📷 Camera Scan</span>
+                <span>Scan</span>
               </button>
 
               <button
                 type="button"
-                onClick={() => handleLookup(barcode)}
+                onClick={() => void handleLookup(barcode)}
                 className="px-5 py-3 bg-stone-800 hover:bg-stone-900 text-white font-semibold text-xs rounded-xl transition shadow-xs flex items-center gap-2 cursor-pointer shrink-0"
               >
                 <Search className="w-4 h-4" />
@@ -315,6 +358,24 @@ export const StockReceiving = ({
               </button>
             </div>
           </div>
+
+          {/* Inline Status Feedback (e.g. Product Not Found) */}
+          {statusFeedback && (
+            <div
+              className={`p-3.5 rounded-xl text-xs flex items-center gap-2.5 ${
+                statusFeedback.type === 'success'
+                  ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                  : 'bg-rose-50 text-rose-800 border border-rose-200'
+              }`}
+            >
+              {statusFeedback.type === 'success' ? (
+                <CheckCircle className="w-4 h-4 shrink-0 text-emerald-600" />
+              ) : (
+                <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
+              )}
+              <span className="font-semibold">{statusFeedback.message}</span>
+            </div>
+          )}
 
           {/* Product Lookup Result Status */}
           {lookedUpProduct && (
@@ -492,6 +553,7 @@ export const StockReceiving = ({
                   Batch Number / Lot Code *
                 </label>
                 <input
+                  ref={batchNumberInputRef}
                   type="text"
                   required
                   value={batchNumber}
@@ -637,9 +699,9 @@ export const StockReceiving = ({
           <div className="pt-2 flex items-center justify-end gap-3">
             <button
               type="submit"
-              disabled={loading || !barcode.trim()}
+              disabled={loading || !barcode.trim() || !lookedUpProduct}
               className={`px-6 py-3 rounded-xl font-bold text-sm text-white shadow-sm transition flex items-center gap-2 cursor-pointer ${
-                loading || !barcode.trim()
+                loading || !barcode.trim() || !lookedUpProduct
                   ? 'bg-stone-300 cursor-not-allowed opacity-75'
                   : 'bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900'
               }`}

@@ -35,6 +35,7 @@ import { ExpiryCalendar } from './components/ExpiryCalendar';
 import { SalesHistory } from './components/SalesHistory';
 import { StoreSettings } from './components/StoreSettings';
 import { CameraScannerModal } from './components/CameraScannerModal';
+import { QuaggaTestComponent } from './components/QuaggaTestComponent';
 
 export default function App() {
   // Valid application tab identifiers
@@ -48,6 +49,7 @@ export default function App() {
     'calendar',
     'sales',
     'settings',
+    'quagga-poc',
   ];
 
   // Initialize activeTab safely from URL hash or localStorage
@@ -182,10 +184,10 @@ export default function App() {
     if (next) sounds.playScanBeep();
   };
 
-  // Handler for global camera barcode scan
-  const handleGlobalBarcodeScanned = (code) => {
+  // Handler for global camera barcode scan (SCAN → DECODE → DATABASE LOOKUP)
+  const handleGlobalBarcodeScanned = async (code) => {
     setIsGlobalScannerOpen(false);
-    const cleanCode = code ? code.trim() : '';
+    const cleanCode = code ? String(code).trim() : '';
     if (!cleanCode) return;
 
     // If currently on POS, feed directly into POS billing
@@ -200,8 +202,14 @@ export default function App() {
       return;
     }
 
-    // Otherwise, find matching product and prompt quick action modal
-    const matched = products.find((p) => p.barcode === cleanCode) || null;
+    // Backend database lookup for exact match
+    let matched = null;
+    try {
+      matched = await api.getProductByBarcode(cleanCode);
+    } catch (e) {
+      matched = products.find((p) => p.barcode === cleanCode) || null;
+    }
+
     setScannedResult({
       code: cleanCode,
       product: matched,
@@ -268,6 +276,13 @@ export default function App() {
       label: 'Store Settings',
       icon: Settings,
       badge: null,
+    },
+    {
+      id: 'quagga-poc',
+      label: '1D Barcode PoC',
+      icon: ScanBarcode,
+      badge: 'Quagga2',
+      badgeColor: 'bg-indigo-600 text-white',
     },
   ];
 
@@ -442,6 +457,21 @@ export default function App() {
               <span>📷 Camera Scan</span>
             </button>
 
+            {/* Quagga2 1D Barcode PoC Lab Button */}
+            <button
+              type="button"
+              onClick={() => handleTabChange('quagga-poc')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition shadow-xs cursor-pointer ${
+                activeTab === 'quagga-poc'
+                  ? 'bg-indigo-600 text-white'
+                  : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200'
+              }`}
+              title="Open Quagga2 1D Retail Barcode Proof of Concept"
+            >
+              <ScanBarcode className="w-3.5 h-3.5" />
+              <span>🔬 1D PoC</span>
+            </button>
+
             {/* Audio Toggle */}
             <button
               type="button"
@@ -572,6 +602,10 @@ export default function App() {
               onSettingsUpdated={(newSettings) => setSettings(newSettings)}
               onResetData={() => loadData(false)}
             />
+          )}
+
+          {activeTab === 'quagga-poc' && (
+            <QuaggaTestComponent />
           )}
         </main>
       </div>

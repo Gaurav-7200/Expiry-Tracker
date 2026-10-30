@@ -24,7 +24,12 @@ export const api = {
   },
 
   async getProductByBarcode(barcode) {
-    const res = await fetch(apiUrl(`/api/products/barcode/${encodeURIComponent(barcode)}`));
+    if (!barcode) return null;
+    const cleanBarcode = String(barcode).trim();
+    const res = await fetch(apiUrl(`/api/products/barcode/${encodeURIComponent(cleanBarcode)}`));
+    if (res.status === 404) {
+      return null;
+    }
     return handleResponse(res);
   },
 

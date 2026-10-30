@@ -679,9 +679,15 @@ export class Database {
         return this.data.products.find((p) => p.id === id);
     }
     getProductByBarcode(barcode) {
+        if (!barcode) return null;
+        const cleanBarcode = String(barcode).trim();
         const list = this.getProducts();
-        const cleanBarcode = barcode.trim();
-        return list.find((p) => p.barcode === cleanBarcode);
+        let match = list.find((p) => p.barcode && String(p.barcode).trim() === cleanBarcode);
+        if (!match && cleanBarcode.length === 13 && cleanBarcode.startsWith('0')) {
+            const trimmed12 = cleanBarcode.slice(1);
+            match = list.find((p) => p.barcode && String(p.barcode).trim() === trimmed12);
+        }
+        return match || null;
     }
     createProduct(payload) {
         const cleanBarcode = payload.barcode.trim();

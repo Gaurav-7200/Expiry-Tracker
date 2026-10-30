@@ -55,9 +55,14 @@ app.get('/api/products', (_req, res) => {
 });
 app.get('/api/products/barcode/:barcode', (req, res) => {
     try {
-        const product = db.getProductByBarcode(req.params.barcode);
+        let rawBarcode = req.params.barcode || '';
+        try {
+            rawBarcode = decodeURIComponent(rawBarcode);
+        } catch (e) {}
+        const cleanBarcode = String(rawBarcode).trim();
+        const product = db.getProductByBarcode(cleanBarcode);
         if (!product) {
-            return res.status(404).json({ success: false, error: 'Product not found with this barcode' });
+            return res.status(404).json({ success: false, error: `Product not found with barcode "${cleanBarcode}"` });
         }
         res.json({ success: true, data: product });
     }
