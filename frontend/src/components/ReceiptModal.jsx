@@ -169,6 +169,11 @@ export const ReceiptModal = ({
                       <td className="py-1.5 pr-1">
                         <div className="font-semibold text-stone-900 leading-tight">
                           {item.productName}
+                          {item.packSize && (
+                            <span className="text-stone-500 font-normal text-xs ml-1">
+                              ({item.packSize})
+                            </span>
+                          )}
                         </div>
                         {item.batchAllocations && item.batchAllocations.length > 0 && (
                           <div className="text-[10px] text-stone-500">

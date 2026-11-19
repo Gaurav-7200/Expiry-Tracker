@@ -103,9 +103,9 @@ export default function App() {
           setActiveTab(targetTab);
           try {
             localStorage.setItem('stockwise_active_tab', targetTab);
-          } catch (e) {}
+          } catch (e) { }
         }
-      } catch (e) {}
+      } catch (e) { }
     };
 
     window.addEventListener('hashchange', onHashChange);
@@ -262,9 +262,8 @@ export default function App() {
 
       {/* SIDEBAR NAVIGATION (Desktop + Mobile) */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-stone-900 text-white flex flex-col justify-between transition-transform duration-300 ease-in-out border-r border-stone-800 lg:static lg:translate-x-0 no-print ${
-          mobileMenuOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'
-        }`}
+        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-stone-900 text-white flex flex-col justify-between transition-transform duration-300 ease-in-out border-r border-stone-800 lg:static lg:translate-x-0 no-print ${mobileMenuOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'
+          }`}
       >
         {/* Brand Header */}
         <div>
@@ -307,29 +306,26 @@ export default function App() {
                     handleTabChange(item.id);
                     setMobileMenuOpen(false);
                   }}
-                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition cursor-pointer group ${
-                    isActive
+                  className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition cursor-pointer group ${isActive
                       ? 'bg-emerald-800/90 text-white shadow-xs border border-emerald-600/50'
                       : 'text-stone-300 hover:bg-stone-800/80 hover:text-white'
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center gap-2.5">
                     <Icon
-                      className={`w-4 h-4 transition ${
-                        isActive ? 'text-emerald-300' : 'text-stone-400 group-hover:text-emerald-400'
-                      }`}
+                      className={`w-4 h-4 transition ${isActive ? 'text-emerald-300' : 'text-stone-400 group-hover:text-emerald-400'
+                        }`}
                     />
                     <span>{item.label}</span>
                   </div>
 
                   {item.badge !== null && (
                     <span
-                      className={`text-[10px] px-1.5 py-0.2 rounded-md font-bold font-mono ${
-                        item.badgeColor ||
+                      className={`text-[10px] px-1.5 py-0.2 rounded-md font-bold font-mono ${item.badgeColor ||
                         (isActive
                           ? 'bg-emerald-700 text-emerald-100'
                           : 'bg-stone-800 text-stone-400')
-                      }`}
+                        }`}
                     >
                       {item.badge}
                     </span>

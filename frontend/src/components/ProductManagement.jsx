@@ -13,9 +13,12 @@ import {
   CheckCircle,
   X,
   ExternalLink,
+  Camera,
+  Image as ImageIcon,
 } from 'lucide-react';
 import { api } from '../services/api';
 import { sounds } from '../utils/audio';
+import { resizeImageToDataUrl } from '../utils/image';
 
 const CATEGORIES = [
   'All',
@@ -52,14 +55,40 @@ export const ProductManagement = ({
   const [modalName, setModalName] = useState('');
   const [modalCategory, setModalCategory] = useState('Grains & Flours');
   const [modalUnit, setModalUnit] = useState('pcs');
+  const [modalPackSize, setModalPackSize] = useState('');
+  const [modalParentProductId, setModalParentProductId] = useState('');
   const [modalSellingPrice, setModalSellingPrice] = useState('');
   const [modalMrp, setModalMrp] = useState('');
   const [modalReorderLevel, setModalReorderLevel] = useState('10');
   const [modalDescription, setModalDescription] = useState('');
+  const [modalImageUrl, setModalImageUrl] = useState('');
+  const [modalImageChanged, setModalImageChanged] = useState(false);
   const [modalError, setModalError] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
 
   const nameInputRef = useRef(null);
+  const fileInputRef = useRef(null);
+
+  const handleImageChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const resized = await resizeImageToDataUrl(file, 300, 0.8);
+      setModalImageUrl(resized);
+      setModalImageChanged(true);
+    } catch (err) {
+      console.warn('[ProductManagement] Image resize error:', err);
+      setModalError('Could not process selected image. Please try another image.');
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setModalImageUrl('');
+    setModalImageChanged(true);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
 
   const handleNavigateIntake = (barcode) => {
     if (onNavigateToIntake) {
@@ -114,10 +143,17 @@ export const ProductManagement = ({
     setModalName(product.name);
     setModalCategory(product.category);
     setModalUnit(product.unit);
+    setModalPackSize(product.packSize || '');
+    setModalParentProductId(product.parentProductId || '');
     setModalSellingPrice(product.sellingPrice !== undefined ? product.sellingPrice.toString() : '');
     setModalMrp(product.mrp !== undefined ? product.mrp.toString() : '');
     setModalReorderLevel(product.reorderLevel !== undefined ? product.reorderLevel.toString() : '10');
     setModalDescription(product.description || '');
+    setModalImageUrl(product.imageUrl || '');
+    setModalImageChanged(false);
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
     setModalError(null);
     setIsModalOpen(true);
   };
@@ -155,15 +191,22 @@ export const ProductManagement = ({
         name: modalName.trim(),
         category: modalCategory,
         unit: modalUnit,
+        packSize: modalPackSize.trim(),
+        parentProductId: modalParentProductId.trim(),
         sellingPrice: price,
         mrp: parseFloat(modalMrp) || price,
         reorderLevel: parseInt(modalReorderLevel) || 10,
         description: modalDescription.trim(),
       };
 
+      if (modalImageChanged) {
+        payload.imageUrl = modalImageUrl; // "" clears it; dataUrl updates it
+      }
+
       if (editingProductId) {
         await api.updateProduct(editingProductId, payload);
       } else {
+        if (modalImageUrl) payload.imageUrl = modalImageUrl;
         await api.createProduct(payload);
       }
 
@@ -308,10 +351,26 @@ export const ProductManagement = ({
                   return (
                     <tr key={product.id} className="hover:bg-stone-50/80 transition">
                       <td className="py-3.5 px-4">
-                        <div className="font-bold text-stone-900 text-sm">{product.name}</div>
-                        <div className="text-stone-500 font-mono text-[11px] flex items-center gap-1.5 mt-0.5">
-                          <Barcode className="w-3.5 h-3.5 text-stone-400" />
-                          <span>{product.barcode}</span>
+                        <div className="flex items-center gap-3">
+                          {product.imageUrl ? (
+                            <img
+                              src={product.imageUrl}
+                              alt={product.name}
+                              loading="lazy"
+                              className="w-10 h-10 rounded-lg object-cover border border-stone-200 shrink-0 bg-stone-50 shadow-2xs"
+                            />
+                          ) : (
+                            <div className="w-10 h-10 rounded-lg border border-stone-200 bg-stone-100 flex items-center justify-center text-stone-500 font-bold text-xs shrink-0">
+                              {product.name ? product.name.charAt(0).toUpperCase() : 'P'}
+                            </div>
+                          )}
+                          <div className="min-w-0">
+                            <div className="font-bold text-stone-900 text-sm truncate">{product.name}</div>
+                            <div className="text-stone-500 font-mono text-[11px] flex items-center gap-1.5 mt-0.5">
+                              <Barcode className="w-3.5 h-3.5 text-stone-400" />
+                              <span>{product.barcode}</span>
+                            </div>
+                          </div>
                         </div>
                       </td>
 
@@ -516,6 +575,43 @@ export const ProductManagement = ({
                 </div>
               </div>
 
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="font-semibold text-stone-700 block mb-1">
+                    Pack Size Variant (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    value={modalPackSize}
+                    onChange={(e) => setModalPackSize(e.target.value)}
+                    placeholder="e.g. 1 kg, 2 kg, 5 kg, 500 g, 1 L"
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                  />
+                  <span className="text-[10px] text-stone-500">Retail packaging size shown in POS</span>
+                </div>
+
+                <div>
+                  <label className="font-semibold text-stone-700 block mb-1">
+                    Product Family (Optional)
+                  </label>
+                  <select
+                    value={modalParentProductId}
+                    onChange={(e) => setModalParentProductId(e.target.value)}
+                    className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                  >
+                    <option value="">None (Independent Product)</option>
+                    {products
+                      .filter((p) => p.id !== editingProductId && !p.parentProductId)
+                      .map((p) => (
+                        <option key={p.id} value={p.id}>
+                          {p.name} {p.packSize ? `(${p.packSize})` : ''}
+                        </option>
+                      ))}
+                  </select>
+                  <span className="text-[10px] text-stone-500">Groups pack sizes under one card</span>
+                </div>
+              </div>
+
               <div className="grid grid-cols-3 gap-3">
                 <div>
                   <label className="font-semibold text-stone-700 block mb-1">
@@ -571,6 +667,57 @@ export const ProductManagement = ({
                   placeholder="Product description or packaging notes..."
                   className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
                 />
+              </div>
+
+              <div>
+                <label className="font-semibold text-stone-700 block mb-1">
+                  Product Image (Optional)
+                </label>
+                <div className="flex items-center gap-3">
+                  {modalImageUrl ? (
+                    <div className="relative w-14 h-14 rounded-xl border border-stone-200 overflow-hidden bg-white shrink-0 shadow-2xs">
+                      <img
+                        src={modalImageUrl}
+                        alt="Product preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-14 h-14 rounded-xl border border-dashed border-stone-300 bg-stone-50 flex items-center justify-center text-stone-400 shrink-0">
+                      <ImageIcon className="w-6 h-6 text-stone-300" />
+                    </div>
+                  )}
+
+                  <div className="space-y-1">
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      id="edit-modal-image-upload"
+                      className="hidden"
+                    />
+                    <label
+                      htmlFor="edit-modal-image-upload"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 active:bg-stone-300 text-stone-700 text-xs font-semibold rounded-lg cursor-pointer border border-stone-300 transition shadow-2xs"
+                    >
+                      <Camera className="w-3.5 h-3.5 text-emerald-700" />
+                      <span>{modalImageUrl ? 'Change photo' : 'Upload or take photo'}</span>
+                    </label>
+                    {modalImageUrl && (
+                      <button
+                        type="button"
+                        onClick={handleRemoveImage}
+                        className="block text-[11px] text-rose-600 hover:text-rose-800 font-semibold cursor-pointer"
+                      >
+                        Remove image
+                      </button>
+                    )}
+                    <p className="text-[10px] text-stone-400">
+                      Max 300px auto-resized JPEG
+                    </p>
+                  </div>
+                </div>
               </div>
 
               <div className="pt-3 border-t border-stone-200 flex items-center justify-end gap-2.5">

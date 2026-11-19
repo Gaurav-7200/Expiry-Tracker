@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import {
   Search,
   Barcode,
@@ -36,6 +36,22 @@ const CATEGORIES = [
   'Spices & Condiments',
   'Personal & Household',
 ];
+
+const CATEGORY_COLORS = {
+  'Grains & Flours': 'bg-amber-100 text-amber-800 border-amber-200',
+  'Dairy & Eggs': 'bg-blue-100 text-blue-800 border-blue-200',
+  'Oils & Ghee': 'bg-yellow-100 text-yellow-800 border-yellow-200',
+  'Bakery & Bread': 'bg-orange-100 text-orange-800 border-orange-200',
+  'Beverages & Tea': 'bg-emerald-100 text-emerald-800 border-emerald-200',
+  'Snacks & Packaged': 'bg-purple-100 text-purple-800 border-purple-200',
+  'Pulses & Lentils': 'bg-red-100 text-red-800 border-red-200',
+  'Spices & Condiments': 'bg-rose-100 text-rose-800 border-rose-200',
+  'Personal & Household': 'bg-teal-100 text-teal-800 border-teal-200',
+};
+
+function getCategoryColor(category) {
+  return CATEGORY_COLORS[category] || 'bg-stone-100 text-stone-700 border-stone-200';
+}
 
 export const PosBilling = ({
   products,
@@ -88,9 +104,55 @@ export const PosBilling = ({
       !cleanSearch ||
       p.name.toLowerCase().includes(cleanSearch) ||
       p.barcode.includes(cleanSearch) ||
+      (p.packSize && p.packSize.toLowerCase().includes(cleanSearch)) ||
       p.category.toLowerCase().includes(cleanSearch);
     return matchesCat && matchesSearch;
   });
+
+  // Group filtered products into Product Families for pack-size variants
+  const groupedFamilies = useMemo(() => {
+    // Map family key -> { familyId, primaryProduct, variants: Product[] }
+    const familyMap = new Map();
+
+    filteredProducts.forEach((prod) => {
+      // If product explicitly belongs to a parentProductId, group under that parent
+      const familyKey = prod.parentProductId
+        ? `family_${prod.parentProductId}`
+        : (products.some((p) => p.parentProductId === prod.id)
+            ? `family_${prod.id}`
+            : `prod_${prod.id}`);
+
+      if (!familyMap.has(familyKey)) {
+        familyMap.set(familyKey, {
+          familyKey,
+          familyId: prod.parentProductId || prod.id,
+          // Primary product representation (defaults to parent or self)
+          primaryProduct: prod,
+          variants: [],
+        });
+      }
+
+      const family = familyMap.get(familyKey);
+      family.variants.push(prod);
+      // Prefer the root/parent product as the primary display info
+      if (!prod.parentProductId) {
+        family.primaryProduct = prod;
+      }
+    });
+
+    return Array.from(familyMap.values());
+  }, [filteredProducts, products]);
+
+  // Track the currently active/selected variant per product family in the grid
+  const [selectedVariantByFamily, setSelectedVariantByFamily] = useState({});
+
+  const handleSelectFamilyVariant = (familyKey, variantProduct, e) => {
+    if (e) e.stopPropagation();
+    setSelectedVariantByFamily((prev) => ({
+      ...prev,
+      [familyKey]: variantProduct.id,
+    }));
+  };
 
   // Handle camera video barcode detection
   const handleCameraScan = (code) => {
@@ -109,7 +171,7 @@ export const PosBilling = ({
         addToCart(found);
         setBarcodeFeedback({
           type: 'success',
-          message: `Camera Scanned: ${found.name}`,
+          message: `Added to bill: ${found.name} (${found.packSize || `1 ${found.unit}`})`,
         });
       }
     } else {
@@ -144,7 +206,7 @@ export const PosBilling = ({
         sounds.playScanBeep();
         setBarcodeFeedback({
           type: 'success',
-          message: `Added: ${found.name}`,
+          message: `Added to bill: ${found.name} (${found.packSize || `1 ${found.unit}`})`,
         });
       }
     } else {
@@ -432,7 +494,7 @@ export const PosBilling = ({
 
         {/* Products Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[580px] overflow-y-auto pr-1">
-          {filteredProducts.length === 0 ? (
+          {groupedFamilies.length === 0 ? (
             <div className="col-span-full bg-white rounded-xl p-8 text-center border border-stone-200 text-stone-500">
               <ShoppingBag className="w-8 h-8 text-stone-300 mx-auto mb-2" />
               <p className="text-sm font-semibold">No matching products found</p>
@@ -441,14 +503,24 @@ export const PosBilling = ({
               </p>
             </div>
           ) : (
-            filteredProducts.map((product) => {
-              const inStock = product.availableStock > 0;
-              const inCart = cart.find((i) => i.product.id === product.id);
+            groupedFamilies.map((family) => {
+              const { familyKey, primaryProduct, variants } = family;
+              // Determine active variant for this card:
+              const activeVariantId = selectedVariantByFamily[familyKey];
+              const activeProduct =
+                variants.find((v) => v.id === activeVariantId) ||
+                variants.find((v) => v.availableStock > 0) ||
+                variants[0] ||
+                primaryProduct;
+
+              const inStock = activeProduct.availableStock > 0;
+              const inCart = cart.find((i) => i.product.id === activeProduct.id);
+              const hasMultipleVariants = variants.length > 1;
 
               return (
                 <div
-                  key={product.id}
-                  onClick={() => inStock && addToCart(product)}
+                  key={familyKey}
+                  onClick={() => inStock && addToCart(activeProduct)}
                   className={`bg-white rounded-xl p-3 border transition flex flex-col justify-between text-left group select-none relative ${
                     inStock
                       ? 'border-stone-200 hover:border-emerald-500 hover:shadow-md cursor-pointer'
@@ -457,54 +529,119 @@ export const PosBilling = ({
                 >
                   {/* Cart count badge */}
                   {inCart && (
-                    <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-emerald-700 text-white text-xs font-bold flex items-center justify-center shadow-xs">
-                      {inCart.quantity} {product.unit}
+                    <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-emerald-700 text-white text-xs font-bold flex items-center justify-center shadow-xs z-10">
+                      {inCart.quantity}
                     </div>
                   )}
 
                   <div>
-                    <span className="text-[10px] font-semibold text-emerald-800 uppercase tracking-wider block truncate">
-                      {product.category}
-                    </span>
-                    <h4 className="font-semibold text-xs text-stone-900 mt-1 line-clamp-2 group-hover:text-emerald-900">
-                      {product.name}
-                    </h4>
-                    <p className="text-[10px] font-mono text-stone-600 mt-0.5">
-                      {product.barcode}
-                    </p>
+                    <div className="flex items-start gap-2.5">
+                      {/* Fixed dimension image or placeholder */}
+                      <div className="w-12 h-12 rounded-lg shrink-0 overflow-hidden bg-stone-100 border border-stone-200 flex items-center justify-center">
+                        {activeProduct.imageUrl || primaryProduct.imageUrl ? (
+                          <img
+                            src={activeProduct.imageUrl || primaryProduct.imageUrl}
+                            alt={primaryProduct.name}
+                            loading="lazy"
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <div
+                            className={`w-full h-full flex items-center justify-center text-xs font-bold border ${getCategoryColor(
+                              primaryProduct.category
+                            )}`}
+                          >
+                            {primaryProduct.name ? primaryProduct.name.charAt(0).toUpperCase() : 'P'}
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="min-w-0 flex-1">
+                        <span className="text-[10px] font-semibold text-emerald-800 uppercase tracking-wider block truncate">
+                          {primaryProduct.category}
+                        </span>
+                        <h4 className="font-semibold text-xs text-stone-900 mt-0.5 line-clamp-2 group-hover:text-emerald-900">
+                          {primaryProduct.name}
+                        </h4>
+
+                        {/* Dedicated Pack Size Row */}
+                        <div className="mt-1 flex items-center gap-1.5">
+                          {activeProduct.packSize ? (
+                            <span className="inline-flex items-center px-2 py-0.5 rounded bg-emerald-50 text-emerald-900 border border-emerald-200 text-[11px] font-bold">
+                              Pack: {activeProduct.packSize}
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-stone-100 text-stone-500 text-[10px] font-medium italic">
+                              Pack size not set
+                            </span>
+                          )}
+                        </div>
+
+                        <p className="text-[10px] font-mono text-stone-600 mt-1 truncate">
+                          {activeProduct.barcode}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Pack Sizes Selector Bar */}
+                    {hasMultipleVariants && (
+                      <div className="mt-2.5 pt-2 border-t border-stone-100">
+                        <div className="text-[10px] text-stone-600 font-semibold mb-1 flex items-center justify-between">
+                          <span>Pack Sizes:</span>
+                          <span className="text-[9px] text-emerald-700 font-normal">
+                            {variants.length} available
+                          </span>
+                        </div>
+                        <div className="flex flex-wrap gap-1">
+                          {variants.map((v) => {
+                            const isSelected = v.id === activeProduct.id;
+                            const isVariantInStock = v.availableStock > 0;
+                            const label = v.packSize || `1 ${v.unit}`;
+
+                            return (
+                              <button
+                                key={v.id}
+                                type="button"
+                                onClick={(e) => handleSelectFamilyVariant(familyKey, v, e)}
+                                title={`${v.name} - ${label} (${isVariantInStock ? `${v.availableStock} in stock` : 'Out of stock'})`}
+                                className={`px-2 py-0.5 text-[10px] font-bold rounded-md transition cursor-pointer border ${
+                                  isSelected
+                                    ? 'bg-emerald-800 text-white border-emerald-800 shadow-2xs ring-1 ring-emerald-700'
+                                    : isVariantInStock
+                                    ? 'bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100'
+                                    : 'bg-stone-100 text-stone-400 border-stone-200 line-through'
+                                }`}
+                              >
+                                {label}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   <div className="mt-3 pt-2 border-t border-stone-100 flex items-center justify-between">
                     <div>
                       <div className="font-extrabold text-sm text-stone-900">
                         {settings.currency}
-                        {product.sellingPrice}
+                        {activeProduct.sellingPrice}
                       </div>
-                      {product.mrp > product.sellingPrice && (
+                      {activeProduct.mrp > activeProduct.sellingPrice && (
                         <div className="text-[10px] text-stone-600 line-through">
                           MRP {settings.currency}
-                          {product.mrp}
+                          {activeProduct.mrp}
                         </div>
                       )}
                     </div>
 
-                    <div className="text-right">
-                      {inStock ? (
-                        <span
-                          className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${
-                            product.availableStock <= product.reorderLevel
-                              ? 'bg-amber-100 text-amber-800'
-                              : 'bg-emerald-50 text-emerald-800'
-                          }`}
-                        >
-                          Pack Size: {product.packSize || product.unit}
-                        </span>
-                      ) : (
+                    {!inStock && (
+                      <div className="text-right">
                         <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-800">
                           Out of stock
                         </span>
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               );
@@ -582,29 +719,44 @@ export const PosBilling = ({
               return (
                 <div key={item.product.id} className="pt-2 first:pt-0 flex items-center justify-between gap-3 text-xs">
                   <div className="flex-1 min-w-0">
-                    <h5 className="font-semibold text-stone-900 truncate">
+                    <h5 className="font-semibold text-stone-900 leading-snug">
+                      <span className="inline-block px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-900 text-xs font-bold mr-1">
+                        ×{item.quantity}
+                      </span>
                       {item.product.name}
+                      {item.product.packSize ? (
+                        <span className="text-stone-600 font-medium text-[11px] ml-1">
+                          ({item.product.packSize})
+                        </span>
+                      ) : (
+                        <span className="text-stone-500 font-normal text-[11px] ml-1">
+                          ({item.product.unit})
+                        </span>
+                      )}
                     </h5>
-                    <div className="flex items-center gap-2 text-[11px] text-stone-500 mt-0.5">
-                      <span>
+                    <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-stone-500 mt-0.5">
+                      <span className="font-medium text-stone-700">
                         {settings.currency}
-                        {item.product.sellingPrice} / {item.product.unit}
+                        {item.product.sellingPrice}
                       </span>
                       {item.product.earliestExpiry && (
-                        <span className="text-[10px] text-amber-700 bg-amber-50 px-1 rounded">
-                          Exp: {item.product.earliestExpiry}
-                        </span>
+                        <>
+                          <span>•</span>
+                          <span className="text-[10px] text-amber-700 bg-amber-50 px-1 rounded">
+                            Exp: {item.product.earliestExpiry}
+                          </span>
+                        </>
                       )}
                     </div>
                   </div>
 
                   {/* Quantity Stepper */}
-                  <div className="flex flex-col items-center gap-1">
-                    <span className="text-[10px] font-semibold text-emerald-700">
-                      Taking: {item.quantity} {item.product.unit}
+                  <div className="flex flex-col items-center gap-0.5">
+                    <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                      {item.quantity} {item.product.unit}
                     </span>
-                    <span className="text-[10px] text-stone-500">
-                      Available: {item.product.availableStock} {item.product.unit}
+                    <span className="text-[9px] text-stone-400">
+                      Available: {item.product.availableStock}
                     </span>
                   </div>
 

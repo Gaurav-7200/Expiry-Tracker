@@ -10,7 +10,8 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = Number(process.env.PORT) || 5000;
 // Body parsing
-app.use(express.json());
+app.use(express.json({ limit: '2mb' }));
+app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 // CORS headers for decoupled frontend client
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -48,6 +49,18 @@ app.get('/api/products', (_req, res) => {
     try {
         const products = db.getProducts();
         res.json({ success: true, data: products });
+    }
+    catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+app.get('/api/products/:id', (req, res) => {
+    try {
+        const product = db.getProductById(req.params.id);
+        if (!product) {
+            return res.status(404).json({ success: false, error: `Product not found with ID "${req.params.id}"` });
+        }
+        res.json({ success: true, data: product });
     }
     catch (err) {
         res.status(500).json({ success: false, error: err.message });

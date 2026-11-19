@@ -11,7 +11,8 @@
       "reorderLevel": 15,
       "description": "Aged long-grain aromatic basmati rice for daily meals",
       "createdAt": "2026-10-13T06:43:41.223Z",
-      "updatedAt": "2026-10-13T06:43:41.223Z"
+      "updatedAt": "2026-10-13T06:43:41.223Z",
+      "packSize": "1 kg"
     },
     {
       "id": "prod_2",
@@ -24,7 +25,8 @@
       "reorderLevel": 20,
       "description": "Stone ground whole wheat flour with natural dietary fiber",
       "createdAt": "2026-10-13T06:43:41.223Z",
-      "updatedAt": "2026-10-13T06:43:41.223Z"
+      "updatedAt": "2026-10-13T06:43:41.223Z",
+      "packSize": "1 kg"
     },
     {
       "id": "prod_3",
@@ -37,7 +39,8 @@
       "reorderLevel": 12,
       "description": "UHT treated long life toned milk 1 Liter pack",
       "createdAt": "2026-10-13T06:43:41.223Z",
-      "updatedAt": "2026-10-13T06:43:41.224Z"
+      "updatedAt": "2026-10-13T06:43:41.224Z",
+      "packSize": "1 L"
     },
     {
       "id": "prod_4",
@@ -50,7 +53,8 @@
       "reorderLevel": 8,
       "description": "Rich creamy salted butter 500g slab",
       "createdAt": "2026-10-13T06:43:41.224Z",
-      "updatedAt": "2026-10-13T06:43:41.224Z"
+      "updatedAt": "2026-10-13T06:43:41.224Z",
+      "packSize": "500 g"
     },
     {
       "id": "prod_5",
@@ -63,7 +67,8 @@
       "reorderLevel": 10,
       "description": "Light and healthy cooking oil rich in Vitamin E",
       "createdAt": "2026-10-13T06:43:41.224Z",
-      "updatedAt": "2026-10-13T06:43:41.224Z"
+      "updatedAt": "2026-10-13T06:43:41.224Z",
+      "packSize": "1 L"
     },
     {
       "id": "prod_6",
@@ -76,7 +81,8 @@
       "reorderLevel": 10,
       "description": "Fresh sliced brown bread loaf 400g with wheat bran",
       "createdAt": "2026-10-13T06:43:41.224Z",
-      "updatedAt": "2026-10-13T06:43:41.224Z"
+      "updatedAt": "2026-10-13T06:43:41.224Z",
+      "packSize": "400 g"
     },
     {
       "id": "prod_7",
@@ -89,7 +95,8 @@
       "reorderLevel": 8,
       "description": "Black tea infused with 5 Ayurvedic herbs 500g",
       "createdAt": "2026-10-13T06:43:41.224Z",
-      "updatedAt": "2026-10-13T06:43:41.224Z"
+      "updatedAt": "2026-10-13T06:43:41.224Z",
+      "packSize": "500 g"
     },
     {
       "id": "prod_8",
@@ -102,7 +109,8 @@
       "reorderLevel": 12,
       "description": "Pure protein unpolished arhar toor dal",
       "createdAt": "2026-10-13T06:43:41.224Z",
-      "updatedAt": "2026-10-13T06:43:41.224Z"
+      "updatedAt": "2026-10-13T06:43:41.224Z",
+      "packSize": "1 kg"
     },
     {
       "id": "prod_9",
@@ -115,7 +123,8 @@
       "reorderLevel": 15,
       "description": "Favorite masala instant noodles 280g value pack",
       "createdAt": "2026-10-13T06:43:41.224Z",
-      "updatedAt": "2026-10-13T06:43:41.224Z"
+      "updatedAt": "2026-10-13T06:43:41.224Z",
+      "packSize": "280 g (4-Pack)"
     },
     {
       "id": "prod_10",
@@ -128,7 +137,8 @@
       "reorderLevel": 6,
       "description": "Tough stain removal liquid laundry detergent 1L bottle",
       "createdAt": "2026-10-13T06:43:41.224Z",
-      "updatedAt": "2026-10-13T06:43:41.224Z"
+      "updatedAt": "2026-10-13T06:43:41.224Z",
+      "packSize": "1 L"
     },
     {
       "id": "prod_11",
@@ -141,7 +151,8 @@
       "reorderLevel": 10,
       "description": "Aromatic roasted whole spice blend 100g carton",
       "createdAt": "2026-10-13T06:43:41.224Z",
-      "updatedAt": "2026-10-13T06:43:41.224Z"
+      "updatedAt": "2026-10-13T06:43:41.224Z",
+      "packSize": "100 g"
     },
     {
       "id": "prod_12",
@@ -154,7 +165,8 @@
       "reorderLevel": 10,
       "description": "Free range, nutrient-rich brown eggs tray",
       "createdAt": "2026-10-13T06:43:41.224Z",
-      "updatedAt": "2026-10-13T06:43:41.224Z"
+      "updatedAt": "2026-10-13T06:43:41.224Z",
+      "packSize": "Tray of 12"
     },
     {
       "barcode": "999999999901",
@@ -167,7 +179,8 @@
       "description": "",
       "id": "prod_1791874598997_usjs",
       "createdAt": "2026-10-13T06:56:38.997Z",
-      "updatedAt": "2026-10-13T06:56:38.997Z"
+      "updatedAt": "2026-10-13T06:56:38.997Z",
+      "packSize": ""
     },
     {
       "barcode": "TEST999",
@@ -180,7 +193,8 @@
       "description": "",
       "id": "prod_1792687453930_b16m",
       "createdAt": "2026-10-22T16:44:13.930Z",
-      "updatedAt": "2026-10-22T16:44:13.930Z"
+      "updatedAt": "2026-10-22T16:44:13.930Z",
+      "packSize": ""
     }
   ],
   "batches": [
@@ -189,7 +203,7 @@
       "productId": "prod_1",
       "batchNumber": "RICE-2026-B1",
       "initialQuantity": 40,
-      "quantity": 9,
+      "quantity": 8,
       "purchasePrice": 110,
       "purchaseDate": "2026-06-15",
       "expiryDate": "2026-11-07",
@@ -256,12 +270,12 @@
       "productId": "prod_3",
       "batchNumber": "MILK-OCT-18",
       "initialQuantity": 35,
-      "quantity": 22,
+      "quantity": 0,
       "purchasePrice": 59,
       "purchaseDate": "2026-09-13",
       "expiryDate": "2026-10-17",
       "supplier": "Gujarat Milk Federation",
-      "status": "active",
+      "status": "disposed",
       "createdAt": "2026-10-13T06:43:41.224Z"
     },
     {
@@ -842,6 +856,45 @@
       "cashier": "Cashier 1",
       "notes": "",
       "status": "completed"
+    },
+    {
+      "id": "sale_1792926694715_ycd0",
+      "invoiceNumber": "INV-20261025-0010",
+      "date": "2026-10-25T11:11:34.715Z",
+      "customerName": "Walk-in Customer",
+      "customerPhone": "",
+      "items": [
+        {
+          "productId": "prod_1",
+          "productName": "India Gate Basmati Rice Feast Rozzana",
+          "barcode": "8901030383848",
+          "unit": "kg",
+          "quantity": 1,
+          "sellingPrice": 135,
+          "discount": 0,
+          "total": 135,
+          "batchAllocations": [
+            {
+              "batchId": "batch_1",
+              "batchNumber": "RICE-2026-B1",
+              "quantity": 1,
+              "expiryDate": "2026-11-07",
+              "purchasePrice": 110
+            }
+          ]
+        }
+      ],
+      "subtotal": 135,
+      "discountTotal": 0,
+      "taxRate": 5,
+      "taxTotal": 6.75,
+      "grandTotal": 141.75,
+      "paymentMethod": "cash",
+      "amountTendered": 141.75,
+      "changeReturned": 0,
+      "cashier": "Cashier 1",
+      "notes": "",
+      "status": "completed"
     }
   ],
   "settings": {
@@ -858,5 +911,5 @@
     "lowStockThreshold": 10,
     "receiptFooter": "Thank you for shopping with StockWise! Freshness guaranteed. Keep bill for quick returns within 3 days."
   },
-  "lastInvoiceSequence": 9
+  "lastInvoiceSequence": 10
 }

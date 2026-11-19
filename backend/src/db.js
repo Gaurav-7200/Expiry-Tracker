@@ -699,6 +699,9 @@ export class Database {
             ...payload,
             id: `prod_${Date.now()}_${Math.random().toString(36).substr(2, 4)}`,
             barcode: cleanBarcode,
+            packSize: payload.packSize !== undefined ? String(payload.packSize).trim() : '',
+            parentProductId: payload.parentProductId !== undefined && payload.parentProductId !== null ? String(payload.parentProductId).trim() : '',
+            imageUrl: payload.imageUrl || '',
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
         };
@@ -719,11 +722,26 @@ export class Database {
             }
             payload.barcode = cleanBarcode;
         }
-        this.data.products[index] = {
-            ...this.data.products[index],
+        const current = this.data.products[index];
+        const updated = {
+            ...current,
             ...payload,
             updatedAt: new Date().toISOString(),
         };
+        // Explicit fields handling
+        if (payload.packSize !== undefined) {
+            updated.packSize = String(payload.packSize).trim();
+        }
+        if (payload.parentProductId !== undefined) {
+            updated.parentProductId = payload.parentProductId !== null ? String(payload.parentProductId).trim() : '';
+        }
+        // Only change imageUrl if the field is present in the payload
+        if (payload.imageUrl !== undefined) {
+            updated.imageUrl = payload.imageUrl;
+        } else {
+            updated.imageUrl = current.imageUrl || '';
+        }
+        this.data.products[index] = updated;
         this.saveDatabase();
         return this.data.products[index];
     }
@@ -825,10 +843,13 @@ export class Database {
                 name: payload.productDetails.name,
                 category: payload.productDetails.category || 'Grains & Flours',
                 unit: payload.productDetails.unit || 'pcs',
+                packSize: payload.productDetails.packSize || '',
+                parentProductId: payload.productDetails.parentProductId || '',
                 sellingPrice: Number(payload.productDetails.sellingPrice) || 0,
                 mrp: Number(payload.productDetails.mrp) || Number(payload.productDetails.sellingPrice) || 0,
                 reorderLevel: Number(payload.productDetails.reorderLevel) || 10,
                 description: payload.productDetails.description || '',
+                imageUrl: payload.productDetails.imageUrl || '',
             });
             isNewProduct = true;
         }
@@ -921,6 +942,7 @@ export class Database {
                 productName: product.name,
                 barcode: product.barcode,
                 unit: product.unit,
+                packSize: product.packSize || '',
                 quantity: cartItem.quantity,
                 sellingPrice: product.sellingPrice,
                 discount: itemDiscount,

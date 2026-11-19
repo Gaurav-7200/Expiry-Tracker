@@ -14,9 +14,11 @@ import {
   Edit2,
   Package,
   Plus,
+  Image as ImageIcon,
 } from 'lucide-react';
 import { api } from '../services/api';
 import { sounds } from '../utils/audio';
+import { resizeImageToDataUrl } from '../utils/image';
 import { CameraScannerModal } from './CameraScannerModal';
 
 const CATEGORIES = [
@@ -54,6 +56,78 @@ function generateBatchCode() {
   return `B${new Date().toISOString().slice(2, 4)}${String(new Date().getMonth() + 1).padStart(2, '0')}-${Math.floor(100 + Math.random() * 900)}`;
 }
 
+/**
+ * Auto-increments batch numbers for an existing product based on its previous batch:
+ * 1. Takes the most recently created batch (createdAt -> purchaseDate -> list order).
+ * 2. If it ends in digits, increments trailing number by 1, preserving prefix, digit width and leading zeros.
+ * 3. If no batches or no trailing digits, uses the standard generator format.
+ * 4. Ensures the suggested number is unique across all existing batches.
+ */
+function getNextBatchNumber(product, allProducts = []) {
+  const batches = product?.batches;
+  if (!batches || !Array.isArray(batches) || batches.length === 0) {
+    return generateBatchCode();
+  }
+
+  // 1. Sort to find the most recently created batch:
+  // created timestamp (descending) -> purchase date (descending) -> list order
+  const indexed = batches.map((b, idx) => ({ b, idx }));
+  indexed.sort((itemA, itemB) => {
+    const a = itemA.b;
+    const b = itemB.b;
+    const aCreated = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+    const bCreated = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+    if (aCreated !== bCreated) {
+      return bCreated - aCreated;
+    }
+    const aPurchase = a.purchaseDate ? new Date(a.purchaseDate).getTime() : 0;
+    const bPurchase = b.purchaseDate ? new Date(b.purchaseDate).getTime() : 0;
+    if (aPurchase !== bPurchase) {
+      return bPurchase - aPurchase;
+    }
+    return itemB.idx - itemA.idx;
+  });
+
+  const latestBatch = indexed[0]?.b;
+  const rawBatchNum = latestBatch?.batchNumber ? String(latestBatch.batchNumber).trim() : '';
+
+  // 2. Check if that batch number ends in digits
+  const match = rawBatchNum.match(/^(.*?)(\d+)$/);
+  if (!match) {
+    return generateBatchCode();
+  }
+
+  const prefix = match[1];
+  const digitsStr = match[2];
+  const digitWidth = digitsStr.length;
+  let currentNum = parseInt(digitsStr, 10);
+
+  // Collect all existing batch numbers to avoid duplicates
+  const existingSet = new Set();
+  batches.forEach((b) => {
+    if (b.batchNumber) existingSet.add(b.batchNumber.trim().toLowerCase());
+  });
+  if (Array.isArray(allProducts)) {
+    allProducts.forEach((p) => {
+      if (p.batches && Array.isArray(p.batches)) {
+        p.batches.forEach((b) => {
+          if (b.batchNumber) existingSet.add(b.batchNumber.trim().toLowerCase());
+        });
+      }
+    });
+  }
+
+  // 4. Increment until free
+  let candidate = '';
+  do {
+    currentNum += 1;
+    const nextDigits = String(currentNum).padStart(digitWidth, '0');
+    candidate = `${prefix}${nextDigits}`;
+  } while (existingSet.has(candidate.toLowerCase()));
+
+  return candidate;
+}
+
 export const StockIntake = ({
   products,
   settings,
@@ -70,10 +144,13 @@ export const StockIntake = ({
   const [newName, setNewName] = useState('');
   const [newCategory, setNewCategory] = useState('Grains & Flours');
   const [newUnit, setNewUnit] = useState('pcs');
+  const [newPackSize, setNewPackSize] = useState('');
+  const [newParentProductId, setNewParentProductId] = useState('');
   const [newSellingPrice, setNewSellingPrice] = useState('');
   const [newMrp, setNewMrp] = useState('');
   const [newReorderLevel, setNewReorderLevel] = useState('10');
   const [newDescription, setNewDescription] = useState('');
+  const [newImageUrl, setNewImageUrl] = useState('');
 
   // Batch fields
   const [batchNumber, setBatchNumber] = useState(generateBatchCode());
@@ -94,6 +171,29 @@ export const StockIntake = ({
   const barcodeInputRef = useRef(null);
   const batchNumberInputRef = useRef(null);
   const newProductNameInputRef = useRef(null);
+  const fileInputRef = useRef(null);
+
+  const handleImageChange = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const resized = await resizeImageToDataUrl(file, 300, 0.8);
+      setNewImageUrl(resized);
+    } catch (err) {
+      console.warn('[StockIntake] Image resize error:', err);
+      setStatusFeedback({
+        type: 'error',
+        message: 'Could not process selected image. Please try another image.',
+      });
+    }
+  };
+
+  const handleRemoveImage = () => {
+    setNewImageUrl('');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
 
   useEffect(() => {
     barcodeInputRef.current?.focus();
@@ -114,6 +214,10 @@ export const StockIntake = ({
     setNewMrp('');
     setNewReorderLevel('10');
     setNewDescription('');
+    setNewImageUrl('');
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
     setQuantity('');
     setPurchasePrice('');
     setSupplier('');
@@ -156,6 +260,8 @@ export const StockIntake = ({
     if (found) {
       setLookedUpProduct(found);
       setIsNewProductMode(false);
+      const nextBatch = getNextBatchNumber(found, products);
+      setBatchNumber(nextBatch);
       sounds.playScanBeep();
       // Move focus to Batch Number input; never autofill batch-specific fields
       setTimeout(() => {
@@ -164,6 +270,7 @@ export const StockIntake = ({
     } else {
       setLookedUpProduct(null);
       setIsNewProductMode(true);
+      setBatchNumber(generateBatchCode());
       sounds.playScanBeep();
       setStatusFeedback({
         type: 'info',
@@ -236,6 +343,7 @@ export const StockIntake = ({
         mrp: parseFloat(newMrp) || price,
         reorderLevel: parseInt(newReorderLevel) || 10,
         description: newDescription.trim(),
+        imageUrl: newImageUrl || '',
       });
 
       sounds.playSuccessChime();
@@ -318,10 +426,13 @@ export const StockIntake = ({
           name: newName.trim(),
           category: newCategory,
           unit: newUnit,
+          packSize: newPackSize.trim(),
+          parentProductId: newParentProductId.trim(),
           sellingPrice: parseFloat(newSellingPrice) || 0,
           mrp: parseFloat(newMrp) || parseFloat(newSellingPrice) || 0,
           reorderLevel: parseInt(newReorderLevel) || 10,
           description: newDescription.trim(),
+          imageUrl: newImageUrl || '',
         };
       }
 
@@ -467,9 +578,18 @@ export const StockIntake = ({
           {lookedUpProduct && (
             <div className="p-4 bg-emerald-50/80 border border-emerald-200 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-3">
               <div className="flex items-start gap-3">
-                <div className="p-2.5 bg-emerald-100 rounded-lg text-emerald-800 shrink-0">
-                  <CheckCircle className="w-5 h-5" />
-                </div>
+                {lookedUpProduct.imageUrl ? (
+                  <img
+                    src={lookedUpProduct.imageUrl}
+                    alt={lookedUpProduct.name}
+                    loading="lazy"
+                    className="w-12 h-12 rounded-xl object-cover border border-emerald-300 shrink-0 bg-white shadow-2xs"
+                  />
+                ) : (
+                  <div className="p-2.5 bg-emerald-100 rounded-lg text-emerald-800 shrink-0">
+                    <CheckCircle className="w-5 h-5" />
+                  </div>
+                )}
                 <div>
                   <div className="flex items-center gap-2">
                     <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-200 text-emerald-900 uppercase">
@@ -593,6 +713,41 @@ export const StockIntake = ({
 
                 <div>
                   <label className="text-xs font-semibold text-stone-700 block mb-1">
+                    Pack Size Variant (Optional)
+                  </label>
+                  <input
+                    type="text"
+                    value={newPackSize}
+                    onChange={(e) => setNewPackSize(e.target.value)}
+                    placeholder="e.g. 1 kg, 2 kg, 500 g, 1 L"
+                    className="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                  />
+                  <span className="text-[10px] text-stone-400">Retail packaging size shown in POS</span>
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                    Product Family (Optional)
+                  </label>
+                  <select
+                    value={newParentProductId}
+                    onChange={(e) => setNewParentProductId(e.target.value)}
+                    className="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                  >
+                    <option value="">None (Independent Product)</option>
+                    {products
+                      .filter((p) => !p.parentProductId)
+                      .map((p) => (
+                        <option key={p.id} value={p.id}>
+                          {p.name} {p.packSize ? `(${p.packSize})` : ''}
+                        </option>
+                      ))}
+                  </select>
+                  <span className="text-[10px] text-stone-400">Group under an existing product card</span>
+                </div>
+
+                <div>
+                  <label className="text-xs font-semibold text-stone-700 block mb-1">
                     Selling Price ({settings.currency}) *
                   </label>
                   <input
@@ -644,6 +799,57 @@ export const StockIntake = ({
                     placeholder="Packaging notes, grade, or brand description..."
                     className="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none"
                   />
+                </div>
+
+                <div className="sm:col-span-2 lg:col-span-3 pt-1">
+                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                    Product Image (Optional)
+                  </label>
+                  <div className="flex items-center gap-3">
+                    {newImageUrl ? (
+                      <div className="relative w-14 h-14 rounded-xl border border-stone-200 overflow-hidden bg-white shrink-0 shadow-2xs">
+                        <img
+                          src={newImageUrl}
+                          alt="Preview"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-14 h-14 rounded-xl border border-dashed border-stone-300 bg-stone-50 flex items-center justify-center text-stone-400 shrink-0">
+                        <ImageIcon className="w-6 h-6 text-stone-300" />
+                      </div>
+                    )}
+
+                    <div className="space-y-1">
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        id="intake-image-upload"
+                        className="hidden"
+                      />
+                      <label
+                        htmlFor="intake-image-upload"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-stone-50 active:bg-stone-100 text-stone-700 text-xs font-semibold rounded-lg cursor-pointer border border-stone-300 transition shadow-2xs"
+                      >
+                        <Camera className="w-3.5 h-3.5 text-emerald-700" />
+                        <span>{newImageUrl ? 'Change photo' : 'Upload or take photo'}</span>
+                      </label>
+                      {newImageUrl && (
+                        <button
+                          type="button"
+                          onClick={handleRemoveImage}
+                          className="block text-[11px] text-rose-600 hover:text-rose-800 font-semibold cursor-pointer"
+                        >
+                          Remove image
+                        </button>
+                      )}
+                      <p className="text-[10px] text-stone-400">
+                        Max 300px auto-resized JPEG
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
