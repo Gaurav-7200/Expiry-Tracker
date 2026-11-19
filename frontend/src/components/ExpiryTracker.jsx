@@ -89,15 +89,15 @@ export const ExpiryTracker = ({
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl p-6 border border-[#E8E3DA] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-800 text-xs font-semibold mb-1 border border-rose-200">
-            <Clock className="w-3.5 h-3.5" /> Expiry Guard & Prevention System
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#C75A54]/15 text-[#C75A54] text-xs font-semibold mb-1 border border-[#C75A54]/30">
+            <Clock className="w-3.5 h-3.5 text-[#C75A54]" /> Expiry Guard & Prevention System
           </div>
-          <h2 className="text-xl md:text-2xl font-extrabold text-stone-900 tracking-tight">
+          <h2 className="text-xl md:text-2xl font-extrabold text-[#26364A] tracking-tight font-heading">
             Freshness & Expiry Protection
           </h2>
-          <p className="text-xs text-stone-500 mt-0.5">
+          <p className="text-xs text-[#737B83] mt-0.5">
             Identify spoiled items for scrap disposal and prioritize clearance discounts for inventory approaching expiry date.
           </p>
         </div>
@@ -106,17 +106,17 @@ export const ExpiryTracker = ({
           <button
             type="button"
             onClick={onNavigateToCalendar}
-            className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-800 font-semibold text-xs rounded-xl transition flex items-center gap-2 cursor-pointer"
+            className="px-4 py-2 bg-[#F6F3EC] hover:bg-[#E8E3DA] text-[#26364A] font-semibold text-xs rounded-xl transition flex items-center gap-2 cursor-pointer border border-[#E8E3DA]"
           >
-            <Calendar className="w-4 h-4 text-emerald-700" />
+            <Calendar className="w-4 h-4 text-[#C76B45]" />
             Open Expiry Calendar
           </button>
           <button
             type="button"
             onClick={handlePrintAudit}
-            className="px-4 py-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold text-xs rounded-xl transition flex items-center gap-2 cursor-pointer"
+            className="px-4 py-2 bg-[#26364A] hover:bg-[#1C2939] text-white font-semibold text-xs rounded-xl transition flex items-center gap-2 cursor-pointer shadow-xs"
           >
-            <Printer className="w-4 h-4" />
+            <Printer className="w-4 h-4 text-[#DCE8DF]" />
             Print Expiry Report
           </button>
         </div>

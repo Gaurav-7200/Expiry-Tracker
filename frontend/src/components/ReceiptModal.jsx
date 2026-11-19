@@ -29,26 +29,26 @@ export const ReceiptModal = ({
   });
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-stone-200 overflow-hidden flex flex-col max-h-[92vh]">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#1C2939]/70 backdrop-blur-xs flex items-center justify-center p-4">
+      <div className="relative w-full max-w-2xl bg-white rounded-2xl shadow-2xl border border-[#E8E3DA] overflow-hidden flex flex-col max-h-[92vh]">
         {/* Modal Header (Hidden during print) */}
-        <div className="no-print p-4 bg-emerald-800 text-white flex items-center justify-between border-b border-emerald-700">
+        <div className="no-print p-4 bg-[#26364A] text-white flex items-center justify-between border-b border-[#344860]">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-emerald-700/60 rounded-lg">
-              <Receipt className="w-5 h-5 text-emerald-100" />
+            <div className="p-2 bg-[#344860] rounded-lg">
+              <Receipt className="w-5 h-5 text-[#DCE8DF]" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="font-bold text-lg text-white">
+                <h3 className="font-bold text-lg text-white font-heading">
                   {isNewSale ? 'Sale Completed Successfully' : 'Invoice Receipt'}
                 </h3>
                 {isNewSale && (
-                  <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-emerald-600/80 text-emerald-100 border border-emerald-500">
+                  <span className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-[#39845D] text-white">
                     <CheckCircle className="w-3 h-3" /> Paid
                   </span>
                 )}
               </div>
-              <p className="text-xs text-emerald-200">
+              <p className="text-xs text-[#DCE8DF]/80">
                 Invoice #{sale.invoiceNumber} • {formattedDate} {formattedTime}
               </p>
             </div>
@@ -56,14 +56,14 @@ export const ReceiptModal = ({
 
           <div className="flex items-center gap-2">
             {/* Thermal / A4 Format Switcher */}
-            <div className="flex items-center bg-emerald-900/60 p-0.5 rounded-lg border border-emerald-700/60 text-xs">
+            <div className="flex items-center bg-[#1C2939] p-0.5 rounded-lg border border-[#344860] text-xs">
               <button
                 type="button"
                 onClick={() => setReceiptType('thermal')}
-                className={`px-2.5 py-1 rounded-md font-medium transition ${
+                className={`px-2.5 py-1 rounded-md font-medium transition cursor-pointer ${
                   receiptType === 'thermal'
-                    ? 'bg-emerald-600 text-white shadow-xs'
-                    : 'text-emerald-200 hover:text-white'
+                    ? 'bg-[#C76B45] text-white shadow-xs'
+                    : 'text-[#DCE8DF] hover:text-white'
                 }`}
               >
                 Thermal (80mm)
@@ -71,10 +71,10 @@ export const ReceiptModal = ({
               <button
                 type="button"
                 onClick={() => setReceiptType('a4')}
-                className={`px-2.5 py-1 rounded-md font-medium transition ${
+                className={`px-2.5 py-1 rounded-md font-medium transition cursor-pointer ${
                   receiptType === 'a4'
-                    ? 'bg-emerald-600 text-white shadow-xs'
-                    : 'text-emerald-200 hover:text-white'
+                    ? 'bg-[#C76B45] text-white shadow-xs'
+                    : 'text-[#DCE8DF] hover:text-white'
                 }`}
               >
                 Standard (A4)
@@ -84,7 +84,7 @@ export const ReceiptModal = ({
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 rounded-lg text-emerald-200 hover:text-white hover:bg-emerald-700 transition cursor-pointer"
+              className="p-1.5 rounded-lg text-[#DCE8DF] hover:text-white hover:bg-[#344860] transition cursor-pointer"
               title="Close modal"
             >
               <X className="w-5 h-5" />

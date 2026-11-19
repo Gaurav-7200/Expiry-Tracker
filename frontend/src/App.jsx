@@ -251,35 +251,35 @@ export default function App() {
   ];
 
   return (
-    <div className="min-h-screen bg-stone-100 flex font-sans text-stone-900 antialiased selection:bg-emerald-200">
+    <div className="min-h-screen bg-[#F6F3EC] flex font-sans text-[#26364A] antialiased selection:bg-[#FBF0EB] selection:text-[#C76B45]">
       {/* Mobile Drawer Backdrop */}
       {mobileMenuOpen && (
         <div
           onClick={() => setMobileMenuOpen(false)}
-          className="fixed inset-0 z-40 bg-stone-900/60 backdrop-blur-xs lg:hidden no-print"
+          className="fixed inset-0 z-40 bg-[#1C2939]/70 backdrop-blur-xs lg:hidden no-print"
         />
       )}
 
       {/* SIDEBAR NAVIGATION (Desktop + Mobile) */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-stone-900 text-white flex flex-col justify-between transition-transform duration-300 ease-in-out border-r border-stone-800 lg:static lg:translate-x-0 no-print ${mobileMenuOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'
+        className={`fixed top-0 bottom-0 left-0 z-50 w-64 bg-[#26364A] text-white flex flex-col justify-between transition-transform duration-300 ease-in-out border-r border-[#1C2939] lg:static lg:translate-x-0 no-print ${mobileMenuOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'
           }`}
       >
         {/* Brand Header */}
         <div>
-          <div className="p-5 border-b border-stone-800 flex items-center justify-between">
+          <div className="p-5 border-b border-[#344860]/50 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 flex items-center justify-center text-white shadow-md shadow-emerald-900/40">
-                <Store className="w-5 h-5 text-emerald-50" />
+              <div className="w-10 h-10 rounded-xl bg-[#C76B45] flex items-center justify-center text-white shadow-md shadow-[#1C2939]/50">
+                <Store className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="font-extrabold text-base tracking-tight text-white flex items-center gap-1.5">
+                <h1 className="font-extrabold text-base tracking-tight text-white flex items-center gap-1.5 font-heading">
                   StockWise
-                  <span className="text-[10px] px-1.5 py-0.2 rounded-sm bg-emerald-700/80 text-emerald-200 font-mono">
+                  <span className="text-[10px] px-1.5 py-0.2 rounded-sm bg-[#344860] text-[#DCE8DF] font-mono">
                     PRO
                   </span>
                 </h1>
-                <p className="text-[11px] text-stone-400 font-medium">Grocery Inventory & POS</p>
+                <p className="text-[11px] text-[#DCE8DF]/80 font-medium">Grocery Inventory & POS</p>
               </div>
             </div>
 
@@ -307,13 +307,13 @@ export default function App() {
                     setMobileMenuOpen(false);
                   }}
                   className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition cursor-pointer group ${isActive
-                      ? 'bg-emerald-800/90 text-white shadow-xs border border-emerald-600/50'
-                      : 'text-stone-300 hover:bg-stone-800/80 hover:text-white'
+                      ? 'bg-[#C76B45] text-white shadow-xs'
+                      : 'text-stone-300 hover:bg-[#344860]/60 hover:text-white'
                     }`}
                 >
                   <div className="flex items-center gap-2.5">
                     <Icon
-                      className={`w-4 h-4 transition ${isActive ? 'text-emerald-300' : 'text-stone-400 group-hover:text-emerald-400'
+                      className={`w-4 h-4 transition ${isActive ? 'text-white' : 'text-stone-400 group-hover:text-[#DCE8DF]'
                         }`}
                     />
                     <span>{item.label}</span>
@@ -323,8 +323,8 @@ export default function App() {
                     <span
                       className={`text-[10px] px-1.5 py-0.2 rounded-md font-bold font-mono ${item.badgeColor ||
                         (isActive
-                          ? 'bg-emerald-700 text-emerald-100'
-                          : 'bg-stone-800 text-stone-400')
+                          ? 'bg-[#B55D37] text-white'
+                          : 'bg-[#1C2939] text-stone-300')
                         }`}
                     >
                       {item.badge}
@@ -337,10 +337,10 @@ export default function App() {
         </div>
 
         {/* Sidebar Footer Details */}
-        <div className="p-4 border-t border-stone-800 text-xs text-stone-400 space-y-2">
+        <div className="p-4 border-t border-[#344860]/50 text-xs text-stone-400 space-y-2 bg-[#1C2939]/30">
           <div className="flex items-center justify-between text-[11px]">
-            <span className="flex items-center gap-1.5 text-emerald-400 font-medium">
-              <ShieldCheck className="w-3.5 h-3.5" /> FEFO Stock Engine
+            <span className="flex items-center gap-1.5 text-[#DCE8DF] font-medium">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#C76B45]" /> FEFO Stock Engine
             </span>
             <span className="text-stone-400 font-mono">v1.2</span>
           </div>
@@ -354,23 +354,23 @@ export default function App() {
       {/* MAIN CONTENT AREA */}
       <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
         {/* Top Header Navbar */}
-        <header className="sticky top-0 z-30 bg-white border-b border-stone-200 px-4 py-3 flex items-center justify-between shadow-2xs no-print">
+        <header className="sticky top-0 z-30 bg-white border-b border-[#E8E3DA] px-4 py-3 flex items-center justify-between shadow-2xs no-print">
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden p-2 text-stone-600 hover:text-stone-900 rounded-lg hover:bg-stone-100 cursor-pointer"
+              className="lg:hidden p-2 text-[#737B83] hover:text-[#26364A] rounded-lg hover:bg-[#F6F3EC] cursor-pointer"
             >
               <Menu className="w-5 h-5" />
             </button>
 
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="font-bold text-sm text-stone-900">
+                <h2 className="font-bold text-sm text-[#26364A] font-heading">
                   {navItems.find((n) => n.id === activeTab)?.label}
                 </h2>
-                <span className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200 font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" />
+                <span className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-[#DCE8DF]/60 text-[#39845D] border border-[#DCE8DF] font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#39845D] animate-pulse" />
                   Live Sync
                 </span>
               </div>
@@ -382,13 +382,13 @@ export default function App() {
             <button
               type="button"
               onClick={handleToggleSound}
-              className="p-2 text-stone-500 hover:text-stone-800 hover:bg-stone-100 rounded-lg transition cursor-pointer"
+              className="p-2 text-[#737B83] hover:text-[#26364A] hover:bg-[#F6F3EC] rounded-lg transition cursor-pointer"
               title={soundEnabled ? 'Mute scanner sounds' : 'Enable scanner sounds'}
             >
               {soundEnabled ? (
-                <Volume2 className="w-4 h-4 text-emerald-700" />
+                <Volume2 className="w-4 h-4 text-[#C76B45]" />
               ) : (
-                <VolumeX className="w-4 h-4 text-stone-400" />
+                <VolumeX className="w-4 h-4 text-[#737B83]" />
               )}
             </button>
 
@@ -397,10 +397,10 @@ export default function App() {
               type="button"
               onClick={() => loadData(false)}
               disabled={refreshing}
-              className="p-2 text-stone-500 hover:text-stone-800 hover:bg-stone-100 rounded-lg transition cursor-pointer"
+              className="p-2 text-[#737B83] hover:text-[#26364A] hover:bg-[#F6F3EC] rounded-lg transition cursor-pointer"
               title="Refresh inventory data"
             >
-              <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin text-emerald-700' : ''}`} />
+              <RefreshCw className={`w-4 h-4 ${refreshing ? 'animate-spin text-[#C76B45]' : ''}`} />
             </button>
           </div>
         </header>

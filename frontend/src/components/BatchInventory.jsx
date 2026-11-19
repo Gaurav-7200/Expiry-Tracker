@@ -111,36 +111,36 @@ export const BatchInventory = ({
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl p-6 border border-[#E8E3DA] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-xs font-semibold mb-1 border border-emerald-200">
-            <Layers className="w-3.5 h-3.5" /> Granular Lot Traceability
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#DCE8DF] text-[#26364A] text-xs font-semibold mb-1 border border-[#DCE8DF]">
+            <Layers className="w-3.5 h-3.5 text-[#C76B45]" /> Granular Lot Traceability
           </div>
-          <h2 className="text-xl md:text-2xl font-extrabold text-stone-900 tracking-tight">
+          <h2 className="text-xl md:text-2xl font-extrabold text-[#26364A] tracking-tight font-heading">
             Batch-Wise Inventory Ledger
           </h2>
-          <p className="text-xs text-stone-500 mt-0.5">
+          <p className="text-xs text-[#737B83] mt-0.5">
             Every delivery batch is tracked individually with its specific expiry date and purchase price for exact FIFO/FEFO accounting.
           </p>
         </div>
 
-        <div className="text-right text-xs bg-stone-50 p-2.5 rounded-xl border border-stone-200">
-          <span className="text-stone-500">Total Batches:</span>{' '}
-          <span className="font-extrabold text-stone-900">{batches.length}</span>
+        <div className="text-right text-xs bg-[#F6F3EC] p-2.5 rounded-xl border border-[#E8E3DA]">
+          <span className="text-[#737B83]">Total Batches:</span>{' '}
+          <span className="font-extrabold text-[#26364A]">{batches.length}</span>
         </div>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white rounded-xl p-4 border border-stone-200 shadow-xs space-y-3">
+      <div className="bg-white rounded-xl p-4 border border-[#E8E3DA] shadow-xs space-y-3">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div className="relative md:col-span-1">
-            <Search className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
+            <Search className="w-4 h-4 text-[#737B83] absolute left-3 top-3" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search batch #, product, or barcode..."
-              className="w-full pl-9 pr-4 py-2 bg-stone-50 border border-stone-200 rounded-lg text-xs focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 transition"
+              className="w-full pl-9 pr-4 py-2 bg-[#F6F3EC] border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45] transition"
             />
           </div>
 

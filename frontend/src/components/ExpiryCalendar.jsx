@@ -105,15 +105,15 @@ export const ExpiryCalendar = ({
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl p-6 border border-[#E8E3DA] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-xs font-semibold mb-1 border border-emerald-200">
-            <CalendarIcon className="w-3.5 h-3.5" /> Expiry Schedule Matrix
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#DCE8DF] text-[#26364A] text-xs font-semibold mb-1 border border-[#DCE8DF]">
+            <CalendarIcon className="w-3.5 h-3.5 text-[#C76B45]" /> Expiry Schedule Matrix
           </div>
-          <h2 className="text-xl md:text-2xl font-extrabold text-stone-900 tracking-tight">
+          <h2 className="text-xl md:text-2xl font-extrabold text-[#26364A] tracking-tight font-heading">
             Monthly Expiry Timeline
           </h2>
-          <p className="text-xs text-stone-500 mt-0.5">
+          <p className="text-xs text-[#737B83] mt-0.5">
             Visualize expiry dates on a calendar. Click on any date to inspect items and prepare shelf rotations.
           </p>
         </div>
@@ -123,26 +123,26 @@ export const ExpiryCalendar = ({
           <button
             type="button"
             onClick={goToToday}
-            className="px-3 py-1.5 bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold text-xs rounded-lg transition cursor-pointer"
+            className="px-3 py-1.5 bg-[#F6F3EC] hover:bg-[#E8E3DA] text-[#26364A] font-semibold text-xs rounded-lg transition cursor-pointer border border-[#E8E3DA]"
           >
             Today
           </button>
-          <div className="flex items-center bg-stone-100 rounded-lg p-0.5 border border-stone-200">
+          <div className="flex items-center bg-[#F6F3EC] rounded-lg p-0.5 border border-[#E8E3DA]">
             <button
               type="button"
               onClick={prevMonth}
-              className="p-1.5 hover:bg-white rounded-md text-stone-700 transition cursor-pointer"
+              className="p-1.5 hover:bg-white rounded-md text-[#26364A] transition cursor-pointer"
               title="Previous Month"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-4 h-4 text-[#737B83]" />
             </button>
-            <span className="px-3 py-1 text-xs font-bold text-stone-900 min-w-[130px] text-center">
+            <span className="px-3 py-1 text-xs font-bold text-[#26364A] min-w-[130px] text-center font-heading">
               {monthNames[month]} {year}
             </span>
             <button
               type="button"
               onClick={nextMonth}
-              className="p-1.5 hover:bg-white rounded-md text-stone-700 transition cursor-pointer"
+              className="p-1.5 hover:bg-white rounded-md text-[#26364A] transition cursor-pointer"
               title="Next Month"
             >
               <ChevronRight className="w-4 h-4" />
