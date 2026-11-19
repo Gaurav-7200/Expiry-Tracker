@@ -38,15 +38,15 @@ const CATEGORIES = [
 ];
 
 const CATEGORY_COLORS = {
-  'Grains & Flours': 'bg-amber-100 text-amber-800 border-amber-200',
-  'Dairy & Eggs': 'bg-blue-100 text-blue-800 border-blue-200',
-  'Oils & Ghee': 'bg-yellow-100 text-yellow-800 border-yellow-200',
-  'Bakery & Bread': 'bg-orange-100 text-orange-800 border-orange-200',
-  'Beverages & Tea': 'bg-emerald-100 text-emerald-800 border-emerald-200',
-  'Snacks & Packaged': 'bg-purple-100 text-purple-800 border-purple-200',
-  'Pulses & Lentils': 'bg-red-100 text-red-800 border-red-200',
-  'Spices & Condiments': 'bg-rose-100 text-rose-800 border-rose-200',
-  'Personal & Household': 'bg-teal-100 text-teal-800 border-teal-200',
+  'Grains & Flours': 'bg-amber-50 text-amber-800 border-amber-200',
+  'Dairy & Eggs': 'bg-sky-50 text-sky-800 border-sky-200',
+  'Oils & Ghee': 'bg-amber-50 text-amber-700 border-amber-200',
+  'Bakery & Bread': 'bg-orange-50 text-orange-800 border-orange-200',
+  'Beverages & Tea': 'bg-[#DCE8DF] text-[#26364A] border-[#AEC7B4]',
+  'Snacks & Packaged': 'bg-purple-50 text-purple-800 border-purple-200',
+  'Pulses & Lentils': 'bg-stone-100 text-[#26364A] border-[#E8E3DA]',
+  'Spices & Condiments': 'bg-[#FBF0EB] text-[#C76B45] border-[#E8E3DA]',
+  'Personal & Household': 'bg-[#DCE8DF]/70 text-[#26364A] border-[#E8E3DA]',
 };
 
 function getCategoryColor(category) {
@@ -383,14 +383,14 @@ export const PosBilling = ({
       {/* LEFT COLUMN: Product Catalog & Barcode Scanner (7 columns on xl) */}
       <div className="xl:col-span-7 space-y-4">
         {/* Hardware / USB Barcode Scanner Bar */}
-        <div className="bg-white rounded-xl p-4 border border-stone-200 shadow-xs">
+        <div className="bg-white rounded-xl p-4 border border-[#E8E3DA] shadow-xs">
           <form onSubmit={handleBarcodeSubmit} className="space-y-2">
-            <div className="flex items-center justify-between text-xs font-semibold text-stone-700">
-              <label htmlFor="barcode-scanner-input" className="flex items-center gap-1.5 text-emerald-800">
-                <Barcode className="w-4 h-4 text-emerald-700" />
+            <div className="flex items-center justify-between text-xs font-semibold text-[#26364A]">
+              <label htmlFor="barcode-scanner-input" className="flex items-center gap-1.5 text-[#26364A] font-heading font-bold">
+                <Barcode className="w-4 h-4 text-[#C76B45]" />
                 USB Barcode Scanner / Instant Lookup
               </label>
-              <span className="text-[11px] text-stone-600 bg-stone-100 px-2 py-0.5 rounded font-mono">
+              <span className="text-[11px] text-[#737B83] bg-[#F6F3EC] px-2 py-0.5 rounded font-mono border border-[#E8E3DA]">
                 Press Enter to scan
               </span>
             </div>
@@ -404,25 +404,25 @@ export const PosBilling = ({
                   value={barcodeInput}
                   onChange={(e) => setBarcodeInput(e.target.value)}
                   placeholder="Scan barcode with USB scanner or type number (e.g. 8901030383848)..."
-                  className="w-full pl-9 pr-4 py-2.5 bg-stone-50 border border-stone-300 rounded-lg text-sm font-mono focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition"
+                  className="w-full pl-9 pr-4 py-2.5 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-sm font-mono text-[#26364A] placeholder-[#737B83] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C76B45] focus:border-transparent transition"
                 />
-                <Barcode className="w-4 h-4 text-stone-400 absolute left-3 top-3.5" />
+                <Barcode className="w-4 h-4 text-[#737B83] absolute left-3 top-3.5" />
               </div>
 
-              {/* Live Camera Scanner Button - High Visibility */}
+              {/* Live Camera Scanner Button */}
               <button
                 type="button"
                 onClick={() => setIsCameraModalOpen(true)}
-                className="px-3.5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-bold text-xs rounded-lg transition shadow-sm cursor-pointer flex items-center gap-2 shrink-0 animate-pulse-subtle"
+                className="px-3.5 py-2.5 bg-[#26364A] hover:bg-[#344860] text-white font-semibold text-xs rounded-lg transition shadow-xs cursor-pointer flex items-center gap-2 shrink-0 border border-[#26364A]"
                 title="Scan barcode directly with your phone camera or laptop webcam"
               >
-                <Camera className="w-4 h-4 text-emerald-200" />
-                <span className="font-semibold">Camera Scan</span>
+                <Camera className="w-4 h-4 text-[#DCE8DF]" />
+                <span>Camera Scan</span>
               </button>
 
               <button
                 type="submit"
-                className="px-4 py-2.5 bg-stone-800 hover:bg-stone-900 active:bg-black text-white font-semibold text-xs rounded-lg transition shadow-xs cursor-pointer flex items-center gap-1.5 shrink-0"
+                className="px-4 py-2.5 bg-[#C76B45] hover:bg-[#B55D37] active:bg-[#C76B45] text-white font-semibold text-xs rounded-lg transition shadow-xs cursor-pointer flex items-center gap-1.5 shrink-0"
               >
                 Add
               </button>
@@ -433,15 +433,15 @@ export const PosBilling = ({
               <div
                 className={`p-2.5 rounded-lg text-xs flex items-center justify-between transition ${
                   barcodeFeedback.type === 'success'
-                    ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-                    : 'bg-rose-50 text-rose-800 border border-rose-200'
+                    ? 'bg-[#DCE8DF]/70 text-[#26364A] border border-[#AEC7B4]'
+                    : 'bg-[#C75A54]/10 text-[#C75A54] border border-[#C75A54]/25'
                 }`}
               >
                 <div className="flex items-center gap-2">
                   {barcodeFeedback.type === 'success' ? (
-                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                    <CheckCircle2 className="w-4 h-4 text-[#39845D]" />
                   ) : (
-                    <AlertCircle className="w-4 h-4 text-rose-600" />
+                    <AlertCircle className="w-4 h-4 text-[#C75A54]" />
                   )}
                   <span>{barcodeFeedback.message}</span>
                 </div>
@@ -449,7 +449,7 @@ export const PosBilling = ({
                   <button
                     type="button"
                     onClick={() => onNavigateToReceiving(barcodeInput)}
-                    className="underline font-semibold hover:text-rose-900 ml-2 cursor-pointer"
+                    className="underline font-semibold hover:text-[#C75A54] ml-2 cursor-pointer"
                   >
                     Receive as new?
                   </button>
@@ -460,16 +460,16 @@ export const PosBilling = ({
         </div>
 
         {/* Search & Category Filter Pills */}
-        <div className="bg-white rounded-xl p-4 border border-stone-200 shadow-xs space-y-3">
+        <div className="bg-white rounded-xl p-4 border border-[#E8E3DA] shadow-xs space-y-3">
           {/* Search bar */}
           <div className="relative">
-            <Search className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
+            <Search className="w-4 h-4 text-[#737B83] absolute left-3 top-3" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search product name, category, or barcode..."
-              className="w-full pl-9 pr-4 py-2 bg-stone-50 border border-stone-200 rounded-lg text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition"
+              className="w-full pl-9 pr-4 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-sm text-[#26364A] placeholder-[#737B83] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C76B45] focus:border-transparent transition"
             />
           </div>
 
@@ -482,8 +482,8 @@ export const PosBilling = ({
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-3 py-1.5 rounded-lg font-medium whitespace-nowrap transition cursor-pointer ${
                   selectedCategory === cat
-                    ? 'bg-emerald-800 text-white shadow-xs'
-                    : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                    ? 'bg-[#C76B45] text-white shadow-xs font-semibold'
+                    : 'bg-[#F6F3EC] text-[#737B83] hover:text-[#26364A] hover:bg-[#E8E3DA]/60 border border-[#E8E3DA]'
                 }`}
               >
                 {cat}
@@ -495,10 +495,10 @@ export const PosBilling = ({
         {/* Products Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 max-h-[580px] overflow-y-auto pr-1">
           {groupedFamilies.length === 0 ? (
-            <div className="col-span-full bg-white rounded-xl p-8 text-center border border-stone-200 text-stone-500">
-              <ShoppingBag className="w-8 h-8 text-stone-300 mx-auto mb-2" />
-              <p className="text-sm font-semibold">No matching products found</p>
-              <p className="text-xs text-stone-400 mt-1">
+            <div className="col-span-full bg-white rounded-xl p-8 text-center border border-[#E8E3DA] text-[#737B83]">
+              <ShoppingBag className="w-8 h-8 text-[#737B83]/50 mx-auto mb-2" />
+              <p className="text-sm font-semibold font-heading text-[#26364A]">No matching products found</p>
+              <p className="text-xs text-[#737B83] mt-1">
                 Try a different search term or category filter.
               </p>
             </div>
@@ -523,13 +523,13 @@ export const PosBilling = ({
                   onClick={() => inStock && addToCart(activeProduct)}
                   className={`bg-white rounded-xl p-3 border transition flex flex-col justify-between text-left group select-none relative ${
                     inStock
-                      ? 'border-stone-200 hover:border-emerald-500 hover:shadow-md cursor-pointer'
-                      : 'border-stone-200 bg-stone-50/70 opacity-60 cursor-not-allowed'
+                      ? 'border-[#E8E3DA] hover:border-[#C76B45] hover:shadow-md cursor-pointer'
+                      : 'border-[#E8E3DA] bg-[#F6F3EC]/50 opacity-60 cursor-not-allowed'
                   }`}
                 >
                   {/* Cart count badge */}
                   {inCart && (
-                    <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-emerald-700 text-white text-xs font-bold flex items-center justify-center shadow-xs z-10">
+                    <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-[#C76B45] text-white text-xs font-bold flex items-center justify-center shadow-xs z-10">
                       {inCart.quantity}
                     </div>
                   )}
@@ -537,7 +537,7 @@ export const PosBilling = ({
                   <div>
                     <div className="flex items-start gap-2.5">
                       {/* Fixed dimension image or placeholder */}
-                      <div className="w-12 h-12 rounded-lg shrink-0 overflow-hidden bg-stone-100 border border-stone-200 flex items-center justify-center">
+                      <div className="w-12 h-12 rounded-lg shrink-0 overflow-hidden bg-[#F6F3EC] border border-[#E8E3DA] flex items-center justify-center">
                         {activeProduct.imageUrl || primaryProduct.imageUrl ? (
                           <img
                             src={activeProduct.imageUrl || primaryProduct.imageUrl}
@@ -547,7 +547,7 @@ export const PosBilling = ({
                           />
                         ) : (
                           <div
-                            className={`w-full h-full flex items-center justify-center text-xs font-bold border ${getCategoryColor(
+                            className={`w-full h-full flex items-center justify-center text-xs font-bold font-heading border ${getCategoryColor(
                               primaryProduct.category
                             )}`}
                           >
@@ -557,27 +557,27 @@ export const PosBilling = ({
                       </div>
 
                       <div className="min-w-0 flex-1">
-                        <span className="text-[10px] font-semibold text-emerald-800 uppercase tracking-wider block truncate">
+                        <span className="text-[10px] font-semibold text-[#C76B45] uppercase tracking-wider block truncate">
                           {primaryProduct.category}
                         </span>
-                        <h4 className="font-semibold text-xs text-stone-900 mt-0.5 line-clamp-2 group-hover:text-emerald-900">
+                        <h4 className="font-semibold text-xs text-[#26364A] mt-0.5 line-clamp-2 group-hover:text-[#C76B45] transition-colors font-heading">
                           {primaryProduct.name}
                         </h4>
 
                         {/* Dedicated Pack Size Row */}
                         <div className="mt-1 flex items-center gap-1.5">
                           {activeProduct.packSize ? (
-                            <span className="inline-flex items-center px-2 py-0.5 rounded bg-emerald-50 text-emerald-900 border border-emerald-200 text-[11px] font-bold">
+                            <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-[#DCE8DF] text-[#26364A] border border-[#AEC7B4] text-[11px] font-bold">
                               Pack: {activeProduct.packSize}
                             </span>
                           ) : (
-                            <span className="inline-flex items-center px-1.5 py-0.5 rounded bg-stone-100 text-stone-500 text-[10px] font-medium italic">
+                            <span className="inline-flex items-center px-1.5 py-0.5 rounded-md bg-[#F6F3EC] text-[#737B83] text-[10px] font-medium italic border border-[#E8E3DA]">
                               Pack size not set
                             </span>
                           )}
                         </div>
 
-                        <p className="text-[10px] font-mono text-stone-600 mt-1 truncate">
+                        <p className="text-[10px] font-mono text-[#737B83] mt-1 truncate">
                           {activeProduct.barcode}
                         </p>
                       </div>
@@ -585,10 +585,10 @@ export const PosBilling = ({
 
                     {/* Pack Sizes Selector Bar */}
                     {hasMultipleVariants && (
-                      <div className="mt-2.5 pt-2 border-t border-stone-100">
-                        <div className="text-[10px] text-stone-600 font-semibold mb-1 flex items-center justify-between">
+                      <div className="mt-2.5 pt-2 border-t border-[#E8E3DA]">
+                        <div className="text-[10px] text-[#737B83] font-semibold mb-1 flex items-center justify-between">
                           <span>Pack Sizes:</span>
-                          <span className="text-[9px] text-emerald-700 font-normal">
+                          <span className="text-[9px] text-[#26364A] font-medium">
                             {variants.length} available
                           </span>
                         </div>
@@ -606,10 +606,10 @@ export const PosBilling = ({
                                 title={`${v.name} - ${label} (${isVariantInStock ? `${v.availableStock} in stock` : 'Out of stock'})`}
                                 className={`px-2 py-0.5 text-[10px] font-bold rounded-md transition cursor-pointer border ${
                                   isSelected
-                                    ? 'bg-emerald-800 text-white border-emerald-800 shadow-2xs ring-1 ring-emerald-700'
+                                    ? 'bg-[#C76B45] text-white border-[#C76B45] shadow-2xs'
                                     : isVariantInStock
-                                    ? 'bg-stone-50 text-stone-700 border-stone-200 hover:bg-stone-100'
-                                    : 'bg-stone-100 text-stone-400 border-stone-200 line-through'
+                                    ? 'bg-[#F6F3EC] text-[#26364A] border-[#E8E3DA] hover:bg-[#E8E3DA]'
+                                    : 'bg-[#F6F3EC]/40 text-[#737B83]/60 border-[#E8E3DA] line-through'
                                 }`}
                               >
                                 {label}
@@ -621,14 +621,14 @@ export const PosBilling = ({
                     )}
                   </div>
 
-                  <div className="mt-3 pt-2 border-t border-stone-100 flex items-center justify-between">
+                  <div className="mt-3 pt-2 border-t border-[#E8E3DA] flex items-center justify-between">
                     <div>
-                      <div className="font-extrabold text-sm text-stone-900">
+                      <div className="font-extrabold text-sm text-[#26364A]">
                         {settings.currency}
                         {activeProduct.sellingPrice}
                       </div>
                       {activeProduct.mrp > activeProduct.sellingPrice && (
-                        <div className="text-[10px] text-stone-600 line-through">
+                        <div className="text-[10px] text-[#737B83] line-through">
                           MRP {settings.currency}
                           {activeProduct.mrp}
                         </div>
@@ -637,7 +637,7 @@ export const PosBilling = ({
 
                     {!inStock && (
                       <div className="text-right">
-                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-rose-100 text-rose-800">
+                        <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-[#C75A54]/15 text-[#C75A54] border border-[#C75A54]/20">
                           Out of stock
                         </span>
                       </div>
@@ -651,16 +651,16 @@ export const PosBilling = ({
       </div>
 
       {/* RIGHT COLUMN: Interactive Cart & Checkout Register (5 columns on xl) */}
-      <div className="xl:col-span-5 bg-white rounded-2xl border border-stone-200 shadow-sm p-5 space-y-4">
+      <div className="xl:col-span-5 bg-white rounded-2xl border border-[#E8E3DA] shadow-sm p-5 space-y-4">
         {/* Register Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-stone-200">
-          <div className="flex items-center gap-2">
-            <div className="p-2 bg-emerald-50 rounded-lg text-emerald-800">
+        <div className="flex items-center justify-between pb-3 border-b border-[#E8E3DA]">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 bg-[#FBF0EB] rounded-lg text-[#C76B45]">
               <ShoppingCart className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-base text-stone-900">Billing Register</h3>
-              <p className="text-xs text-stone-500">
+              <h3 className="font-bold text-base text-[#26364A] font-heading">Billing Register</h3>
+              <p className="text-xs text-[#737B83]">
                 {cart.length} item{cart.length === 1 ? '' : 's'} in cart
               </p>
             </div>
@@ -670,7 +670,7 @@ export const PosBilling = ({
             <button
               type="button"
               onClick={clearCart}
-              className="text-xs text-rose-600 hover:text-rose-800 font-semibold flex items-center gap-1 hover:underline cursor-pointer"
+              className="text-xs text-[#C75A54] hover:text-[#A7443E] font-semibold flex items-center gap-1 hover:underline cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5" />
               Clear Cart
@@ -679,36 +679,36 @@ export const PosBilling = ({
         </div>
 
         {/* Customer Information (Optional) */}
-        <div className="grid grid-cols-2 gap-2 bg-stone-50 p-2.5 rounded-xl border border-stone-200 text-xs">
+        <div className="grid grid-cols-2 gap-2 bg-[#F6F3EC] p-2.5 rounded-xl border border-[#E8E3DA] text-xs">
           <div className="relative">
-            <User className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-2.5" />
+            <User className="w-3.5 h-3.5 text-[#737B83] absolute left-2.5 top-2.5" />
             <input
               type="text"
               value={customerName}
               onChange={(e) => setCustomerName(e.target.value)}
               placeholder="Walk-in Customer"
-              className="w-full pl-8 pr-2 py-1.5 bg-white border border-stone-200 rounded-lg text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+              className="w-full pl-8 pr-2 py-1.5 bg-white border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] placeholder-[#737B83] focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
             />
           </div>
           <div className="relative">
-            <Phone className="w-3.5 h-3.5 text-stone-400 absolute left-2.5 top-2.5" />
+            <Phone className="w-3.5 h-3.5 text-[#737B83] absolute left-2.5 top-2.5" />
             <input
               type="text"
               value={customerPhone}
               onChange={(e) => setCustomerPhone(e.target.value)}
               placeholder="Mobile Phone (optional)"
-              className="w-full pl-8 pr-2 py-1.5 bg-white border border-stone-200 rounded-lg text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+              className="w-full pl-8 pr-2 py-1.5 bg-white border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] placeholder-[#737B83] focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
             />
           </div>
         </div>
 
         {/* Cart Items List */}
-        <div className="max-h-[260px] overflow-y-auto space-y-2 pr-1 divide-y divide-stone-100">
+        <div className="max-h-[260px] overflow-y-auto space-y-2 pr-1 divide-y divide-[#E8E3DA]/70">
           {cart.length === 0 ? (
-            <div className="py-10 text-center text-stone-400 space-y-2">
-              <ShoppingCart className="w-10 h-10 text-stone-300 mx-auto" />
-              <p className="text-xs font-semibold text-stone-500">Cart is empty</p>
-              <p className="text-[11px] text-stone-400 max-w-[200px] mx-auto">
+            <div className="py-10 text-center text-[#737B83] space-y-2">
+              <ShoppingCart className="w-10 h-10 text-[#737B83]/40 mx-auto" />
+              <p className="text-xs font-semibold text-[#26364A] font-heading">Cart is empty</p>
+              <p className="text-[11px] text-[#737B83] max-w-[200px] mx-auto">
                 Scan barcode or tap products from catalog to start billing.
               </p>
             </div>
@@ -719,30 +719,30 @@ export const PosBilling = ({
               return (
                 <div key={item.product.id} className="pt-2 first:pt-0 flex items-center justify-between gap-3 text-xs">
                   <div className="flex-1 min-w-0">
-                    <h5 className="font-semibold text-stone-900 leading-snug">
-                      <span className="inline-block px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-900 text-xs font-bold mr-1">
+                    <h5 className="font-semibold text-[#26364A] leading-snug font-heading">
+                      <span className="inline-block px-1.5 py-0.2 rounded bg-[#FBF0EB] text-[#C76B45] text-xs font-bold mr-1 border border-[#E8E3DA]">
                         ×{item.quantity}
                       </span>
                       {item.product.name}
                       {item.product.packSize ? (
-                        <span className="text-stone-600 font-medium text-[11px] ml-1">
+                        <span className="text-[#737B83] font-medium text-[11px] ml-1">
                           ({item.product.packSize})
                         </span>
                       ) : (
-                        <span className="text-stone-500 font-normal text-[11px] ml-1">
+                        <span className="text-[#737B83] font-normal text-[11px] ml-1">
                           ({item.product.unit})
                         </span>
                       )}
                     </h5>
-                    <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-stone-500 mt-0.5">
-                      <span className="font-medium text-stone-700">
+                    <div className="flex flex-wrap items-center gap-1.5 text-[11px] text-[#737B83] mt-0.5">
+                      <span className="font-medium text-[#26364A]">
                         {settings.currency}
                         {item.product.sellingPrice}
                       </span>
                       {item.product.earliestExpiry && (
                         <>
                           <span>•</span>
-                          <span className="text-[10px] text-amber-700 bg-amber-50 px-1 rounded">
+                          <span className="text-[10px] text-[#D99A38] bg-amber-50 px-1 rounded border border-amber-200">
                             Exp: {item.product.earliestExpiry}
                           </span>
                         </>
@@ -752,10 +752,10 @@ export const PosBilling = ({
 
                   {/* Quantity Stepper */}
                   <div className="flex flex-col items-center gap-0.5">
-                    <span className="text-[10px] font-bold text-emerald-800 bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
+                    <span className="text-[10px] font-bold text-[#26364A] bg-[#DCE8DF] px-1.5 py-0.5 rounded border border-[#AEC7B4]">
                       {item.quantity} {item.product.unit}
                     </span>
-                    <span className="text-[9px] text-stone-400">
+                    <span className="text-[9px] text-[#737B83]">
                       Available: {item.product.availableStock}
                     </span>
                   </div>
@@ -764,7 +764,7 @@ export const PosBilling = ({
                     <button
                       type="button"
                       onClick={() => updateQuantity(item.product.id, -1)}
-                      className="w-6 h-6 rounded-md bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold flex items-center justify-center transition cursor-pointer"
+                      className="w-6 h-6 rounded-md bg-[#F6F3EC] hover:bg-[#E8E3DA] text-[#26364A] font-bold flex items-center justify-center transition cursor-pointer border border-[#E8E3DA]"
                     >
                       <Minus className="w-3 h-3" />
                     </button>
@@ -776,12 +776,12 @@ export const PosBilling = ({
                       onChange={(e) =>
                         setDirectQuantity(item.product.id, parseInt(e.target.value) || 1)
                       }
-                      className="w-10 py-0.5 text-center font-bold text-xs border border-stone-200 rounded-md focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                      className="w-10 py-0.5 text-center font-bold text-xs border border-[#E8E3DA] rounded-md focus:outline-none focus:ring-1 focus:ring-[#C76B45] text-[#26364A] bg-white"
                     />
                     <button
                       type="button"
                       onClick={() => updateQuantity(item.product.id, 1)}
-                      className="w-6 h-6 rounded-md bg-stone-100 hover:bg-stone-200 text-stone-700 font-bold flex items-center justify-center transition cursor-pointer"
+                      className="w-6 h-6 rounded-md bg-[#F6F3EC] hover:bg-[#E8E3DA] text-[#26364A] font-bold flex items-center justify-center transition cursor-pointer border border-[#E8E3DA]"
                     >
                       <Plus className="w-3 h-3" />
                     </button>
@@ -789,14 +789,14 @@ export const PosBilling = ({
 
                   {/* Line Total & Remove */}
                   <div className="text-right w-20 shrink-0">
-                    <div className="font-extrabold text-stone-900">
+                    <div className="font-extrabold text-[#26364A]">
                       {settings.currency}
                       {lineTotal.toFixed(2)}
                     </div>
                     <button
                       type="button"
                       onClick={() => removeFromCart(item.product.id)}
-                      className="text-stone-400 hover:text-rose-600 transition p-0.5 mt-0.5 inline-block cursor-pointer"
+                      className="text-[#737B83] hover:text-[#C75A54] transition p-0.5 mt-0.5 inline-block cursor-pointer"
                       title="Remove item"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
@@ -809,17 +809,17 @@ export const PosBilling = ({
         </div>
 
         {/* Bill Calculations Summary */}
-        <div className="bg-stone-50 p-3.5 rounded-xl border border-stone-200 space-y-2 text-xs">
-          <div className="flex justify-between text-stone-600">
+        <div className="bg-[#F6F3EC] p-3.5 rounded-xl border border-[#E8E3DA] space-y-2 text-xs">
+          <div className="flex justify-between text-[#737B83]">
             <span>Subtotal:</span>
-            <span className="font-semibold text-stone-800">
+            <span className="font-semibold text-[#26364A]">
               {settings.currency}
               {subtotal.toFixed(2)}
             </span>
           </div>
 
           {discountTotal > 0 && (
-            <div className="flex justify-between text-emerald-700">
+            <div className="flex justify-between text-[#39845D]">
               <span>Item Discounts:</span>
               <span className="font-semibold">
                 -{settings.currency}
@@ -829,18 +829,18 @@ export const PosBilling = ({
           )}
 
           {settings.taxEnabled && (
-            <div className="flex justify-between text-stone-600">
+            <div className="flex justify-between text-[#737B83]">
               <span>Estimated Tax ({settings.taxRate}%):</span>
-              <span className="font-semibold text-stone-800">
+              <span className="font-semibold text-[#26364A]">
                 {settings.currency}
                 {taxTotal.toFixed(2)}
               </span>
             </div>
           )}
 
-          <div className="flex justify-between text-base font-extrabold text-stone-900 pt-2 border-t border-stone-200">
+          <div className="flex justify-between text-base font-extrabold text-[#26364A] pt-2 border-t border-[#E8E3DA] font-heading">
             <span>Payable Amount:</span>
-            <span className="text-emerald-800">
+            <span className="text-[#C76B45]">
               {settings.currency}
               {grandTotal.toFixed(2)}
             </span>
@@ -849,7 +849,7 @@ export const PosBilling = ({
 
         {/* Payment Method Selector */}
         <div className="space-y-2">
-          <label className="text-xs font-semibold text-stone-700 block">
+          <label className="text-xs font-semibold text-[#26364A] block font-heading">
             Payment Method
           </label>
           <div className="grid grid-cols-3 gap-2">
@@ -858,11 +858,11 @@ export const PosBilling = ({
               onClick={() => setPaymentMethod('cash')}
               className={`p-2.5 rounded-xl border font-semibold text-xs flex flex-col items-center gap-1 transition cursor-pointer ${
                 paymentMethod === 'cash'
-                  ? 'border-emerald-600 bg-emerald-50 text-emerald-900 shadow-xs ring-1 ring-emerald-600'
-                  : 'border-stone-200 text-stone-600 hover:bg-stone-50'
+                  ? 'border-[#C76B45] bg-[#FBF0EB] text-[#C76B45] shadow-xs ring-1 ring-[#C76B45]'
+                  : 'border-[#E8E3DA] text-[#737B83] hover:bg-[#F6F3EC]'
               }`}
             >
-              <Banknote className="w-4 h-4 text-emerald-700" />
+              <Banknote className="w-4 h-4 text-[#C76B45]" />
               <span>Cash</span>
             </button>
 
@@ -871,11 +871,11 @@ export const PosBilling = ({
               onClick={() => setPaymentMethod('upi')}
               className={`p-2.5 rounded-xl border font-semibold text-xs flex flex-col items-center gap-1 transition cursor-pointer ${
                 paymentMethod === 'upi'
-                  ? 'border-emerald-600 bg-emerald-50 text-emerald-900 shadow-xs ring-1 ring-emerald-600'
-                  : 'border-stone-200 text-stone-600 hover:bg-stone-50'
+                  ? 'border-[#C76B45] bg-[#FBF0EB] text-[#C76B45] shadow-xs ring-1 ring-[#C76B45]'
+                  : 'border-[#E8E3DA] text-[#737B83] hover:bg-[#F6F3EC]'
               }`}
             >
-              <QrCode className="w-4 h-4 text-emerald-700" />
+              <QrCode className="w-4 h-4 text-[#C76B45]" />
               <span>UPI / QR</span>
             </button>
 
@@ -884,11 +884,11 @@ export const PosBilling = ({
               onClick={() => setPaymentMethod('card')}
               className={`p-2.5 rounded-xl border font-semibold text-xs flex flex-col items-center gap-1 transition cursor-pointer ${
                 paymentMethod === 'card'
-                  ? 'border-emerald-600 bg-emerald-50 text-emerald-900 shadow-xs ring-1 ring-emerald-600'
-                  : 'border-stone-200 text-stone-600 hover:bg-stone-50'
+                  ? 'border-[#C76B45] bg-[#FBF0EB] text-[#C76B45] shadow-xs ring-1 ring-[#C76B45]'
+                  : 'border-[#E8E3DA] text-[#737B83] hover:bg-[#F6F3EC]'
               }`}
             >
-              <CreditCard className="w-4 h-4 text-emerald-700" />
+              <CreditCard className="w-4 h-4 text-[#C76B45]" />
               <span>Card</span>
             </button>
           </div>
@@ -896,18 +896,18 @@ export const PosBilling = ({
 
         {/* Dynamic Payment Details */}
         {paymentMethod === 'cash' && (
-          <div className="bg-emerald-50/60 p-3 rounded-xl border border-emerald-200 space-y-2 text-xs">
+          <div className="bg-[#FAF8F4] p-3 rounded-xl border border-[#E8E3DA] space-y-2 text-xs">
             <div className="flex items-center justify-between">
-              <label htmlFor="tendered-input" className="font-semibold text-emerald-950">Cash Tendered by Customer</label>
+              <label htmlFor="tendered-input" className="font-semibold text-[#26364A]">Cash Tendered by Customer</label>
               {changeReturned > 0 && (
-                <span className="font-bold text-emerald-800">
+                <span className="font-bold text-[#39845D]">
                   Change: {settings.currency}{changeReturned.toFixed(2)}
                 </span>
               )}
             </div>
 
             <div className="relative">
-              <span className="absolute left-3 top-2 font-bold text-stone-500">
+              <span className="absolute left-3 top-2 font-bold text-[#737B83]">
                 {settings.currency}
               </span>
               <input
@@ -917,7 +917,7 @@ export const PosBilling = ({
                 value={amountTendered}
                 onChange={(e) => setAmountTendered(e.target.value)}
                 placeholder={grandTotal.toString()}
-                className="w-full pl-8 pr-3 py-1.5 bg-white border border-emerald-300 rounded-lg text-sm font-bold text-stone-900 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+                className="w-full pl-8 pr-3 py-1.5 bg-white border border-[#E8E3DA] rounded-lg text-sm font-bold text-[#26364A] focus:outline-none focus:ring-2 focus:ring-[#C76B45]"
               />
             </div>
 
@@ -926,7 +926,7 @@ export const PosBilling = ({
               <button
                 type="button"
                 onClick={() => setCashAmount(grandTotal)}
-                className="px-2 py-1 bg-white hover:bg-emerald-100 border border-emerald-300 rounded text-[11px] font-semibold text-emerald-800 cursor-pointer"
+                className="px-2 py-1 bg-white hover:bg-[#FBF0EB] border border-[#E8E3DA] hover:border-[#C76B45] rounded text-[11px] font-semibold text-[#26364A] cursor-pointer transition"
               >
                 Exact ({settings.currency}{grandTotal})
               </button>
@@ -935,7 +935,7 @@ export const PosBilling = ({
                   key={note}
                   type="button"
                   onClick={() => setCashAmount(note)}
-                  className="px-2 py-1 bg-white hover:bg-emerald-100 border border-emerald-300 rounded text-[11px] font-semibold text-emerald-800 cursor-pointer"
+                  className="px-2 py-1 bg-white hover:bg-[#FBF0EB] border border-[#E8E3DA] hover:border-[#C76B45] rounded text-[11px] font-semibold text-[#26364A] cursor-pointer transition"
                 >
                   +{settings.currency}{note}
                 </button>
@@ -945,13 +945,13 @@ export const PosBilling = ({
         )}
 
         {paymentMethod === 'upi' && (
-          <div className="bg-emerald-50/60 p-3 rounded-xl border border-emerald-200 text-xs flex items-center gap-3">
-            <div className="p-2 bg-white rounded-lg border border-emerald-300 shrink-0">
-              <QrCode className="w-9 h-9 text-emerald-800" />
+          <div className="bg-[#FAF8F4] p-3 rounded-xl border border-[#E8E3DA] text-xs flex items-center gap-3">
+            <div className="p-2 bg-white rounded-lg border border-[#E8E3DA] shrink-0">
+              <QrCode className="w-9 h-9 text-[#26364A]" />
             </div>
             <div>
-              <p className="font-bold text-emerald-950">Dynamic UPI Merchant QR</p>
-              <p className="text-[11px] text-emerald-800">
+              <p className="font-bold text-[#26364A] font-heading">Dynamic UPI Merchant QR</p>
+              <p className="text-[11px] text-[#737B83]">
                 Customer scans with GPay / PhonePe / Paytm to transfer {settings.currency}
                 {grandTotal.toFixed(2)}.
               </p>
@@ -961,8 +961,8 @@ export const PosBilling = ({
 
         {/* Error message banner */}
         {errorMessage && (
-          <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 text-xs flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
+          <div className="p-3 bg-[#C75A54]/10 border border-[#C75A54]/25 rounded-xl text-[#C75A54] text-xs flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0 text-[#C75A54]" />
             <span>{errorMessage}</span>
           </div>
         )}
@@ -972,10 +972,10 @@ export const PosBilling = ({
           type="button"
           disabled={cart.length === 0 || isSubmitting}
           onClick={handleCheckout}
-          className={`w-full py-3.5 rounded-xl font-bold text-sm text-white shadow-md transition flex items-center justify-center gap-2 cursor-pointer ${
+          className={`w-full py-3.5 rounded-xl font-bold text-sm text-white shadow-sm transition flex items-center justify-center gap-2 cursor-pointer font-heading ${
             cart.length === 0 || isSubmitting
-              ? 'bg-stone-300 cursor-not-allowed opacity-75'
-              : 'bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900'
+              ? 'bg-[#E8E3DA] text-[#737B83] cursor-not-allowed opacity-75'
+              : 'bg-[#C76B45] hover:bg-[#B55D37] active:bg-[#C76B45]'
           }`}
         >
           {isSubmitting ? (
@@ -985,7 +985,7 @@ export const PosBilling = ({
             </div>
           ) : (
             <>
-              <CheckCircle2 className="w-5 h-5 text-emerald-200" />
+              <CheckCircle2 className="w-5 h-5 text-white/90" />
               <span>Complete Sale & Print Bill ({settings.currency}{grandTotal.toFixed(2)})</span>
             </>
           )}
