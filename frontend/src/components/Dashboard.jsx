@@ -44,9 +44,6 @@ export const Dashboard = ({
       {/* Top Welcome Banner */}
       <div className="bg-[#26364A] rounded-2xl p-6 text-white shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 border border-[#344860]">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#344860] text-[#DCE8DF] text-xs font-medium mb-2 border border-[#737B83]/30">
-            <Sparkles className="w-3.5 h-3.5 text-[#C76B45]" /> Live Grocery Operations Hub
-          </div>
           <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight font-heading text-white">
             {settings.storeName}
           </h1>

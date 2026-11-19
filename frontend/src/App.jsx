@@ -337,15 +337,8 @@ export default function App() {
         </div>
 
         {/* Sidebar Footer Details */}
-        <div className="p-4 border-t border-[#344860]/50 text-xs text-stone-400 space-y-2 bg-[#1C2939]/30">
-          <div className="flex items-center justify-between text-[11px]">
-            <span className="flex items-center gap-1.5 text-[#DCE8DF] font-medium">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#C76B45]" /> FEFO Stock Engine
-            </span>
-            <span className="text-stone-400 font-mono">v1.2</span>
-          </div>
-
-          <div className="text-[10px] text-stone-400 line-clamp-1">
+        <div className="p-4 border-t border-[#344860]/50 text-xs text-stone-400 bg-[#1C2939]/30">
+          <div className="text-[11px] text-[#DCE8DF] font-medium line-clamp-1">
             {settings.storeName}
           </div>
         </div>
@@ -369,10 +362,11 @@ export default function App() {
                 <h2 className="font-bold text-sm text-[#26364A] font-heading">
                   {navItems.find((n) => n.id === activeTab)?.label}
                 </h2>
-                <span className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-[#DCE8DF]/60 text-[#39845D] border border-[#DCE8DF] font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#39845D] animate-pulse" />
-                  Live Sync
-                </span>
+                {activeTab === 'dashboard' && (
+                  <span className="inline-flex items-center text-[11px] px-2 py-0.5 rounded-full bg-[#F6F3EC] text-[#737B83] border border-[#E8E3DA] font-medium">
+                    Dashboard Overview
+                  </span>
+                )}
               </div>
             </div>
           </div>
