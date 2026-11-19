@@ -635,23 +635,23 @@ export const CameraScannerModal = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-stone-900/80 backdrop-blur-xs no-print">
-      <div className="relative w-full max-w-lg bg-stone-900 border border-stone-800 rounded-2xl shadow-2xl overflow-hidden flex flex-col text-white max-h-[92vh]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-[#26364A]/80 backdrop-blur-xs no-print">
+      <div className="relative w-full max-w-lg bg-[#26364A] border border-[#344860] rounded-2xl shadow-2xl overflow-hidden flex flex-col text-white max-h-[92vh]">
         {/* Modal Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-stone-800 bg-stone-950">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-[#344860] bg-[#1C2939]">
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-emerald-600/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400">
+            <div className="w-8 h-8 rounded-lg bg-[#FBF0EB] border border-[#E8E3DA] flex items-center justify-center text-[#C76B45]">
               <Camera className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-bold text-sm tracking-tight">{title}</h3>
-              <p className="text-[10px] text-stone-400 font-mono">1D Retail Barcode Engine (Quagga2)</p>
+              <h3 className="font-bold text-sm tracking-tight font-heading">{title}</h3>
+              <p className="text-[10px] text-[#DCE8DF]/70 font-mono">1D Retail Barcode Engine (Quagga2)</p>
             </div>
           </div>
           <button
             type="button"
             onClick={handleClose}
-            className="p-1.5 text-stone-400 hover:text-white rounded-lg hover:bg-stone-800 transition cursor-pointer"
+            className="p-1.5 text-[#DCE8DF] hover:text-white rounded-lg hover:bg-[#344860] transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -668,7 +668,7 @@ export const CameraScannerModal = ({
           {/* Alignment Laser Guide & Scan Ribbon */}
           {isScanning && !scannerError && (
             <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-              <div className="w-[85%] h-36 border-2 border-emerald-400/80 rounded-xl relative flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.2)]">
+              <div className="w-[85%] h-36 border-2 border-[#C76B45]/80 rounded-xl relative flex items-center justify-center shadow-[0_0_20px_rgba(199,107,69,0.3)]">
                 {/* Red Laser Line */}
                 <div className="w-full h-0.5 bg-red-500 shadow-[0_0_8px_#ef4444]" />
                 <span className="absolute bottom-2 text-[10px] text-white/90 bg-black/70 px-2 py-0.5 rounded font-mono">
@@ -677,9 +677,9 @@ export const CameraScannerModal = ({
 
                 {/* Consensus Pill — shows leading candidate + vote count */}
                 {consensusCount > 0 && (
-                  <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500 text-black flex items-center gap-1">
+                  <span className="absolute top-2 right-2 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#C76B45] text-white flex items-center gap-1">
                     {candidateDisplay && (
-                      <span className="opacity-70 max-w-[90px] truncate">{candidateDisplay}</span>
+                      <span className="opacity-80 max-w-[90px] truncate">{candidateDisplay}</span>
                     )}
                     <span>{consensusCount}/{REQUIRED_CONSENSUS_FRAMES}</span>
                   </span>
@@ -691,8 +691,8 @@ export const CameraScannerModal = ({
           {/* Starting / Loading Spinner */}
           {isStartingCamera && (
             <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center gap-2">
-              <RefreshCw className="w-7 h-7 text-emerald-400 animate-spin" />
-              <p className="text-xs font-semibold text-stone-300">Starting 1D Camera Scanner...</p>
+              <RefreshCw className="w-7 h-7 text-[#C76B45] animate-spin" />
+              <p className="text-xs font-semibold text-[#DCE8DF]">Starting 1D Camera Scanner...</p>
             </div>
           )}
 
@@ -706,7 +706,7 @@ export const CameraScannerModal = ({
               <button
                 type="button"
                 onClick={() => setShowManualInput(true)}
-                className="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition cursor-pointer"
+                className="px-3.5 py-1.5 rounded-lg bg-[#C76B45] hover:bg-[#B55D37] text-white text-xs font-bold transition cursor-pointer font-heading"
               >
                 Enter Barcode Manually
               </button>
@@ -715,14 +715,14 @@ export const CameraScannerModal = ({
 
           {/* Success Decoded Banner Overlay */}
           {lastScannedCode && (
-            <div className="absolute inset-0 bg-emerald-950/90 flex flex-col items-center justify-center p-6 text-center space-y-2 z-30 animate-in fade-in duration-150">
-              <div className="w-12 h-12 rounded-full bg-emerald-600 flex items-center justify-center text-white shadow-lg">
+            <div className="absolute inset-0 bg-[#26364A]/95 flex flex-col items-center justify-center p-6 text-center space-y-2 z-30 animate-in fade-in duration-150">
+              <div className="w-12 h-12 rounded-full bg-[#39845D] flex items-center justify-center text-white shadow-lg">
                 <CheckCircle2 className="w-7 h-7 stroke-[2.5]" />
               </div>
               <div className="font-mono text-2xl font-black text-white tracking-wider">
                 {lastScannedCode}
               </div>
-              <div className="text-xs text-emerald-300 font-medium">
+              <div className="text-xs text-[#DCE8DF] font-medium">
                 {lastScannedFormat || '1D Barcode'} &bull; Decoded &amp; Validated
               </div>
             </div>
@@ -731,18 +731,18 @@ export const CameraScannerModal = ({
 
         {/* Manual Keyboard Input Accordion */}
         {showManualInput && (
-          <form onSubmit={handleManualSubmit} className="p-3 bg-stone-950 border-t border-stone-800 flex gap-2">
+          <form onSubmit={handleManualSubmit} className="p-3 bg-[#1C2939] border-t border-[#344860] flex gap-2">
             <input
               type="text"
               autoFocus
               value={manualCode}
               onChange={(e) => setManualCode(e.target.value)}
               placeholder="Type product barcode (e.g. 8901030383848)"
-              className="flex-1 px-3 py-1.5 text-xs bg-stone-900 border border-stone-700 rounded-lg text-white font-mono focus:outline-none focus:ring-1 focus:ring-emerald-500"
+              className="flex-1 px-3 py-1.5 text-xs bg-[#26364A] border border-[#344860] rounded-lg text-white font-mono focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
             />
             <button
               type="submit"
-              className="px-4 py-1.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs rounded-lg transition cursor-pointer"
+              className="px-4 py-1.5 bg-[#C76B45] hover:bg-[#B55D37] text-white font-bold text-xs rounded-lg transition cursor-pointer font-heading"
             >
               Submit
             </button>
@@ -750,14 +750,14 @@ export const CameraScannerModal = ({
         )}
 
         {/* Modal Footer Controls */}
-        <div className="p-3.5 bg-stone-950 border-t border-stone-800 flex flex-wrap items-center justify-between gap-2 text-xs">
+        <div className="p-3.5 bg-[#1C2939] border-t border-[#344860] flex flex-wrap items-center justify-between gap-2 text-xs">
           {/* Continuous Toggle */}
-          <label className="flex items-center gap-1.5 cursor-pointer text-stone-300 select-none">
+          <label className="flex items-center gap-1.5 cursor-pointer text-[#DCE8DF] select-none">
             <input
               type="checkbox"
               checked={isContinuous}
               onChange={(e) => setIsContinuous(e.target.checked)}
-              className="rounded border-stone-700 text-emerald-600 focus:ring-emerald-500"
+              className="rounded border-[#344860] text-[#C76B45] focus:ring-[#C76B45]"
             />
             <span>Continuous Scan</span>
           </label>
@@ -775,10 +775,10 @@ export const CameraScannerModal = ({
               type="button"
               onClick={() => fileInputRef.current?.click()}
               disabled={isProcessingFile}
-              className="px-2.5 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300 text-xs font-medium flex items-center gap-1 cursor-pointer transition"
+              className="px-2.5 py-1.5 rounded-lg bg-[#26364A] hover:bg-[#344860] text-[#DCE8DF] text-xs font-medium flex items-center gap-1 cursor-pointer transition border border-[#344860]"
               title="Upload a photo of a barcode"
             >
-              <Upload className="w-3.5 h-3.5 text-emerald-400" />
+              <Upload className="w-3.5 h-3.5 text-[#C76B45]" />
               <span>{isProcessingFile ? 'Analyzing...' : 'Upload'}</span>
             </button>
 
@@ -786,9 +786,9 @@ export const CameraScannerModal = ({
             <button
               type="button"
               onClick={() => setShowManualInput((prev) => !prev)}
-              className="px-2.5 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300 text-xs font-medium flex items-center gap-1 cursor-pointer transition"
+              className="px-2.5 py-1.5 rounded-lg bg-[#26364A] hover:bg-[#344860] text-[#DCE8DF] text-xs font-medium flex items-center gap-1 cursor-pointer transition border border-[#344860]"
             >
-              <Keyboard className="w-3.5 h-3.5 text-emerald-400" />
+              <Keyboard className="w-3.5 h-3.5 text-[#C76B45]" />
               <span>Type</span>
             </button>
 
@@ -797,10 +797,10 @@ export const CameraScannerModal = ({
               <button
                 type="button"
                 onClick={switchCamera}
-                className="px-2.5 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300 text-xs font-medium flex items-center gap-1 cursor-pointer transition"
+                className="px-2.5 py-1.5 rounded-lg bg-[#26364A] hover:bg-[#344860] text-[#DCE8DF] text-xs font-medium flex items-center gap-1 cursor-pointer transition border border-[#344860]"
                 title="Switch camera device"
               >
-                <SwitchCamera className="w-3.5 h-3.5 text-emerald-400" />
+                <SwitchCamera className="w-3.5 h-3.5 text-[#C76B45]" />
                 <span>Switch</span>
               </button>
             )}

@@ -152,56 +152,56 @@ export const ExpiryCalendar = ({
       </div>
 
       {/* Standalone Indicator Note */}
-      <div className="p-3 bg-stone-50 border border-stone-200 rounded-xl text-xs text-stone-600 flex items-center justify-between">
+      <div className="p-3 bg-[#FAF8F4] border border-[#E8E3DA] rounded-xl text-xs text-[#737B83] flex flex-col md:flex-row md:items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <Info className="w-4 h-4 text-emerald-700 shrink-0" />
+          <Info className="w-4 h-4 text-[#C76B45] shrink-0" />
           <span>
             This calendar operates 100% locally from your persistent batch database with zero external Google Calendar credentials needed.
           </span>
         </div>
         <div className="flex items-center gap-3 text-[11px] font-semibold shrink-0">
-          <span className="flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-full bg-rose-500" /> Expired
+          <span className="flex items-center gap-1 text-[#C75A54]">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#C75A54]" /> Expired
           </span>
-          <span className="flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-500" /> ≤7 Days
+          <span className="flex items-center gap-1 text-[#D99A38]">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#D99A38]" /> ≤7 Days
           </span>
-          <span className="flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-full bg-yellow-400" /> ≤30 Days
+          <span className="flex items-center gap-1 text-amber-700">
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-400" /> ≤30 Days
           </span>
-          <span className="flex items-center gap-1">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" /> Fresh
+          <span className="flex items-center gap-1 text-[#39845D]">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#39845D]" /> Fresh
           </span>
         </div>
       </div>
 
       {/* Calendar Grid Container */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-xs overflow-hidden">
+      <div className="bg-white rounded-2xl border border-[#E8E3DA] shadow-xs overflow-hidden">
         {/* Day Header Row */}
-        <div className="grid grid-cols-7 border-b border-stone-200 bg-stone-50 text-center py-2.5 text-xs font-bold text-stone-600 uppercase tracking-wider">
-          <div className="text-rose-600">Sun</div>
+        <div className="grid grid-cols-7 border-b border-[#E8E3DA] bg-[#F6F3EC] text-center py-2.5 text-xs font-bold text-[#26364A] uppercase tracking-wider font-heading">
+          <div className="text-[#C75A54]">Sun</div>
           <div>Mon</div>
           <div>Tue</div>
           <div>Wed</div>
           <div>Thu</div>
           <div>Fri</div>
-          <div className="text-stone-700">Sat</div>
+          <div className="text-[#26364A]">Sat</div>
         </div>
 
         {/* 42 Calendar Cells */}
-        <div className="grid grid-cols-7 divide-x divide-y divide-stone-100">
+        <div className="grid grid-cols-7 divide-x divide-y divide-[#E8E3DA]/60">
           {calendarCells.map((cell, idx) => {
             const isToday = cell.dateStr === todayStr;
             const hasBatches = cell.batches.length > 0;
 
             // Determine highest urgency in this cell
-            let cellBadgeColor = 'bg-emerald-100 text-emerald-900 border-emerald-300';
+            let cellBadgeColor = 'bg-[#DCE8DF] text-[#26364A] border-[#AEC7B4]';
             if (cell.batches.some((b) => b.daysUntilExpiry < 0)) {
-              cellBadgeColor = 'bg-rose-100 text-rose-900 border-rose-300';
+              cellBadgeColor = 'bg-[#C75A54]/15 text-[#C75A54] border-[#C75A54]/30';
             } else if (cell.batches.some((b) => b.daysUntilExpiry <= 7)) {
-              cellBadgeColor = 'bg-amber-100 text-amber-900 border-amber-300';
+              cellBadgeColor = 'bg-[#D99A38]/15 text-[#D99A38] border-[#D99A38]/30';
             } else if (cell.batches.some((b) => b.daysUntilExpiry <= 30)) {
-              cellBadgeColor = 'bg-yellow-100 text-yellow-900 border-yellow-300';
+              cellBadgeColor = 'bg-amber-50 text-amber-800 border-amber-200';
             }
 
             return (
@@ -212,29 +212,29 @@ export const ExpiryCalendar = ({
                   setSelectedDayEvents({ dateStr: cell.dateStr, batches: cell.batches })
                 }
                 className={`min-h-[105px] p-2 flex flex-col justify-between transition ${
-                  cell.isCurrentMonth ? 'bg-white' : 'bg-stone-50/50 text-stone-300'
+                  cell.isCurrentMonth ? 'bg-white' : 'bg-[#F6F3EC]/40 text-[#737B83]/40'
                 } ${
                   hasBatches
-                    ? 'hover:bg-emerald-50/40 cursor-pointer'
+                    ? 'hover:bg-[#FBF0EB]/60 cursor-pointer'
                     : 'cursor-default'
-                } ${isToday ? 'ring-2 ring-emerald-600 ring-inset bg-emerald-50/20' : ''}`}
+                } ${isToday ? 'ring-2 ring-[#C76B45] ring-inset bg-[#FBF0EB]/30' : ''}`}
               >
                 {/* Cell Day Header */}
                 <div className="flex items-center justify-between">
                   <span
                     className={`text-xs font-bold rounded-md px-1.5 py-0.5 ${
                       isToday
-                        ? 'bg-emerald-700 text-white shadow-xs'
+                        ? 'bg-[#C76B45] text-white shadow-xs'
                         : cell.isCurrentMonth
-                        ? 'text-stone-800'
-                        : 'text-stone-400'
+                        ? 'text-[#26364A]'
+                        : 'text-[#737B83]/60'
                     }`}
                   >
                     {cell.dayNum}
                   </span>
 
                   {isToday && (
-                    <span className="text-[10px] uppercase font-bold text-emerald-800 tracking-wider">
+                    <span className="text-[10px] uppercase font-bold text-[#C76B45] tracking-wider font-heading">
                       Today
                     </span>
                   )}
@@ -258,7 +258,7 @@ export const ExpiryCalendar = ({
                   )}
 
                   {cell.batches.length > 1 && (
-                    <div className="text-[9px] text-stone-500 font-mono pl-1 truncate">
+                    <div className="text-[9px] text-[#737B83] font-mono pl-1 truncate">
                       +{cell.batches.length - 1} more lot(s)
                     </div>
                   )}
@@ -271,16 +271,16 @@ export const ExpiryCalendar = ({
 
       {/* Selected Day Event Drawer / Modal */}
       {selectedDayEvents && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full border border-stone-200 shadow-2xl overflow-hidden">
-            <div className="p-4 bg-emerald-800 text-white flex items-center justify-between">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-[#26364A]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-lg w-full border border-[#E8E3DA] shadow-2xl overflow-hidden">
+            <div className="p-4 bg-[#26364A] text-white flex items-center justify-between">
               <div className="flex items-center gap-2.5">
-                <CalendarIcon className="w-5 h-5 text-emerald-200" />
+                <CalendarIcon className="w-5 h-5 text-[#DCE8DF]" />
                 <div>
-                  <h3 className="font-bold text-sm">
+                  <h3 className="font-bold text-sm font-heading">
                     Expiries for {selectedDayEvents.dateStr}
                   </h3>
-                  <p className="text-xs text-emerald-200">
+                  <p className="text-xs text-[#DCE8DF]/80">
                     {selectedDayEvents.batches.length} batch(es) registered for this date
                   </p>
                 </div>
@@ -288,7 +288,7 @@ export const ExpiryCalendar = ({
               <button
                 type="button"
                 onClick={() => setSelectedDayEvents(null)}
-                className="p-1 rounded text-emerald-200 hover:text-white"
+                className="p-1 rounded text-[#DCE8DF] hover:text-white"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -298,40 +298,40 @@ export const ExpiryCalendar = ({
               {selectedDayEvents.batches.map((batch) => (
                 <div
                   key={batch.id}
-                  className="p-3.5 bg-stone-50 rounded-xl border border-stone-200 space-y-2 hover:bg-stone-100 transition"
+                  className="p-3.5 bg-[#FAF8F4] rounded-xl border border-[#E8E3DA] space-y-2 hover:bg-[#F6F3EC] transition"
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <h4 className="font-bold text-stone-900 text-sm">
+                      <h4 className="font-bold text-[#26364A] text-sm font-heading">
                         {batch.productName}
                       </h4>
-                      <div className="text-stone-500 font-mono text-[11px] mt-0.5">
+                      <div className="text-[#737B83] font-mono text-[11px] mt-0.5">
                         Batch: {batch.batchNumber} • Barcode: {batch.barcode}
                       </div>
                     </div>
 
                     <div className="text-right shrink-0">
-                      <div className="font-extrabold text-stone-900 text-sm">
+                      <div className="font-extrabold text-[#26364A] text-sm">
                         {batch.quantity} {batch.unit}
                       </div>
-                      <div className="text-[10px] text-stone-400">
+                      <div className="text-[10px] text-[#737B83]">
                         Received: {batch.initialQuantity}
                       </div>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between pt-2 border-t border-stone-200 text-[11px]">
-                    <span className="text-stone-600">
+                  <div className="flex items-center justify-between pt-2 border-t border-[#E8E3DA] text-[11px]">
+                    <span className="text-[#737B83]">
                       Cost: {settings.currency}{batch.purchasePrice}/{batch.unit} •{' '}
                       {batch.supplier ? `Supplier: ${batch.supplier}` : 'Stock Inward'}
                     </span>
 
                     {batch.daysUntilExpiry < 0 ? (
-                      <span className="px-2 py-0.5 rounded font-bold bg-rose-100 text-rose-800">
+                      <span className="px-2 py-0.5 rounded font-bold bg-[#C75A54]/15 text-[#C75A54] border border-[#C75A54]/30">
                         EXPIRED
                       </span>
                     ) : (
-                      <span className="px-2 py-0.5 rounded font-bold bg-amber-100 text-amber-800">
+                      <span className="px-2 py-0.5 rounded font-bold bg-[#D99A38]/15 text-[#D99A38] border border-[#D99A38]/30">
                         In {batch.daysUntilExpiry} days
                       </span>
                     )}
@@ -340,21 +340,21 @@ export const ExpiryCalendar = ({
               ))}
             </div>
 
-            <div className="p-4 bg-stone-50 border-t border-stone-200 flex justify-between items-center">
+            <div className="p-4 bg-[#F6F3EC] border-t border-[#E8E3DA] flex justify-between items-center">
               <button
                 type="button"
                 onClick={() => {
                   setSelectedDayEvents(null);
                   onNavigateToProducts();
                 }}
-                className="text-xs font-semibold text-emerald-800 hover:underline"
+                className="text-xs font-semibold text-[#C76B45] hover:underline"
               >
                 View in Products Catalog &rarr;
               </button>
               <button
                 type="button"
                 onClick={() => setSelectedDayEvents(null)}
-                className="px-4 py-2 bg-stone-200 hover:bg-stone-300 text-stone-800 font-semibold rounded-lg text-xs cursor-pointer"
+                className="px-4 py-2 bg-white hover:bg-[#E8E3DA] text-[#26364A] font-semibold rounded-lg text-xs cursor-pointer border border-[#E8E3DA]"
               >
                 Close
               </button>

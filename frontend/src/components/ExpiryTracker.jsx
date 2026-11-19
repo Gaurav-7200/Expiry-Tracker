@@ -129,24 +129,24 @@ export const ExpiryTracker = ({
           onClick={() => setActiveTab('expired')}
           className={`p-5 rounded-xl border transition cursor-pointer ${
             activeTab === 'expired'
-              ? 'bg-rose-50/70 border-rose-400 shadow-sm ring-1 ring-rose-400'
-              : 'bg-white border-stone-200 hover:border-rose-300'
+              ? 'bg-[#C75A54]/10 border-[#C75A54] shadow-xs ring-1 ring-[#C75A54]'
+              : 'bg-white border-[#E8E3DA] hover:border-[#C75A54]/50'
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-rose-700 uppercase tracking-wider">
+            <span className="text-xs font-bold text-[#C75A54] uppercase tracking-wider font-heading">
               Expired (Immediate Disposal)
             </span>
-            <AlertOctagon className="w-5 h-5 text-rose-600" />
+            <AlertOctagon className="w-5 h-5 text-[#C75A54]" />
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-extrabold text-rose-800">
+            <div className="text-2xl font-extrabold text-[#C75A54]">
               {expiredBatches.length}{' '}
-              <span className="text-xs font-normal text-rose-600">
+              <span className="text-xs font-normal text-[#C75A54]/80">
                 batch{expiredBatches.length === 1 ? '' : 'es'}
               </span>
             </div>
-            <p className="text-xs text-rose-700 font-medium mt-1">
+            <p className="text-xs text-[#C75A54] font-medium mt-1">
               Estimated write-off loss: {settings.currency}
               {expiredLossValue.toFixed(2)}
             </p>
@@ -158,24 +158,24 @@ export const ExpiryTracker = ({
           onClick={() => setActiveTab('urgent_7')}
           className={`p-5 rounded-xl border transition cursor-pointer ${
             activeTab === 'urgent_7'
-              ? 'bg-amber-50/70 border-amber-400 shadow-sm ring-1 ring-amber-400'
-              : 'bg-white border-stone-200 hover:border-amber-300'
+              ? 'bg-amber-50/70 border-[#D99A38] shadow-xs ring-1 ring-[#D99A38]'
+              : 'bg-white border-[#E8E3DA] hover:border-[#D99A38]/50'
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-amber-700 uppercase tracking-wider">
+            <span className="text-xs font-bold text-[#D99A38] uppercase tracking-wider font-heading">
               Expiring in ≤ 7 Days
             </span>
-            <AlertTriangle className="w-5 h-5 text-amber-600" />
+            <AlertTriangle className="w-5 h-5 text-[#D99A38]" />
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-extrabold text-amber-900">
+            <div className="text-2xl font-extrabold text-[#D99A38]">
               {urgent7Batches.length}{' '}
-              <span className="text-xs font-normal text-amber-700">
+              <span className="text-xs font-normal text-[#D99A38]/80">
                 batch{urgent7Batches.length === 1 ? '' : 'es'}
               </span>
             </div>
-            <p className="text-xs text-amber-700 font-medium mt-1">
+            <p className="text-xs text-[#D99A38] font-medium mt-1">
               Stock at risk: {settings.currency}
               {urgent7AtRiskValue.toFixed(2)} (Prompt discount)
             </p>
@@ -187,24 +187,24 @@ export const ExpiryTracker = ({
           onClick={() => setActiveTab('warning_30')}
           className={`p-5 rounded-xl border transition cursor-pointer ${
             activeTab === 'warning_30'
-              ? 'bg-yellow-50/70 border-yellow-400 shadow-sm ring-1 ring-yellow-400'
-              : 'bg-white border-stone-200 hover:border-yellow-300'
+              ? 'bg-[#FBF0EB] border-[#C76B45] shadow-xs ring-1 ring-[#C76B45]'
+              : 'bg-white border-[#E8E3DA] hover:border-[#C76B45]/50'
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-yellow-800 uppercase tracking-wider">
+            <span className="text-xs font-bold text-[#26364A] uppercase tracking-wider font-heading">
               Expiring in ≤ 30 Days
             </span>
-            <Clock className="w-5 h-5 text-yellow-600" />
+            <Clock className="w-5 h-5 text-[#C76B45]" />
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-extrabold text-stone-900">
+            <div className="text-2xl font-extrabold text-[#26364A]">
               {warning30Batches.length}{' '}
-              <span className="text-xs font-normal text-stone-600">
+              <span className="text-xs font-normal text-[#737B83]">
                 batch{warning30Batches.length === 1 ? '' : 'es'}
               </span>
             </div>
-            <p className="text-xs text-stone-500 font-medium mt-1">
+            <p className="text-xs text-[#737B83] font-medium mt-1">
               Stock value: {settings.currency}
               {warning30AtRiskValue.toFixed(2)}
             </p>
@@ -213,14 +213,14 @@ export const ExpiryTracker = ({
       </div>
 
       {/* Tab Filter Pills */}
-      <div className="flex gap-2 border-b border-stone-200 pb-2">
+      <div className="flex gap-2 border-b border-[#E8E3DA] pb-2 overflow-x-auto no-scrollbar">
         <button
           type="button"
           onClick={() => setActiveTab('expired')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-1.5 font-heading ${
             activeTab === 'expired'
-              ? 'bg-rose-700 text-white shadow-xs'
-              : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
+              ? 'bg-[#C75A54] text-white shadow-xs'
+              : 'bg-white text-[#737B83] hover:text-[#26364A] hover:bg-[#F6F3EC] border border-[#E8E3DA]'
           }`}
         >
           <span>Already Expired ({expiredBatches.length})</span>
@@ -229,10 +229,10 @@ export const ExpiryTracker = ({
         <button
           type="button"
           onClick={() => setActiveTab('urgent_7')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-1.5 font-heading ${
             activeTab === 'urgent_7'
-              ? 'bg-amber-600 text-white shadow-xs'
-              : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
+              ? 'bg-[#D99A38] text-white shadow-xs'
+              : 'bg-white text-[#737B83] hover:text-[#26364A] hover:bg-[#F6F3EC] border border-[#E8E3DA]'
           }`}
         >
           <span>Expiring in 7 Days ({urgent7Batches.length})</span>
@@ -241,10 +241,10 @@ export const ExpiryTracker = ({
         <button
           type="button"
           onClick={() => setActiveTab('warning_30')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-1.5 font-heading ${
             activeTab === 'warning_30'
-              ? 'bg-yellow-600 text-white shadow-xs'
-              : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
+              ? 'bg-[#C76B45] text-white shadow-xs'
+              : 'bg-white text-[#737B83] hover:text-[#26364A] hover:bg-[#F6F3EC] border border-[#E8E3DA]'
           }`}
         >
           <span>Expiring in 30 Days ({warning30Batches.length})</span>
@@ -253,10 +253,10 @@ export const ExpiryTracker = ({
         <button
           type="button"
           onClick={() => setActiveTab('all')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-1.5 ${
+          className={`px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer flex items-center gap-1.5 font-heading ${
             activeTab === 'all'
-              ? 'bg-stone-800 text-white shadow-xs'
-              : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
+              ? 'bg-[#26364A] text-white shadow-xs'
+              : 'bg-white text-[#737B83] hover:text-[#26364A] hover:bg-[#F6F3EC] border border-[#E8E3DA]'
           }`}
         >
           <span>All Active Batches ({activeBatches.length})</span>
@@ -264,22 +264,22 @@ export const ExpiryTracker = ({
       </div>
 
       {/* Expiry Items List */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-xs overflow-hidden">
-        <div className="p-4 bg-stone-50 border-b border-stone-200 flex items-center justify-between">
-          <h3 className="font-bold text-sm text-stone-900">
+      <div className="bg-white rounded-2xl border border-[#E8E3DA] shadow-xs overflow-hidden">
+        <div className="p-4 bg-[#F6F3EC] border-b border-[#E8E3DA] flex items-center justify-between">
+          <h3 className="font-bold text-sm text-[#26364A] font-heading">
             {activeTab === 'expired' && 'Expired Batches (Remove from Shelves)'}
             {activeTab === 'urgent_7' && 'High Urgency Batches (Clearance Sale Needed)'}
             {activeTab === 'warning_30' && 'Watchlist Batches (Approaching 30-Day Window)'}
             {activeTab === 'all' && 'All Batches Chronologically by Expiry Date'}
           </h3>
-          <span className="text-xs text-stone-500 font-mono">
+          <span className="text-xs text-[#737B83] font-mono">
             {displayedBatches.length} record(s)
           </span>
         </div>
 
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-stone-50 border-b border-stone-200 text-stone-600 uppercase text-[11px] font-semibold">
+            <thead className="bg-[#F6F3EC] border-b border-[#E8E3DA] text-[#26364A] uppercase text-[11px] font-semibold font-heading">
               <tr>
                 <th className="py-3 px-4">Product Name & Category</th>
                 <th className="py-3 px-4">Barcode / Batch #</th>
@@ -290,13 +290,13 @@ export const ExpiryTracker = ({
                 <th className="py-3 px-4 text-right">Recommended Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-stone-100">
+            <tbody className="divide-y divide-[#E8E3DA]/60">
               {displayedBatches.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-stone-400">
-                    <CheckCircle className="w-8 h-8 text-emerald-500 mx-auto mb-2" />
-                    <p className="font-semibold text-stone-700">No batches in this category!</p>
-                    <p className="text-[11px] text-stone-400 mt-0.5">
+                  <td colSpan={7} className="py-12 text-center text-[#737B83]">
+                    <CheckCircle className="w-8 h-8 text-[#39845D] mx-auto mb-2" />
+                    <p className="font-semibold text-[#26364A] font-heading">No batches in this category!</p>
+                    <p className="text-[11px] text-[#737B83] mt-0.5">
                       Your inventory in this category is clear.
                     </p>
                   </td>
@@ -306,56 +306,56 @@ export const ExpiryTracker = ({
                   const totalBatchCost = batch.quantity * batch.purchasePrice;
 
                   return (
-                    <tr key={batch.id} className="hover:bg-stone-50/80 transition">
+                    <tr key={batch.id} className="hover:bg-[#F6F3EC]/50 transition">
                       <td className="py-3.5 px-4">
-                        <div className="font-bold text-stone-900">{batch.productName}</div>
-                        <span className="text-[11px] text-stone-500">{batch.category}</span>
+                        <div className="font-bold text-[#26364A] font-heading">{batch.productName}</div>
+                        <span className="text-[11px] text-[#737B83]">{batch.category}</span>
                       </td>
 
                       <td className="py-3.5 px-4 font-mono text-[11px]">
-                        <div className="font-bold text-stone-800">{batch.batchNumber}</div>
-                        <div className="text-stone-400">{batch.barcode}</div>
+                        <div className="font-bold text-[#26364A]">{batch.batchNumber}</div>
+                        <div className="text-[#737B83]">{batch.barcode}</div>
                       </td>
 
                       <td className="py-3.5 px-4">
-                        <div className="font-extrabold text-stone-900">
+                        <div className="font-extrabold text-[#26364A]">
                           {batch.quantity} {batch.unit}
                         </div>
-                        <div className="text-[10px] text-stone-400">
+                        <div className="text-[10px] text-[#737B83]">
                           Total received: {batch.initialQuantity}
                         </div>
                       </td>
 
                       <td className="py-3.5 px-4">
-                        <div className="font-semibold text-stone-900">
+                        <div className="font-semibold text-[#26364A]">
                           {settings.currency}
                           {totalBatchCost.toFixed(2)}
                         </div>
-                        <div className="text-[10px] text-stone-400">
+                        <div className="text-[10px] text-[#737B83]">
                           @{settings.currency}
                           {batch.purchasePrice}/{batch.unit}
                         </div>
                       </td>
 
-                      <td className="py-3.5 px-4 font-bold text-stone-900">
+                      <td className="py-3.5 px-4 font-bold text-[#26364A]">
                         {batch.expiryDate}
                       </td>
 
                       <td className="py-3.5 px-4">
                         {batch.daysUntilExpiry < 0 || batch.status === 'expired' ? (
-                          <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-extrabold bg-rose-100 text-rose-800 border border-rose-200">
+                          <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-extrabold bg-[#C75A54]/15 text-[#C75A54] border border-[#C75A54]/30">
                             EXPIRED ({Math.abs(batch.daysUntilExpiry)} days ago)
                           </span>
                         ) : batch.daysUntilExpiry <= 7 ? (
-                          <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-extrabold bg-amber-100 text-amber-800 border border-amber-200">
+                          <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-extrabold bg-[#D99A38]/15 text-[#D99A38] border border-[#D99A38]/30">
                             Expiring in {batch.daysUntilExpiry} days!
                           </span>
                         ) : batch.daysUntilExpiry <= 30 ? (
-                          <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-semibold bg-yellow-100 text-yellow-800 border border-yellow-200">
+                          <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200">
                             Expiring in {batch.daysUntilExpiry} days
                           </span>
                         ) : (
-                          <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">
+                          <span className="inline-block px-2.5 py-1 rounded-md text-[10px] font-medium bg-[#DCE8DF] text-[#26364A] border border-[#AEC7B4]">
                             Fresh ({batch.daysUntilExpiry} days)
                           </span>
                         )}
@@ -366,18 +366,18 @@ export const ExpiryTracker = ({
                           <button
                             type="button"
                             onClick={() => setDisposeCandidate(batch)}
-                            className="px-3 py-1.5 bg-rose-600 hover:bg-rose-700 text-white rounded-lg font-semibold text-xs transition cursor-pointer shadow-xs inline-flex items-center gap-1.5"
+                            className="px-3 py-1.5 bg-[#C75A54] hover:bg-[#A7443E] text-white rounded-lg font-semibold text-xs transition cursor-pointer shadow-xs inline-flex items-center gap-1.5"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                             Dispose / Write Off
                           </button>
                         ) : batch.daysUntilExpiry <= 7 ? (
-                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-800 bg-amber-50 px-2 py-1 rounded border border-amber-200">
-                            <Tag className="w-3 h-3 text-amber-700" />
+                          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-[#D99A38] bg-amber-50 px-2 py-1 rounded border border-amber-200">
+                            <Tag className="w-3 h-3 text-[#D99A38]" />
                             Recommend 40% Off
                           </span>
                         ) : (
-                          <span className="text-[11px] text-stone-500 font-medium">
+                          <span className="text-[11px] text-[#737B83] font-medium">
                             Normal FIFO shelf rotation
                           </span>
                         )}
@@ -393,23 +393,23 @@ export const ExpiryTracker = ({
 
       {/* In-App Confirmation Modal for Disposal (No window.confirm) */}
       {disposeCandidate && (
-        <div className="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-5 border border-stone-200 shadow-xl space-y-4 text-xs">
-            <div className="flex items-center gap-3 text-rose-600">
-              <div className="p-2.5 bg-rose-100 rounded-full">
-                <Trash2 className="w-5 h-5 text-rose-700" />
+        <div className="fixed inset-0 z-50 bg-[#26364A]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full p-5 border border-[#E8E3DA] shadow-xl space-y-4 text-xs">
+            <div className="flex items-center gap-3 text-[#C75A54]">
+              <div className="p-2.5 bg-[#C75A54]/15 rounded-full">
+                <Trash2 className="w-5 h-5 text-[#C75A54]" />
               </div>
-              <h3 className="font-bold text-base text-stone-900">Confirm Disposal</h3>
+              <h3 className="font-bold text-base text-[#26364A] font-heading">Confirm Disposal</h3>
             </div>
-            <p className="text-stone-600 leading-relaxed">
-              Are you sure you want to dispose expired batch <span className="font-mono font-bold">{disposeCandidate.batchNumber}</span> of <span className="font-bold">"{disposeCandidate.productName}"</span>?
-              Remaining quantity of <span className="font-bold">{disposeCandidate.quantity} {disposeCandidate.unit}</span> will be written off.
+            <p className="text-[#737B83] leading-relaxed">
+              Are you sure you want to dispose expired batch <span className="font-mono font-bold text-[#26364A]">{disposeCandidate.batchNumber}</span> of <span className="font-bold text-[#26364A]">"{disposeCandidate.productName}"</span>?
+              Remaining quantity of <span className="font-bold text-[#26364A]">{disposeCandidate.quantity} {disposeCandidate.unit}</span> will be written off.
             </p>
             <div className="flex justify-end gap-2.5 pt-2">
               <button
                 type="button"
                 onClick={() => setDisposeCandidate(null)}
-                className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg font-semibold transition cursor-pointer"
+                className="px-4 py-2 bg-[#F6F3EC] hover:bg-[#E8E3DA] text-[#26364A] rounded-lg font-semibold transition cursor-pointer border border-[#E8E3DA]"
               >
                 Cancel
               </button>
@@ -417,7 +417,7 @@ export const ExpiryTracker = ({
                 type="button"
                 disabled={isDisposing}
                 onClick={executeDispose}
-                className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg font-semibold transition cursor-pointer"
+                className="px-4 py-2 bg-[#C75A54] hover:bg-[#A7443E] text-white rounded-lg font-semibold transition cursor-pointer"
               >
                 {isDisposing ? 'Disposing...' : 'Yes, Dispose Batch'}
               </button>

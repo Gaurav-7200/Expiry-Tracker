@@ -479,21 +479,21 @@ export const StockIntake = ({
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl p-6 border border-[#E8E3DA] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-xs font-semibold mb-1 border border-emerald-200">
-            <PackagePlus className="w-3.5 h-3.5" /> Inward Inventory Intake
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#DCE8DF] text-[#26364A] text-xs font-semibold mb-1 border border-[#AEC7B4]">
+            <PackagePlus className="w-3.5 h-3.5 text-[#C76B45]" /> Inward Inventory Intake
           </div>
-          <h2 className="text-xl md:text-2xl font-extrabold text-stone-900 tracking-tight">
+          <h2 className="text-xl md:text-2xl font-extrabold text-[#26364A] tracking-tight font-heading">
             Stock Intake & Product Registration
           </h2>
-          <p className="text-xs text-stone-500 mt-0.5">
+          <p className="text-xs text-[#737B83] mt-0.5">
             Scan barcode with camera or USB scanner. Existing products load instantly; new products register seamlessly alongside their first batch.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 text-xs text-stone-600 bg-stone-50 p-2.5 rounded-xl border border-stone-200">
-          <Info className="w-4 h-4 text-emerald-700 shrink-0" />
+        <div className="flex items-center gap-2 text-xs text-[#26364A] bg-[#F6F3EC] p-2.5 rounded-xl border border-[#E8E3DA]">
+          <Info className="w-4 h-4 text-[#C76B45] shrink-0" />
           <span>
             Separate batches keep expiry dates isolated for automated FEFO billing.
           </span>
@@ -501,16 +501,16 @@ export const StockIntake = ({
       </div>
 
       {/* Main Intake Form Card */}
-      <div className="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs">
+      <div className="bg-white rounded-2xl p-6 border border-[#E8E3DA] shadow-xs">
         <form onSubmit={handleFormSubmit} className="space-y-6">
           {/* Step 1: Barcode Scan / Lookup Input */}
           <div className="space-y-2">
-            <label htmlFor="intake-barcode-input" className="text-xs font-bold text-stone-800 uppercase tracking-wider flex items-center justify-between">
+            <label htmlFor="intake-barcode-input" className="text-xs font-bold text-[#26364A] uppercase tracking-wider flex items-center justify-between font-heading">
               <span className="flex items-center gap-1.5">
-                <ScanBarcode className="w-4 h-4 text-emerald-700" />
+                <ScanBarcode className="w-4 h-4 text-[#C76B45]" />
                 Step 1: Scan or Enter Product Barcode
               </span>
-              <span className="text-[11px] font-normal text-stone-600 font-mono">
+              <span className="text-[11px] font-normal text-[#737B83] font-mono">
                 Press Enter or click "Lookup"
               </span>
             </label>
@@ -525,26 +525,26 @@ export const StockIntake = ({
                   onChange={handleBarcodeChange}
                   onKeyDown={handleBarcodeKeyDown}
                   placeholder="Scan barcode with camera or USB scanner (e.g. 8901030383848)..."
-                  className="w-full pl-10 pr-4 py-3 bg-stone-50 border border-stone-300 rounded-xl text-sm font-mono focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent transition"
+                  className="w-full pl-10 pr-4 py-3 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-xl text-sm font-mono text-[#26364A] placeholder-[#737B83] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#C76B45] focus:border-transparent transition"
                 />
-                <ScanBarcode className="w-5 h-5 text-stone-400 absolute left-3 top-3.5" />
+                <ScanBarcode className="w-5 h-5 text-[#737B83] absolute left-3 top-3.5" />
               </div>
 
               {/* Camera Scanner Button */}
               <button
                 type="button"
                 onClick={() => setIsCameraModalOpen(true)}
-                className="px-4 py-3 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-500 hover:to-teal-600 text-white font-bold text-xs rounded-xl transition shadow-md flex items-center gap-2 cursor-pointer shrink-0"
+                className="px-4 py-3 bg-[#26364A] hover:bg-[#344860] text-white font-bold text-xs rounded-xl transition shadow-xs flex items-center gap-2 cursor-pointer shrink-0 border border-[#26364A]"
                 title="Scan barcode with camera"
               >
-                <Camera className="w-4 h-4 text-emerald-200" />
+                <Camera className="w-4 h-4 text-[#DCE8DF]" />
                 <span>Scan</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => void handleLookup(barcode)}
-                className="px-5 py-3 bg-stone-800 hover:bg-stone-900 text-white font-semibold text-xs rounded-xl transition shadow-xs flex items-center gap-2 cursor-pointer shrink-0"
+                className="px-5 py-3 bg-[#C76B45] hover:bg-[#B55D37] text-white font-semibold text-xs rounded-xl transition shadow-xs flex items-center gap-2 cursor-pointer shrink-0 font-heading"
               >
                 <Search className="w-4 h-4" />
                 Lookup
@@ -557,18 +557,18 @@ export const StockIntake = ({
             <div
               className={`p-3.5 rounded-xl text-xs flex items-center gap-2.5 ${
                 statusFeedback.type === 'success'
-                  ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
+                  ? 'bg-[#DCE8DF] text-[#26364A] border border-[#AEC7B4]'
                   : statusFeedback.type === 'info'
-                  ? 'bg-blue-50 text-blue-900 border border-blue-200'
-                  : 'bg-rose-50 text-rose-800 border border-rose-200'
+                  ? 'bg-sky-50 text-sky-900 border border-sky-200'
+                  : 'bg-[#C75A54]/10 text-[#C75A54] border border-[#C75A54]/25'
               }`}
             >
               {statusFeedback.type === 'success' ? (
-                <CheckCircle className="w-4 h-4 shrink-0 text-emerald-600" />
+                <CheckCircle className="w-4 h-4 shrink-0 text-[#39845D]" />
               ) : statusFeedback.type === 'info' ? (
-                <Info className="w-4 h-4 shrink-0 text-blue-600" />
+                <Info className="w-4 h-4 shrink-0 text-sky-600" />
               ) : (
-                <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
+                <AlertCircle className="w-4 h-4 shrink-0 text-[#C75A54]" />
               )}
               <span className="font-semibold">{statusFeedback.message}</span>
             </div>
@@ -576,35 +576,35 @@ export const StockIntake = ({
 
           {/* CASE A: Product Found -> Read-only Card with "Edit product details" link */}
           {lookedUpProduct && (
-            <div className="p-4 bg-emerald-50/80 border border-emerald-200 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div className="p-4 bg-[#FAF8F4] border border-[#E8E3DA] rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-3">
               <div className="flex items-start gap-3">
                 {lookedUpProduct.imageUrl ? (
                   <img
                     src={lookedUpProduct.imageUrl}
                     alt={lookedUpProduct.name}
                     loading="lazy"
-                    className="w-12 h-12 rounded-xl object-cover border border-emerald-300 shrink-0 bg-white shadow-2xs"
+                    className="w-12 h-12 rounded-xl object-cover border border-[#E8E3DA] shrink-0 bg-white shadow-2xs"
                   />
                 ) : (
-                  <div className="p-2.5 bg-emerald-100 rounded-lg text-emerald-800 shrink-0">
-                    <CheckCircle className="w-5 h-5" />
+                  <div className="p-2.5 bg-[#DCE8DF] rounded-lg text-[#26364A] shrink-0">
+                    <CheckCircle className="w-5 h-5 text-[#39845D]" />
                   </div>
                 )}
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-200 text-emerald-900 uppercase">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#DCE8DF] text-[#26364A] border border-[#AEC7B4] uppercase">
                       Existing Product Found
                     </span>
-                    <span className="text-xs font-mono text-stone-500">
+                    <span className="text-xs font-mono text-[#737B83]">
                       ID: {lookedUpProduct.id}
                     </span>
                   </div>
-                  <h4 className="font-bold text-base text-stone-900 mt-1">
+                  <h4 className="font-bold text-base text-[#26364A] mt-1 font-heading">
                     {lookedUpProduct.name}
                   </h4>
-                  <p className="text-xs text-stone-600 mt-0.5">
-                    Category: <span className="font-semibold">{lookedUpProduct.category}</span> • Selling Price:{' '}
-                    <span className="font-semibold">
+                  <p className="text-xs text-[#737B83] mt-0.5">
+                    Category: <span className="font-semibold text-[#26364A]">{lookedUpProduct.category}</span> • Selling Price:{' '}
+                    <span className="font-semibold text-[#26364A]">
                       {settings.currency}
                       {lookedUpProduct.sellingPrice}
                     </span>{' '}
@@ -614,7 +614,7 @@ export const StockIntake = ({
                   <button
                     type="button"
                     onClick={() => onNavigateToEditProduct?.(lookedUpProduct.id)}
-                    className="inline-flex items-center gap-1 mt-2 text-xs text-emerald-800 hover:text-emerald-950 font-bold underline cursor-pointer"
+                    className="inline-flex items-center gap-1 mt-2 text-xs text-[#C76B45] hover:text-[#B55D37] font-bold underline cursor-pointer"
                   >
                     <Edit2 className="w-3.5 h-3.5" />
                     <span>Edit product details in catalog</span>
@@ -622,20 +622,20 @@ export const StockIntake = ({
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 bg-white p-3 rounded-lg border border-emerald-200 text-right self-start md:self-center">
+              <div className="flex items-center gap-4 bg-white p-3 rounded-lg border border-[#E8E3DA] text-right self-start md:self-center">
                 <div>
-                  <span className="text-[10px] uppercase font-semibold text-stone-600 block">
+                  <span className="text-[10px] uppercase font-semibold text-[#737B83] block">
                     Current Active Stock
                   </span>
-                  <span className="text-lg font-extrabold text-emerald-800">
+                  <span className="text-lg font-extrabold text-[#39845D]">
                     {lookedUpProduct.availableStock ?? 0} {lookedUpProduct.unit}
                   </span>
                 </div>
-                <div className="border-l border-stone-200 pl-3">
-                  <span className="text-[10px] uppercase font-semibold text-stone-600 block">
+                <div className="border-l border-[#E8E3DA] pl-3">
+                  <span className="text-[10px] uppercase font-semibold text-[#737B83] block">
                     Existing Batches
                   </span>
-                  <span className="text-lg font-bold text-stone-700">
+                  <span className="text-lg font-bold text-[#26364A]">
                     {lookedUpProduct.batchesCount ?? (lookedUpProduct.batches?.length || 0)}
                   </span>
                 </div>
@@ -645,16 +645,16 @@ export const StockIntake = ({
 
           {/* CASE B: Product NOT Found -> "New Product" Registration Section */}
           {isNewProductMode && (
-            <div className="p-4 bg-amber-50/80 border border-amber-200 rounded-xl space-y-4">
+            <div className="p-4 bg-[#FAF8F4] border border-[#E8E3DA] rounded-xl space-y-4">
               <div className="flex items-start gap-3">
-                <div className="p-2 bg-amber-100 rounded-lg text-amber-800 shrink-0">
-                  <Sparkles className="w-5 h-5" />
+                <div className="p-2 bg-[#FBF0EB] rounded-lg text-[#C76B45] shrink-0 border border-[#E8E3DA]">
+                  <Sparkles className="w-5 h-5 text-[#C76B45]" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-sm text-amber-950">
-                    New Product Barcode: <span className="font-mono">{barcode}</span>
+                  <h4 className="font-bold text-sm text-[#26364A] font-heading">
+                    New Product Barcode: <span className="font-mono text-[#C76B45]">{barcode}</span>
                   </h4>
-                  <p className="text-xs text-amber-800 mt-0.5">
+                  <p className="text-xs text-[#737B83] mt-0.5">
                     This barcode does not exist in your catalog yet. Fill in product details below to register it.
                   </p>
                 </div>
@@ -663,7 +663,7 @@ export const StockIntake = ({
               {/* New Product Fields Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-2">
                 <div className="sm:col-span-2">
-                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#26364A] block mb-1">
                     Product Title *
                   </label>
                   <input
@@ -673,18 +673,18 @@ export const StockIntake = ({
                     value={newName}
                     onChange={(e) => setNewName(e.target.value)}
                     placeholder="e.g. Organic Brown Basmati Rice 5kg"
-                    className="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#26364A] block mb-1">
                     Category *
                   </label>
                   <select
                     value={newCategory}
                     onChange={(e) => setNewCategory(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
                   >
                     {CATEGORIES.map((cat) => (
                       <option key={cat} value={cat}>
@@ -695,13 +695,13 @@ export const StockIntake = ({
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#26364A] block mb-1">
                     Unit of Measurement *
                   </label>
                   <select
                     value={newUnit}
                     onChange={(e) => setNewUnit(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
                   >
                     {UNITS.map((u) => (
                       <option key={u} value={u}>
@@ -712,7 +712,7 @@ export const StockIntake = ({
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#26364A] block mb-1">
                     Pack Size Variant (Optional)
                   </label>
                   <input
@@ -720,19 +720,19 @@ export const StockIntake = ({
                     value={newPackSize}
                     onChange={(e) => setNewPackSize(e.target.value)}
                     placeholder="e.g. 1 kg, 2 kg, 500 g, 1 L"
-                    className="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
                   />
-                  <span className="text-[10px] text-stone-400">Retail packaging size shown in POS</span>
+                  <span className="text-[10px] text-[#737B83]">Retail packaging size shown in POS</span>
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#26364A] block mb-1">
                     Product Family (Optional)
                   </label>
                   <select
                     value={newParentProductId}
                     onChange={(e) => setNewParentProductId(e.target.value)}
-                    className="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
                   >
                     <option value="">None (Independent Product)</option>
                     {products
@@ -743,11 +743,11 @@ export const StockIntake = ({
                         </option>
                       ))}
                   </select>
-                  <span className="text-[10px] text-stone-400">Group under an existing product card</span>
+                  <span className="text-[10px] text-[#737B83]">Group under an existing product card</span>
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#26364A] block mb-1">
                     Selling Price ({settings.currency}) *
                   </label>
                   <input
@@ -757,12 +757,12 @@ export const StockIntake = ({
                     value={newSellingPrice}
                     onChange={(e) => setNewSellingPrice(e.target.value)}
                     placeholder="120"
-                    className="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs font-bold focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-[#E8E3DA] rounded-lg text-xs font-bold text-[#26364A] focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#26364A] block mb-1">
                     MRP ({settings.currency})
                   </label>
                   <input
@@ -771,12 +771,12 @@ export const StockIntake = ({
                     value={newMrp}
                     onChange={(e) => setNewMrp(e.target.value)}
                     placeholder="140"
-                    className="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#26364A] block mb-1">
                     Reorder Alert Level
                   </label>
                   <input
@@ -784,12 +784,12 @@ export const StockIntake = ({
                     value={newReorderLevel}
                     onChange={(e) => setNewReorderLevel(e.target.value)}
                     placeholder="10"
-                    className="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
                   />
                 </div>
 
                 <div className="sm:col-span-2 lg:col-span-3">
-                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#26364A] block mb-1">
                     Description / Specification
                   </label>
                   <input
@@ -797,17 +797,17 @@ export const StockIntake = ({
                     value={newDescription}
                     onChange={(e) => setNewDescription(e.target.value)}
                     placeholder="Packaging notes, grade, or brand description..."
-                    className="w-full px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-3 py-2 bg-white border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
                   />
                 </div>
 
                 <div className="sm:col-span-2 lg:col-span-3 pt-1">
-                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#26364A] block mb-1">
                     Product Image (Optional)
                   </label>
                   <div className="flex items-center gap-3">
                     {newImageUrl ? (
-                      <div className="relative w-14 h-14 rounded-xl border border-stone-200 overflow-hidden bg-white shrink-0 shadow-2xs">
+                      <div className="relative w-14 h-14 rounded-xl border border-[#E8E3DA] overflow-hidden bg-white shrink-0 shadow-2xs">
                         <img
                           src={newImageUrl}
                           alt="Preview"
@@ -815,8 +815,8 @@ export const StockIntake = ({
                         />
                       </div>
                     ) : (
-                      <div className="w-14 h-14 rounded-xl border border-dashed border-stone-300 bg-stone-50 flex items-center justify-center text-stone-400 shrink-0">
-                        <ImageIcon className="w-6 h-6 text-stone-300" />
+                      <div className="w-14 h-14 rounded-xl border border-dashed border-[#E8E3DA] bg-[#F6F3EC] flex items-center justify-center text-[#737B83] shrink-0">
+                        <ImageIcon className="w-6 h-6 text-[#737B83]/50" />
                       </div>
                     )}
 
@@ -831,21 +831,21 @@ export const StockIntake = ({
                       />
                       <label
                         htmlFor="intake-image-upload"
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white hover:bg-stone-50 active:bg-stone-100 text-stone-700 text-xs font-semibold rounded-lg cursor-pointer border border-stone-300 transition shadow-2xs"
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#F6F3EC] hover:bg-[#E8E3DA] active:bg-[#E8E3DA] text-[#26364A] text-xs font-semibold rounded-lg cursor-pointer border border-[#E8E3DA] transition shadow-2xs"
                       >
-                        <Camera className="w-3.5 h-3.5 text-emerald-700" />
+                        <Camera className="w-3.5 h-3.5 text-[#C76B45]" />
                         <span>{newImageUrl ? 'Change photo' : 'Upload or take photo'}</span>
                       </label>
                       {newImageUrl && (
                         <button
                           type="button"
                           onClick={handleRemoveImage}
-                          className="block text-[11px] text-rose-600 hover:text-rose-800 font-semibold cursor-pointer"
+                          className="block text-[11px] text-[#C75A54] hover:text-[#A7443E] font-semibold cursor-pointer"
                         >
                           Remove image
                         </button>
                       )}
-                      <p className="text-[10px] text-stone-400">
+                      <p className="text-[10px] text-[#737B83]">
                         Max 300px auto-resized JPEG
                       </p>
                     </div>
@@ -857,16 +857,16 @@ export const StockIntake = ({
 
           {/* Step 2: Batch Information (shown when product is found OR when registering a new product) */}
           {(lookedUpProduct || isNewProductMode) && (
-            <div className="space-y-4 pt-2 border-t border-stone-200">
-              <h3 className="text-xs font-bold text-stone-800 uppercase tracking-wider flex items-center gap-1.5">
-                <Layers className="w-4 h-4 text-emerald-700" />
+            <div className="space-y-4 pt-2 border-t border-[#E8E3DA]">
+              <h3 className="text-xs font-bold text-[#26364A] uppercase tracking-wider flex items-center gap-1.5 font-heading">
+                <Layers className="w-4 h-4 text-[#C76B45]" />
                 Step 2: Enter Batch & Expiry Details
               </h3>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {/* Batch Number */}
                 <div>
-                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#26364A] block mb-1">
                     Batch Number / Lot Code *
                   </label>
                   <input
@@ -876,13 +876,13 @@ export const StockIntake = ({
                     value={batchNumber}
                     onChange={(e) => setBatchNumber(e.target.value)}
                     placeholder="e.g. BATCH-OCT26-01"
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg text-xs font-mono focus:bg-white focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-xs font-mono text-[#26364A] focus:bg-white focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
                   />
                 </div>
 
                 {/* Quantity */}
                 <div>
-                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#26364A] block mb-1">
                     Received Quantity *
                   </label>
                   <input
@@ -893,13 +893,13 @@ export const StockIntake = ({
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
                     placeholder="e.g. 50"
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg text-xs font-bold focus:bg-white focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-xs font-bold text-[#26364A] focus:bg-white focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
                   />
                 </div>
 
                 {/* Purchase Cost */}
                 <div>
-                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#26364A] block mb-1">
                     Purchase Price / Unit ({settings.currency})
                   </label>
                   <input
@@ -908,13 +908,13 @@ export const StockIntake = ({
                     value={purchasePrice}
                     onChange={(e) => setPurchasePrice(e.target.value)}
                     placeholder="Cost per unit"
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg text-xs focus:bg-white focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] focus:bg-white focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
                   />
                 </div>
 
                 {/* Purchase Date */}
                 <div>
-                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#26364A] block mb-1">
                     Inward / Purchase Date *
                   </label>
                   <input
@@ -922,22 +922,22 @@ export const StockIntake = ({
                     required
                     value={purchaseDate}
                     onChange={(e) => setPurchaseDate(e.target.value)}
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg text-xs focus:bg-white focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] focus:bg-white focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
                   />
                 </div>
               </div>
 
               {/* Expiry Date Section */}
-              <div className="bg-stone-50 p-4 rounded-xl border border-stone-200 space-y-3">
+              <div className="bg-[#FAF8F4] p-4 rounded-xl border border-[#E8E3DA] space-y-3">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <label className="text-xs font-bold text-stone-800 flex items-center gap-1.5">
-                    <Calendar className="w-4 h-4 text-emerald-700" />
+                  <label className="text-xs font-bold text-[#26364A] flex items-center gap-1.5 font-heading">
+                    <Calendar className="w-4 h-4 text-[#C76B45]" />
                     Expiration Date (Critical for FEFO Engine) *
                   </label>
 
                   {/* Quick Expiry Shortcuts */}
                   <div className="flex items-center gap-1.5 text-[11px]">
-                    <span className="text-stone-500 text-[10px] font-medium mr-1">Quick Select:</span>
+                    <span className="text-[#737B83] text-[10px] font-medium mr-1">Quick Select:</span>
                     {[
                       { days: 30, label: '1 Mo' },
                       { days: 90, label: '3 Mo' },
@@ -949,7 +949,7 @@ export const StockIntake = ({
                         key={btn.days}
                         type="button"
                         onClick={() => handleQuickExpiry(btn.days)}
-                        className="px-2 py-0.5 bg-white hover:bg-emerald-50 text-stone-700 hover:text-emerald-800 border border-stone-300 rounded font-medium transition cursor-pointer"
+                        className="px-2 py-0.5 bg-white hover:bg-[#FBF0EB] text-[#26364A] hover:text-[#C76B45] border border-[#E8E3DA] hover:border-[#C76B45] rounded font-medium transition cursor-pointer"
                       >
                         {btn.label}
                       </button>
@@ -962,14 +962,14 @@ export const StockIntake = ({
                   required
                   value={expiryDate}
                   onChange={(e) => setExpiryDate(e.target.value)}
-                  className="w-full sm:w-64 px-3 py-2 bg-white border border-stone-300 rounded-lg text-xs font-bold focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                  className="w-full sm:w-64 px-3 py-2 bg-white border border-[#E8E3DA] rounded-lg text-xs font-bold text-[#26364A] focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
                 />
               </div>
 
               {/* Supplier & Notes */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#26364A] block mb-1">
                     Supplier / Vendor
                   </label>
                   <input
@@ -977,12 +977,12 @@ export const StockIntake = ({
                     value={supplier}
                     onChange={(e) => setSupplier(e.target.value)}
                     placeholder="e.g. Metro Cash & Carry, Local Mill"
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg text-xs focus:bg-white focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] focus:bg-white focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="text-xs font-semibold text-stone-700 block mb-1">
+                  <label className="text-xs font-semibold text-[#26364A] block mb-1">
                     Storage Rack / Notes
                   </label>
                   <input
@@ -990,7 +990,7 @@ export const StockIntake = ({
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     placeholder="e.g. Aisle 3, Shelf B"
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg text-xs focus:bg-white focus:ring-1 focus:ring-emerald-600 focus:outline-none"
+                    className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] focus:bg-white focus:ring-1 focus:ring-[#C76B45] focus:outline-none"
                   />
                 </div>
               </div>
@@ -1006,12 +1006,12 @@ export const StockIntake = ({
                 disabled={loading || !barcode.trim() || !newName.trim()}
                 className={`px-5 py-3 rounded-xl font-bold text-xs border transition cursor-pointer flex items-center justify-center gap-2 ${
                   loading || !barcode.trim() || !newName.trim()
-                    ? 'border-stone-200 text-stone-400 bg-stone-100 cursor-not-allowed'
-                    : 'border-stone-300 text-stone-800 bg-white hover:bg-stone-50 active:bg-stone-100 shadow-xs'
+                    ? 'border-[#E8E3DA] text-[#737B83]/60 bg-[#F6F3EC] cursor-not-allowed'
+                    : 'border-[#E8E3DA] text-[#26364A] bg-white hover:bg-[#F6F3EC] active:bg-[#E8E3DA] shadow-xs'
                 }`}
                 title="Register this product now without creating an initial stock batch"
               >
-                <Package className="w-4 h-4 text-stone-600" />
+                <Package className="w-4 h-4 text-[#737B83]" />
                 <span>Save product only</span>
               </button>
             )}
@@ -1019,22 +1019,22 @@ export const StockIntake = ({
             <button
               type="submit"
               disabled={loading || !barcode.trim() || (!lookedUpProduct && !isNewProductMode)}
-              className={`px-6 py-3 rounded-xl font-bold text-sm text-white shadow-sm transition flex items-center justify-center gap-2 cursor-pointer ${
+              className={`px-6 py-3 rounded-xl font-bold text-sm text-white shadow-xs transition flex items-center justify-center gap-2 cursor-pointer font-heading ${
                 loading || !barcode.trim() || (!lookedUpProduct && !isNewProductMode)
-                  ? 'bg-stone-300 cursor-not-allowed opacity-75'
-                  : 'bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900'
+                  ? 'bg-[#E8E3DA] text-[#737B83] cursor-not-allowed opacity-75'
+                  : 'bg-[#C76B45] hover:bg-[#B55D37] active:bg-[#C76B45]'
               }`}
             >
               {loading ? (
                 <span>Processing Inward Stock...</span>
               ) : isNewProductMode ? (
                 <>
-                  <PackagePlus className="w-4 h-4 text-emerald-200" />
+                  <PackagePlus className="w-4 h-4 text-white/90" />
                   <span>Save product and add stock</span>
                 </>
               ) : (
                 <>
-                  <PackagePlus className="w-4 h-4 text-emerald-200" />
+                  <PackagePlus className="w-4 h-4 text-white/90" />
                   <span>Receive Stock & Add Batch</span>
                 </>
               )}
@@ -1045,32 +1045,32 @@ export const StockIntake = ({
 
       {/* Session Inward Receiving History */}
       {receivedHistory.length > 0 && (
-        <div className="bg-white rounded-2xl border border-stone-200 shadow-xs overflow-hidden">
-          <div className="p-4 bg-stone-50 border-b border-stone-200 flex items-center justify-between">
-            <h3 className="font-bold text-sm text-stone-900">
+        <div className="bg-white rounded-2xl border border-[#E8E3DA] shadow-xs overflow-hidden">
+          <div className="p-4 bg-[#F6F3EC] border-b border-[#E8E3DA] flex items-center justify-between">
+            <h3 className="font-bold text-sm text-[#26364A] font-heading">
               Stock Batches Received This Session ({receivedHistory.length})
             </h3>
-            <span className="text-[11px] text-stone-500">Live Intake Log</span>
+            <span className="text-[11px] text-[#737B83]">Live Intake Log</span>
           </div>
 
-          <div className="divide-y divide-stone-100">
+          <div className="divide-y divide-[#E8E3DA]/60">
             {receivedHistory.map((item, idx) => (
               <div
                 key={idx}
-                className="p-3.5 hover:bg-stone-50 transition flex items-center justify-between gap-3 text-xs"
+                className="p-3.5 hover:bg-[#F6F3EC]/50 transition flex items-center justify-between gap-3 text-xs"
               >
                 <div>
-                  <div className="font-semibold text-stone-900">{item.productName}</div>
-                  <div className="text-[11px] text-stone-500 mt-0.5 font-mono">
+                  <div className="font-semibold text-[#26364A] font-heading">{item.productName}</div>
+                  <div className="text-[11px] text-[#737B83] mt-0.5 font-mono">
                     Barcode: {item.barcode} • Batch: {item.batchNumber} • Expiry: {item.expiryDate}
                   </div>
                 </div>
 
                 <div className="text-right">
-                  <div className="font-extrabold text-emerald-800">
+                  <div className="font-extrabold text-[#39845D]">
                     +{item.quantity} {item.unit}
                   </div>
-                  <div className="text-[10px] text-stone-400">{item.time}</div>
+                  <div className="text-[10px] text-[#737B83]">{item.time}</div>
                 </div>
               </div>
             ))}

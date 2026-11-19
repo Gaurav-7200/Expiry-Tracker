@@ -142,7 +142,7 @@ export const StoreSettings = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             <div>
-              <label className="font-semibold text-stone-700 block mb-1">
+              <label className="font-semibold text-[#26364A] block mb-1">
                 Store / Company Name *
               </label>
               <input
@@ -150,24 +150,24 @@ export const StoreSettings = ({
                 required
                 value={formData.storeName}
                 onChange={(e) => handleChange('storeName', e.target.value)}
-                className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 font-semibold"
+                className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45] font-semibold"
               />
             </div>
 
             <div>
-              <label className="font-semibold text-stone-700 block mb-1">
+              <label className="font-semibold text-[#26364A] block mb-1">
                 Tagline / Subheading
               </label>
               <input
                 type="text"
                 value={formData.tagline}
                 onChange={(e) => handleChange('tagline', e.target.value)}
-                className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
               />
             </div>
 
             <div className="sm:col-span-2">
-              <label className="font-semibold text-stone-700 block mb-1">
+              <label className="font-semibold text-[#26364A] block mb-1">
                 Physical Store Address *
               </label>
               <input
@@ -175,48 +175,48 @@ export const StoreSettings = ({
                 required
                 value={formData.address}
                 onChange={(e) => handleChange('address', e.target.value)}
-                className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
               />
             </div>
 
             <div>
-              <label className="font-semibold text-stone-700 block mb-1">
+              <label className="font-semibold text-[#26364A] block mb-1">
                 Store Contact Phone
               </label>
               <input
                 type="text"
                 value={formData.phone}
                 onChange={(e) => handleChange('phone', e.target.value)}
-                className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
               />
             </div>
 
             <div>
-              <label className="font-semibold text-stone-700 block mb-1">
+              <label className="font-semibold text-[#26364A] block mb-1">
                 Billing Support Email
               </label>
               <input
                 type="email"
                 value={formData.email}
                 onChange={(e) => handleChange('email', e.target.value)}
-                className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
               />
             </div>
 
             <div>
-              <label className="font-semibold text-stone-700 block mb-1">
+              <label className="font-semibold text-[#26364A] block mb-1">
                 Tax Identification Number (GSTIN / VAT ID)
               </label>
               <input
                 type="text"
                 value={formData.gstNumber}
                 onChange={(e) => handleChange('gstNumber', e.target.value)}
-                className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg font-mono focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg font-mono text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
               />
             </div>
 
             <div>
-              <label className="font-semibold text-stone-700 block mb-1">
+              <label className="font-semibold text-[#26364A] block mb-1">
                 Default Low-Stock Threshold
               </label>
               <input
@@ -224,22 +224,22 @@ export const StoreSettings = ({
                 min="1"
                 value={formData.lowStockThreshold}
                 onChange={(e) => handleChange('lowStockThreshold', parseInt(e.target.value) || 10)}
-                className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
               />
             </div>
           </div>
         </div>
 
         {/* Financial & Currency Settings */}
-        <div className="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs space-y-4">
-          <h3 className="text-xs font-bold text-stone-800 uppercase tracking-wider flex items-center gap-2">
-            <DollarSign className="w-4 h-4 text-emerald-700" />
+        <div className="bg-white rounded-2xl p-6 border border-[#E8E3DA] shadow-xs space-y-4">
+          <h3 className="text-xs font-bold text-[#26364A] uppercase tracking-wider flex items-center gap-2 font-heading">
+            <DollarSign className="w-4 h-4 text-[#C76B45]" />
             Financial & Tax Settings
           </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
             <div>
-              <label className="font-semibold text-stone-700 block mb-1">
+              <label className="font-semibold text-[#26364A] block mb-1">
                 Display Currency
               </label>
               <select
@@ -249,7 +249,7 @@ export const StoreSettings = ({
                   handleChange('currency', e.target.value);
                   if (sel) handleChange('currencyCode', sel.code);
                 }}
-                className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 font-bold"
+                className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45] font-bold"
               >
                 {CURRENCIES.map((c) => (
                   <option key={c.code} value={c.symbol}>
@@ -260,7 +260,7 @@ export const StoreSettings = ({
             </div>
 
             <div>
-              <label className="font-semibold text-stone-700 block mb-1">
+              <label className="font-semibold text-[#26364A] block mb-1">
                 Tax Enabled on POS Billing
               </label>
               <div className="flex items-center gap-2 mt-2">
@@ -269,16 +269,16 @@ export const StoreSettings = ({
                   id="tax-toggle"
                   checked={formData.taxEnabled}
                   onChange={(e) => handleChange('taxEnabled', e.target.checked)}
-                  className="w-4 h-4 text-emerald-600 rounded border-stone-300 focus:ring-emerald-500"
+                  className="w-4 h-4 text-[#C76B45] rounded border-[#E8E3DA] focus:ring-[#C76B45]"
                 />
-                <label htmlFor="tax-toggle" className="text-xs text-stone-700 font-medium">
+                <label htmlFor="tax-toggle" className="text-xs text-[#26364A] font-medium">
                   Calculate and print tax on checkout
                 </label>
               </div>
             </div>
 
             <div>
-              <label className="font-semibold text-stone-700 block mb-1">
+              <label className="font-semibold text-[#26364A] block mb-1">
                 Tax Rate (%)
               </label>
               <input
@@ -289,19 +289,19 @@ export const StoreSettings = ({
                 disabled={!formData.taxEnabled}
                 value={formData.taxRate}
                 onChange={(e) => handleChange('taxRate', parseFloat(e.target.value) || 0)}
-                className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 disabled:opacity-50"
+                className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45] disabled:opacity-50"
               />
             </div>
 
             <div className="sm:col-span-3">
-              <label className="font-semibold text-stone-700 block mb-1">
+              <label className="font-semibold text-[#26364A] block mb-1">
                 Printed Receipt Footer Notice
               </label>
               <textarea
                 rows={2}
                 value={formData.receiptFooter}
                 onChange={(e) => handleChange('receiptFooter', e.target.value)}
-                className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
               />
             </div>
           </div>
@@ -311,8 +311,8 @@ export const StoreSettings = ({
         <div className="flex items-center justify-between">
           <div>
             {saveSuccess && (
-              <span className="inline-flex items-center gap-1.5 text-xs text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200">
-                <CheckCircle className="w-4 h-4 text-emerald-600" /> Settings updated successfully!
+              <span className="inline-flex items-center gap-1.5 text-xs text-[#26364A] bg-[#DCE8DF] px-3 py-1.5 rounded-lg border border-[#AEC7B4]">
+                <CheckCircle className="w-4 h-4 text-[#39845D]" /> Settings updated successfully!
               </span>
             )}
           </div>
@@ -320,41 +320,41 @@ export const StoreSettings = ({
           <button
             type="submit"
             disabled={isSaving}
-            className="px-6 py-2.5 bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white font-bold text-xs rounded-xl shadow-xs transition flex items-center gap-2 cursor-pointer"
+            className="px-6 py-2.5 bg-[#C76B45] hover:bg-[#B55D37] active:bg-[#C76B45] text-white font-bold text-xs rounded-xl shadow-xs transition flex items-center gap-2 cursor-pointer font-heading"
           >
-            <Save className="w-4 h-4 text-emerald-200" />
+            <Save className="w-4 h-4 text-white" />
             {isSaving ? 'Saving Changes...' : 'Save Settings'}
           </button>
         </div>
       </form>
 
       {/* Database & Technical Architecture Documentation Card */}
-      <div className="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs space-y-4 text-xs">
-        <h3 className="font-bold text-stone-800 uppercase tracking-wider flex items-center gap-2">
-          <Server className="w-4 h-4 text-emerald-700" />
+      <div className="bg-white rounded-2xl p-6 border border-[#E8E3DA] shadow-xs space-y-4 text-xs">
+        <h3 className="font-bold text-[#26364A] uppercase tracking-wider flex items-center gap-2 font-heading">
+          <Server className="w-4 h-4 text-[#C76B45]" />
           Technical Architecture & External Integrations Guide
         </h3>
 
-        <div className="space-y-3 text-stone-600 leading-relaxed">
-          <div className="p-3.5 bg-stone-50 rounded-xl border border-stone-200 space-y-1.5">
-            <div className="font-bold text-stone-900 flex items-center gap-1.5">
-              <Database className="w-4 h-4 text-emerald-700" /> Persistent Storage
+        <div className="space-y-3 text-[#737B83] leading-relaxed">
+          <div className="p-3.5 bg-[#FAF8F4] rounded-xl border border-[#E8E3DA] space-y-1.5">
+            <div className="font-bold text-[#26364A] flex items-center gap-1.5 font-heading">
+              <Database className="w-4 h-4 text-[#C76B45]" /> Persistent Storage
             </div>
             <p>
               StockWise currently runs with a robust, persistent JSON file storage engine at{' '}
-              <code className="text-emerald-800 font-mono bg-emerald-50 px-1 py-0.5 rounded">
+              <code className="text-[#C76B45] font-mono bg-[#FBF0EB] px-1 py-0.5 rounded border border-[#E8E3DA]">
                 data/stockwise-db.json
               </code>{' '}
               with atomic rename writes. It prevents negative stock, maintains separate batch records, and persists across reloads.
             </p>
-            <p className="text-[11px] text-stone-500">
+            <p className="text-[11px] text-[#737B83]">
               To connect external databases (like MongoDB Atlas or Cloud SQL PostgreSQL), set the connection string in your environment variables.
             </p>
           </div>
 
-          <div className="p-3.5 bg-stone-50 rounded-xl border border-stone-200 space-y-1.5">
-            <div className="font-bold text-stone-900 flex items-center gap-1.5">
-              <Calendar className="w-4 h-4 text-emerald-700" /> Standalone Expiry Calendar
+          <div className="p-3.5 bg-[#FAF8F4] rounded-xl border border-[#E8E3DA] space-y-1.5">
+            <div className="font-bold text-[#26364A] flex items-center gap-1.5 font-heading">
+              <Calendar className="w-4 h-4 text-[#C76B45]" /> Standalone Expiry Calendar
             </div>
             <p>
               The built-in interactive monthly expiry calendar runs standalone without requiring external Google Calendar API keys or OAuth credentials. All batch dates are computed locally from real dates in the database.
@@ -364,24 +364,24 @@ export const StoreSettings = ({
 
         {/* Feedback messages */}
         {errorMessage && (
-          <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 text-xs flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
+          <div className="p-3 bg-[#C75A54]/10 border border-[#C75A54]/25 rounded-xl text-[#C75A54] text-xs flex items-center gap-2">
+            <AlertTriangle className="w-4 h-4 text-[#C75A54] shrink-0" />
             <span>{errorMessage}</span>
           </div>
         )}
 
         {resetSuccess && (
-          <div className="p-3 bg-emerald-50 border border-emerald-200 rounded-xl text-emerald-800 text-xs flex items-center gap-2">
-            <CheckCircle className="w-4 h-4 text-emerald-600 shrink-0" />
+          <div className="p-3 bg-[#DCE8DF] border border-[#AEC7B4] rounded-xl text-[#26364A] text-xs flex items-center gap-2">
+            <CheckCircle className="w-4 h-4 text-[#39845D] shrink-0" />
             <span>Sample grocery inventory data restored successfully!</span>
           </div>
         )}
 
         {/* Demo Data Reset Section */}
-        <div className="pt-4 border-t border-stone-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="pt-4 border-t border-[#E8E3DA] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <h4 className="font-bold text-stone-900">Restore Sample Grocery Catalog</h4>
-            <p className="text-stone-500 text-[11px]">
+            <h4 className="font-bold text-[#26364A] font-heading">Restore Sample Grocery Catalog</h4>
+            <p className="text-[#737B83] text-[11px]">
               Re-seed 12 realistic grocery products with varied batches (expired, expiring in 3-5 days, 20 days, and fresh).
             </p>
           </div>
@@ -390,9 +390,9 @@ export const StoreSettings = ({
             type="button"
             disabled={isResetting}
             onClick={() => setShowResetModal(true)}
-            className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-xl font-semibold text-xs transition flex items-center gap-1.5 cursor-pointer shrink-0"
+            className="px-4 py-2 bg-[#F6F3EC] hover:bg-[#E8E3DA] text-[#26364A] rounded-xl font-semibold text-xs transition flex items-center gap-1.5 cursor-pointer shrink-0 border border-[#E8E3DA]"
           >
-            <RotateCcw className="w-3.5 h-3.5 text-stone-600" />
+            <RotateCcw className="w-3.5 h-3.5 text-[#737B83]" />
             {isResetting ? 'Restoring Demo Data...' : 'Reset Demo Grocery Data'}
           </button>
         </div>
@@ -400,22 +400,22 @@ export const StoreSettings = ({
 
       {/* In-App Confirmation Modal for Reset (No window.confirm) */}
       {showResetModal && (
-        <div className="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-5 border border-stone-200 shadow-xl space-y-4 text-xs">
-            <div className="flex items-center gap-3 text-amber-600">
-              <div className="p-2.5 bg-amber-100 rounded-full">
-                <RotateCcw className="w-5 h-5 text-amber-700" />
+        <div className="fixed inset-0 z-50 bg-[#26364A]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full p-5 border border-[#E8E3DA] shadow-xl space-y-4 text-xs">
+            <div className="flex items-center gap-3 text-[#D99A38]">
+              <div className="p-2.5 bg-amber-50 rounded-full border border-amber-200">
+                <RotateCcw className="w-5 h-5 text-[#D99A38]" />
               </div>
-              <h3 className="font-bold text-base text-stone-900">Confirm Reset Demo Data</h3>
+              <h3 className="font-bold text-base text-[#26364A] font-heading">Confirm Reset Demo Data</h3>
             </div>
-            <p className="text-stone-600 leading-relaxed">
+            <p className="text-[#737B83] leading-relaxed">
               Are you sure you want to restore demo grocery inventory? This will re-seed sample products, batches (some expired, some expiring soon, some fresh), and recent sales.
             </p>
             <div className="flex justify-end gap-2.5 pt-2">
               <button
                 type="button"
                 onClick={() => setShowResetModal(false)}
-                className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg font-semibold transition cursor-pointer"
+                className="px-4 py-2 bg-[#F6F3EC] hover:bg-[#E8E3DA] text-[#26364A] rounded-lg font-semibold transition cursor-pointer border border-[#E8E3DA]"
               >
                 Cancel
               </button>
@@ -423,7 +423,7 @@ export const StoreSettings = ({
                 type="button"
                 disabled={isResetting}
                 onClick={executeReset}
-                className="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg font-semibold transition cursor-pointer"
+                className="px-4 py-2 bg-[#D99A38] hover:bg-amber-600 text-white rounded-lg font-semibold transition cursor-pointer"
               >
                 {isResetting ? 'Resetting...' : 'Yes, Reset Data'}
               </button>

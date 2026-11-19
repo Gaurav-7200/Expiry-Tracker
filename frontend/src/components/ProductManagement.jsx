@@ -241,15 +241,15 @@ export const ProductManagement = ({
   return (
     <div className="space-y-6">
       {/* Top Action Bar */}
-      <div className="bg-white rounded-2xl p-6 border border-stone-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl p-6 border border-[#E8E3DA] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-xs font-semibold mb-1 border border-emerald-200">
-            <Package className="w-3.5 h-3.5" /> Product Inventory Master
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#DCE8DF] text-[#26364A] text-xs font-semibold mb-1 border border-[#AEC7B4]">
+            <Package className="w-3.5 h-3.5 text-[#C76B45]" /> Product Inventory Master
           </div>
-          <h2 className="text-xl md:text-2xl font-extrabold text-stone-900 tracking-tight">
+          <h2 className="text-xl md:text-2xl font-extrabold text-[#26364A] tracking-tight font-heading">
             Product Catalog & Pricing
           </h2>
-          <p className="text-xs text-stone-500 mt-0.5">
+          <p className="text-xs text-[#737B83] mt-0.5">
             Manage product metadata, selling prices, MRP, and view aggregated stock across all batches.
           </p>
         </div>
@@ -258,7 +258,7 @@ export const ProductManagement = ({
           <button
             type="button"
             onClick={() => handleNavigateIntake()}
-            className="px-4 py-2.5 bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 text-white font-bold text-xs rounded-xl transition shadow-xs flex items-center gap-2 cursor-pointer"
+            className="px-4 py-2.5 bg-[#C76B45] hover:bg-[#B55D37] active:bg-[#C76B45] text-white font-bold text-xs rounded-xl transition shadow-xs flex items-center gap-2 cursor-pointer font-heading"
           >
             <Plus className="w-4 h-4" />
             Add New Product
@@ -267,17 +267,17 @@ export const ProductManagement = ({
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white rounded-xl p-4 border border-stone-200 shadow-xs space-y-3">
+      <div className="bg-white rounded-xl p-4 border border-[#E8E3DA] shadow-xs space-y-3">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           {/* Search box */}
           <div className="relative md:col-span-2">
-            <Search className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
+            <Search className="w-4 h-4 text-[#737B83] absolute left-3 top-3" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search by product name, barcode, or category..."
-              className="w-full pl-9 pr-4 py-2 bg-stone-50 border border-stone-200 rounded-lg text-xs focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 transition"
+              className="w-full pl-9 pr-4 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] placeholder-[#737B83] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45] transition"
             />
           </div>
 
@@ -295,8 +295,8 @@ export const ProductManagement = ({
                 onClick={() => setStockFilter(f.id)}
                 className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-medium transition cursor-pointer text-center ${
                   stockFilter === f.id
-                    ? 'bg-emerald-800 text-white shadow-xs'
-                    : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                    ? 'bg-[#26364A] text-white shadow-xs font-semibold'
+                    : 'bg-[#F6F3EC] text-[#737B83] hover:text-[#26364A] hover:bg-[#E8E3DA]/60 border border-[#E8E3DA]'
                 }`}
               >
                 {f.label}
@@ -314,8 +314,8 @@ export const ProductManagement = ({
               onClick={() => setSelectedCategory(cat)}
               className={`px-3 py-1.5 rounded-lg font-medium whitespace-nowrap transition cursor-pointer ${
                 selectedCategory === cat
-                  ? 'bg-stone-800 text-white'
-                  : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                  ? 'bg-[#C76B45] text-white font-semibold shadow-xs'
+                  : 'bg-[#F6F3EC] text-[#737B83] hover:text-[#26364A] hover:bg-[#E8E3DA]/60 border border-[#E8E3DA]'
               }`}
             >
               {cat}
@@ -325,10 +325,10 @@ export const ProductManagement = ({
       </div>
 
       {/* Products Table */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-xs overflow-hidden">
+      <div className="bg-white rounded-2xl border border-[#E8E3DA] shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-stone-50 border-b border-stone-200 text-stone-600 uppercase text-[11px] font-semibold">
+            <thead className="bg-[#F6F3EC] border-b border-[#E8E3DA] text-[#26364A] uppercase text-[11px] font-semibold font-heading">
               <tr>
                 <th className="py-3 px-4">Product & Barcode</th>
                 <th className="py-3 px-4">Category</th>
@@ -339,17 +339,17 @@ export const ProductManagement = ({
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-stone-100">
+            <tbody className="divide-y divide-[#E8E3DA]/60">
               {filteredProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-stone-400">
+                  <td colSpan={7} className="py-12 text-center text-[#737B83]">
                     No products match the selected criteria.
                   </td>
                 </tr>
               ) : (
                 filteredProducts.map((product) => {
                   return (
-                    <tr key={product.id} className="hover:bg-stone-50/80 transition">
+                    <tr key={product.id} className="hover:bg-[#F6F3EC]/50 transition">
                       <td className="py-3.5 px-4">
                         <div className="flex items-center gap-3">
                           {product.imageUrl ? (
@@ -357,17 +357,17 @@ export const ProductManagement = ({
                               src={product.imageUrl}
                               alt={product.name}
                               loading="lazy"
-                              className="w-10 h-10 rounded-lg object-cover border border-stone-200 shrink-0 bg-stone-50 shadow-2xs"
+                              className="w-10 h-10 rounded-lg object-cover border border-[#E8E3DA] shrink-0 bg-[#F6F3EC] shadow-2xs"
                             />
                           ) : (
-                            <div className="w-10 h-10 rounded-lg border border-stone-200 bg-stone-100 flex items-center justify-center text-stone-500 font-bold text-xs shrink-0">
+                            <div className="w-10 h-10 rounded-lg border border-[#E8E3DA] bg-[#F6F3EC] flex items-center justify-center text-[#26364A] font-bold text-xs shrink-0 font-heading">
                               {product.name ? product.name.charAt(0).toUpperCase() : 'P'}
                             </div>
                           )}
                           <div className="min-w-0">
-                            <div className="font-bold text-stone-900 text-sm truncate">{product.name}</div>
-                            <div className="text-stone-500 font-mono text-[11px] flex items-center gap-1.5 mt-0.5">
-                              <Barcode className="w-3.5 h-3.5 text-stone-400" />
+                            <div className="font-bold text-[#26364A] text-sm truncate font-heading">{product.name}</div>
+                            <div className="text-[#737B83] font-mono text-[11px] flex items-center gap-1.5 mt-0.5">
+                              <Barcode className="w-3.5 h-3.5 text-[#737B83]" />
                               <span>{product.barcode}</span>
                             </div>
                           </div>
@@ -375,18 +375,18 @@ export const ProductManagement = ({
                       </td>
 
                       <td className="py-3.5 px-4">
-                        <span className="inline-block px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 font-medium text-[11px]">
+                        <span className="inline-block px-2 py-0.5 rounded-md bg-[#F6F3EC] text-[#26364A] font-medium text-[11px] border border-[#E8E3DA]">
                           {product.category}
                         </span>
                       </td>
 
                       <td className="py-3.5 px-4">
-                        <div className="font-extrabold text-stone-900">
+                        <div className="font-extrabold text-[#26364A]">
                           {settings.currency}
-                          {product.sellingPrice} <span className="font-normal text-stone-500">/ {product.unit}</span>
+                          {product.sellingPrice} <span className="font-normal text-[#737B83]">/ {product.unit}</span>
                         </div>
                         {product.mrp > product.sellingPrice && (
-                          <div className="text-[10px] text-stone-500">
+                          <div className="text-[10px] text-[#737B83] line-through">
                             MRP: {settings.currency}{product.mrp}
                           </div>
                         )}
@@ -397,17 +397,17 @@ export const ProductManagement = ({
                           <span
                             className={`font-extrabold text-sm ${
                               product.availableStock === 0
-                                ? 'text-rose-700'
+                                ? 'text-[#C75A54]'
                                 : product.isLowStock
-                                ? 'text-amber-700'
-                                : 'text-emerald-800'
+                                ? 'text-[#D99A38]'
+                                : 'text-[#39845D]'
                             }`}
                           >
                             {product.availableStock} {product.unit}
                           </span>
                         </div>
                         {product.isLowStock && (
-                          <span className="inline-block mt-0.5 text-[10px] text-amber-800 bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200">
+                          <span className="inline-block mt-0.5 text-[10px] text-[#D99A38] bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200">
                             Reorder threshold: {product.reorderLevel}
                           </span>
                         )}
@@ -417,9 +417,9 @@ export const ProductManagement = ({
                         <button
                           type="button"
                           onClick={() => setInspectProduct(product)}
-                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-800 font-semibold text-[11px] transition cursor-pointer"
+                          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#F6F3EC] hover:bg-[#E8E3DA] text-[#26364A] font-semibold text-[11px] transition cursor-pointer border border-[#E8E3DA]"
                         >
-                          <Layers className="w-3.5 h-3.5 text-stone-500" />
+                          <Layers className="w-3.5 h-3.5 text-[#737B83]" />
                           <span>{product.batchesCount} Batches</span>
                         </button>
                       </td>
@@ -427,19 +427,19 @@ export const ProductManagement = ({
                       <td className="py-3.5 px-4">
                         {product.earliestExpiry ? (
                           <div>
-                            <div className="font-medium text-stone-800">
+                            <div className="font-medium text-[#26364A]">
                               {product.earliestExpiry}
                             </div>
                             {product.daysUntilEarliestExpiry !== null && (
                               <span
                                 className={`inline-block mt-0.5 text-[10px] font-bold px-1.5 py-0.2 rounded ${
                                   product.daysUntilEarliestExpiry < 0
-                                    ? 'bg-rose-100 text-rose-800'
+                                    ? 'bg-[#C75A54]/15 text-[#C75A54] border border-[#C75A54]/30'
                                     : product.daysUntilEarliestExpiry <= 7
-                                    ? 'bg-amber-100 text-amber-800'
+                                    ? 'bg-[#D99A38]/15 text-[#D99A38] border border-[#D99A38]/30'
                                     : product.daysUntilEarliestExpiry <= 30
-                                    ? 'bg-yellow-100 text-yellow-800'
-                                    : 'bg-emerald-50 text-emerald-800'
+                                    ? 'bg-amber-50 text-amber-800 border border-amber-200'
+                                    : 'bg-[#DCE8DF] text-[#26364A] border border-[#AEC7B4]'
                                 }`}
                               >
                                 {product.daysUntilEarliestExpiry < 0
@@ -449,7 +449,7 @@ export const ProductManagement = ({
                             )}
                           </div>
                         ) : (
-                          <span className="text-stone-400">No active batches</span>
+                          <span className="text-[#737B83]">No active batches</span>
                         )}
                       </td>
 
@@ -458,7 +458,7 @@ export const ProductManagement = ({
                           <button
                             type="button"
                             onClick={() => handleNavigateIntake(product.barcode)}
-                            className="p-1.5 text-emerald-700 hover:text-emerald-900 hover:bg-emerald-50 rounded-lg transition cursor-pointer"
+                            className="p-1.5 text-[#C76B45] hover:text-[#B55D37] hover:bg-[#FBF0EB] rounded-lg transition cursor-pointer"
                             title="Add stock / batch for this barcode"
                           >
                             <Plus className="w-4 h-4" />
@@ -466,7 +466,7 @@ export const ProductManagement = ({
                           <button
                             type="button"
                             onClick={() => openEditModal(product)}
-                            className="p-1.5 text-stone-600 hover:text-stone-900 hover:bg-stone-100 rounded-lg transition cursor-pointer"
+                            className="p-1.5 text-[#737B83] hover:text-[#26364A] hover:bg-[#F6F3EC] rounded-lg transition cursor-pointer"
                             title="Edit product"
                           >
                             <Edit2 className="w-4 h-4" />
@@ -474,7 +474,7 @@ export const ProductManagement = ({
                           <button
                             type="button"
                             onClick={() => setDeleteCandidate(product)}
-                            className="p-1.5 text-stone-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition cursor-pointer"
+                            className="p-1.5 text-[#737B83] hover:text-[#C75A54] hover:bg-[#C75A54]/10 rounded-lg transition cursor-pointer"
                             title="Delete product"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -492,14 +492,14 @@ export const ProductManagement = ({
 
       {/* Edit Product Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full border border-stone-200 shadow-2xl overflow-hidden">
-            <div className="p-4 bg-emerald-800 text-white flex items-center justify-between">
-              <h3 className="font-bold text-base">Edit Product Details</h3>
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-[#26364A]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-lg w-full border border-[#E8E3DA] shadow-2xl overflow-hidden">
+            <div className="p-4 bg-[#26364A] text-white flex items-center justify-between">
+              <h3 className="font-bold text-base font-heading">Edit Product Details</h3>
               <button
                 type="button"
                 onClick={() => setIsModalOpen(false)}
-                className="p-1 rounded text-emerald-200 hover:text-white cursor-pointer"
+                className="p-1 rounded text-[#DCE8DF] hover:text-white cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -507,14 +507,14 @@ export const ProductManagement = ({
 
             <form onSubmit={handleSaveProduct} className="p-5 space-y-4 text-xs">
               {modalError && (
-                <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4 shrink-0 text-rose-600" />
+                <div className="p-3 bg-[#C75A54]/10 border border-[#C75A54]/25 rounded-xl text-[#C75A54] flex items-center gap-2">
+                  <AlertTriangle className="w-4 h-4 shrink-0 text-[#C75A54]" />
                   <span>{modalError}</span>
                 </div>
               )}
 
               <div>
-                <label className="font-semibold text-stone-700 block mb-1">
+                <label className="font-semibold text-[#26364A] block mb-1">
                   Barcode (1D EAN / UPC / Code 128) *
                 </label>
                 <input
@@ -526,12 +526,12 @@ export const ProductManagement = ({
                     setModalError(null);
                   }}
                   placeholder="Product barcode"
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg font-mono focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                  className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg font-mono text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
                 />
               </div>
 
               <div>
-                <label className="font-semibold text-stone-700 block mb-1">Product Title *</label>
+                <label className="font-semibold text-[#26364A] block mb-1">Product Title *</label>
                 <input
                   ref={nameInputRef}
                   type="text"
@@ -539,17 +539,17 @@ export const ProductManagement = ({
                   value={modalName}
                   onChange={(e) => setModalName(e.target.value)}
                   placeholder="e.g. Fortune Sunlite Refined Sunflower Oil"
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                  className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="font-semibold text-stone-700 block mb-1">Category *</label>
+                  <label className="font-semibold text-[#26364A] block mb-1">Category *</label>
                   <select
                     value={modalCategory}
                     onChange={(e) => setModalCategory(e.target.value)}
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                    className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
                   >
                     {CATEGORIES.filter((c) => c !== 'All').map((cat) => (
                       <option key={cat} value={cat}>
@@ -560,11 +560,11 @@ export const ProductManagement = ({
                 </div>
 
                 <div>
-                  <label className="font-semibold text-stone-700 block mb-1">Unit *</label>
+                  <label className="font-semibold text-[#26364A] block mb-1">Unit *</label>
                   <select
                     value={modalUnit}
                     onChange={(e) => setModalUnit(e.target.value)}
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                    className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
                   >
                     {UNITS.map((u) => (
                       <option key={u} value={u}>
@@ -577,7 +577,7 @@ export const ProductManagement = ({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="font-semibold text-stone-700 block mb-1">
+                  <label className="font-semibold text-[#26364A] block mb-1">
                     Pack Size Variant (Optional)
                   </label>
                   <input
@@ -585,19 +585,19 @@ export const ProductManagement = ({
                     value={modalPackSize}
                     onChange={(e) => setModalPackSize(e.target.value)}
                     placeholder="e.g. 1 kg, 2 kg, 5 kg, 500 g, 1 L"
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                    className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
                   />
-                  <span className="text-[10px] text-stone-500">Retail packaging size shown in POS</span>
+                  <span className="text-[10px] text-[#737B83]">Retail packaging size shown in POS</span>
                 </div>
 
                 <div>
-                  <label className="font-semibold text-stone-700 block mb-1">
+                  <label className="font-semibold text-[#26364A] block mb-1">
                     Product Family (Optional)
                   </label>
                   <select
                     value={modalParentProductId}
                     onChange={(e) => setModalParentProductId(e.target.value)}
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                    className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
                   >
                     <option value="">None (Independent Product)</option>
                     {products
@@ -608,13 +608,13 @@ export const ProductManagement = ({
                         </option>
                       ))}
                   </select>
-                  <span className="text-[10px] text-stone-500">Groups pack sizes under one card</span>
+                  <span className="text-[10px] text-[#737B83]">Groups pack sizes under one card</span>
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="font-semibold text-stone-700 block mb-1">
+                  <label className="font-semibold text-[#26364A] block mb-1">
                     Selling Price ({settings.currency}) *
                   </label>
                   <input
@@ -624,12 +624,12 @@ export const ProductManagement = ({
                     value={modalSellingPrice}
                     onChange={(e) => setModalSellingPrice(e.target.value)}
                     placeholder="145"
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg font-bold focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                    className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg font-bold text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
                   />
                 </div>
 
                 <div>
-                  <label className="font-semibold text-stone-700 block mb-1">
+                  <label className="font-semibold text-[#26364A] block mb-1">
                     MRP ({settings.currency})
                   </label>
                   <input
@@ -638,12 +638,12 @@ export const ProductManagement = ({
                     value={modalMrp}
                     onChange={(e) => setModalMrp(e.target.value)}
                     placeholder="165"
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                    className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
                   />
                 </div>
 
                 <div>
-                  <label className="font-semibold text-stone-700 block mb-1">
+                  <label className="font-semibold text-[#26364A] block mb-1">
                     Reorder Alert Level
                   </label>
                   <input
@@ -651,13 +651,13 @@ export const ProductManagement = ({
                     value={modalReorderLevel}
                     onChange={(e) => setModalReorderLevel(e.target.value)}
                     placeholder="10"
-                    className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                    className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="font-semibold text-stone-700 block mb-1">
+                <label className="font-semibold text-[#26364A] block mb-1">
                   Description / Specification
                 </label>
                 <textarea
@@ -665,17 +665,17 @@ export const ProductManagement = ({
                   value={modalDescription}
                   onChange={(e) => setModalDescription(e.target.value)}
                   placeholder="Product description or packaging notes..."
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                  className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
                 />
               </div>
 
               <div>
-                <label className="font-semibold text-stone-700 block mb-1">
+                <label className="font-semibold text-[#26364A] block mb-1">
                   Product Image (Optional)
                 </label>
                 <div className="flex items-center gap-3">
                   {modalImageUrl ? (
-                    <div className="relative w-14 h-14 rounded-xl border border-stone-200 overflow-hidden bg-white shrink-0 shadow-2xs">
+                    <div className="relative w-14 h-14 rounded-xl border border-[#E8E3DA] overflow-hidden bg-white shrink-0 shadow-2xs">
                       <img
                         src={modalImageUrl}
                         alt="Product preview"
@@ -683,8 +683,8 @@ export const ProductManagement = ({
                       />
                     </div>
                   ) : (
-                    <div className="w-14 h-14 rounded-xl border border-dashed border-stone-300 bg-stone-50 flex items-center justify-center text-stone-400 shrink-0">
-                      <ImageIcon className="w-6 h-6 text-stone-300" />
+                    <div className="w-14 h-14 rounded-xl border border-dashed border-[#E8E3DA] bg-[#F6F3EC] flex items-center justify-center text-[#737B83] shrink-0">
+                      <ImageIcon className="w-6 h-6 text-[#737B83]/50" />
                     </div>
                   )}
 
@@ -699,39 +699,39 @@ export const ProductManagement = ({
                     />
                     <label
                       htmlFor="edit-modal-image-upload"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-stone-100 hover:bg-stone-200 active:bg-stone-300 text-stone-700 text-xs font-semibold rounded-lg cursor-pointer border border-stone-300 transition shadow-2xs"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#F6F3EC] hover:bg-[#E8E3DA] active:bg-[#E8E3DA] text-[#26364A] text-xs font-semibold rounded-lg cursor-pointer border border-[#E8E3DA] transition shadow-2xs"
                     >
-                      <Camera className="w-3.5 h-3.5 text-emerald-700" />
+                      <Camera className="w-3.5 h-3.5 text-[#C76B45]" />
                       <span>{modalImageUrl ? 'Change photo' : 'Upload or take photo'}</span>
                     </label>
                     {modalImageUrl && (
                       <button
                         type="button"
                         onClick={handleRemoveImage}
-                        className="block text-[11px] text-rose-600 hover:text-rose-800 font-semibold cursor-pointer"
+                        className="block text-[11px] text-[#C75A54] hover:text-[#A7443E] font-semibold cursor-pointer"
                       >
                         Remove image
                       </button>
                     )}
-                    <p className="text-[10px] text-stone-400">
+                    <p className="text-[10px] text-[#737B83]">
                       Max 300px auto-resized JPEG
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="pt-3 border-t border-stone-200 flex items-center justify-end gap-2.5">
+              <div className="pt-3 border-t border-[#E8E3DA] flex items-center justify-end gap-2.5">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium transition cursor-pointer"
+                  className="px-4 py-2 rounded-lg bg-[#F6F3EC] hover:bg-[#E8E3DA] text-[#26364A] font-medium transition cursor-pointer border border-[#E8E3DA]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="px-5 py-2 rounded-lg font-bold transition shadow-xs bg-emerald-700 hover:bg-emerald-800 text-white cursor-pointer"
+                  className="px-5 py-2 rounded-lg font-bold transition shadow-xs bg-[#C76B45] hover:bg-[#B55D37] text-white cursor-pointer font-heading"
                 >
                   {isSaving ? 'Saving...' : 'Save Changes'}
                 </button>
@@ -743,12 +743,12 @@ export const ProductManagement = ({
 
       {/* Inspect Product Batches Drawer Modal */}
       {inspectProduct && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full border border-stone-200 shadow-2xl overflow-hidden">
-            <div className="p-4 bg-stone-900 text-white flex items-center justify-between">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-[#26364A]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-2xl w-full border border-[#E8E3DA] shadow-2xl overflow-hidden">
+            <div className="p-4 bg-[#26364A] text-white flex items-center justify-between">
               <div>
-                <h3 className="font-bold text-base">{inspectProduct.name}</h3>
-                <p className="text-xs text-stone-400">
+                <h3 className="font-bold text-base font-heading">{inspectProduct.name}</h3>
+                <p className="text-xs text-[#DCE8DF]/80">
                   Barcode: {inspectProduct.barcode} • Total Stock: {inspectProduct.totalStock}{' '}
                   {inspectProduct.unit}
                 </p>
@@ -756,7 +756,7 @@ export const ProductManagement = ({
               <button
                 type="button"
                 onClick={() => setInspectProduct(null)}
-                className="p-1 rounded text-stone-400 hover:text-white cursor-pointer"
+                className="p-1 rounded text-[#DCE8DF] hover:text-white cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -764,7 +764,7 @@ export const ProductManagement = ({
 
             <div className="p-5 space-y-4">
               <div className="flex items-center justify-between">
-                <h4 className="font-bold text-xs uppercase tracking-wider text-stone-700">
+                <h4 className="font-bold text-xs uppercase tracking-wider text-[#26364A] font-heading">
                   Individual Batches ({inspectProduct.batches.length})
                 </h4>
                 <button
@@ -774,14 +774,14 @@ export const ProductManagement = ({
                     setInspectProduct(null);
                     handleNavigateIntake(code);
                   }}
-                  className="text-xs font-semibold text-emerald-700 hover:underline flex items-center gap-1 cursor-pointer"
+                  className="text-xs font-semibold text-[#C76B45] hover:underline flex items-center gap-1 cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5" /> Add Stock Batch
                 </button>
               </div>
 
               {inspectProduct.batches.length === 0 ? (
-                <div className="p-6 text-center text-xs text-stone-500 bg-stone-50 rounded-xl">
+                <div className="p-6 text-center text-xs text-[#737B83] bg-[#F6F3EC] rounded-xl border border-[#E8E3DA]">
                   No stock batches recorded yet for this product. Use "Stock Intake" to inward batches.
                 </div>
               ) : (
@@ -789,24 +789,24 @@ export const ProductManagement = ({
                   {inspectProduct.batches.map((batch) => (
                     <div
                       key={batch.id}
-                      className="p-3 bg-stone-50 rounded-xl border border-stone-200 flex items-center justify-between text-xs"
+                      className="p-3 bg-[#F6F3EC] rounded-xl border border-[#E8E3DA] flex items-center justify-between text-xs"
                     >
                       <div>
-                        <div className="font-mono font-bold text-stone-900">
+                        <div className="font-mono font-bold text-[#26364A]">
                           {batch.batchNumber}
                         </div>
-                        <div className="text-[11px] text-stone-500 mt-0.5">
+                        <div className="text-[11px] text-[#737B83] mt-0.5">
                           Purchased: {batch.purchaseDate} • Cost: {settings.currency}
                           {batch.purchasePrice} • Supplier: {batch.supplier || 'N/A'}
                         </div>
                       </div>
 
                       <div className="text-right">
-                        <div className="font-extrabold text-stone-900">
+                        <div className="font-extrabold text-[#26364A]">
                           {batch.quantity} / {batch.initialQuantity} {inspectProduct.unit}
                         </div>
-                        <div className="text-[11px] mt-0.5 font-medium">
-                          Expiry: <span className="font-bold">{batch.expiryDate}</span>
+                        <div className="text-[11px] mt-0.5 font-medium text-[#737B83]">
+                          Expiry: <span className="font-bold text-[#26364A]">{batch.expiryDate}</span>
                         </div>
                       </div>
                     </div>
@@ -815,11 +815,11 @@ export const ProductManagement = ({
               )}
             </div>
 
-            <div className="p-4 bg-stone-50 border-t border-stone-200 flex justify-end">
+            <div className="p-4 bg-[#F6F3EC] border-t border-[#E8E3DA] flex justify-end">
               <button
                 type="button"
                 onClick={() => setInspectProduct(null)}
-                className="px-4 py-2 bg-stone-200 hover:bg-stone-300 text-stone-800 rounded-lg text-xs font-semibold transition cursor-pointer"
+                className="px-4 py-2 bg-white hover:bg-[#E8E3DA] text-[#26364A] rounded-lg text-xs font-semibold transition cursor-pointer border border-[#E8E3DA]"
               >
                 Close
               </button>
@@ -830,20 +830,20 @@ export const ProductManagement = ({
 
       {/* Delete Confirmation Modal */}
       {deleteCandidate && (
-        <div className="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-5 border border-stone-200 shadow-xl space-y-4 text-xs">
-            <div className="flex items-center gap-3 text-rose-600">
-              <div className="p-2.5 bg-rose-100 rounded-full">
+        <div className="fixed inset-0 z-50 bg-[#26364A]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full p-5 border border-[#E8E3DA] shadow-xl space-y-4 text-xs">
+            <div className="flex items-center gap-3 text-[#C75A54]">
+              <div className="p-2.5 bg-[#C75A54]/15 rounded-full">
                 <Trash2 className="w-5 h-5" />
               </div>
-              <h3 className="font-bold text-base text-stone-900">Confirm Deletion</h3>
+              <h3 className="font-bold text-base text-[#26364A] font-heading">Confirm Deletion</h3>
             </div>
-            <p className="text-stone-600 leading-relaxed">
-              Are you sure you want to delete <span className="font-bold">"{deleteCandidate.name}"</span>?
+            <p className="text-[#737B83] leading-relaxed">
+              Are you sure you want to delete <span className="font-bold text-[#26364A]">"{deleteCandidate.name}"</span>?
               This will remove the product and all of its associated stock batches.
             </p>
             {deleteError && (
-              <div className="p-2.5 bg-rose-50 border border-rose-200 rounded-lg text-rose-800 text-xs">
+              <div className="p-2.5 bg-[#C75A54]/10 border border-[#C75A54]/25 rounded-lg text-[#C75A54] text-xs">
                 {deleteError}
               </div>
             )}
@@ -854,14 +854,14 @@ export const ProductManagement = ({
                   setDeleteCandidate(null);
                   setDeleteError(null);
                 }}
-                className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg font-semibold transition cursor-pointer"
+                className="px-4 py-2 bg-[#F6F3EC] hover:bg-[#E8E3DA] text-[#26364A] rounded-lg font-semibold transition cursor-pointer border border-[#E8E3DA]"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handleDeleteProduct}
-                className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg font-semibold transition cursor-pointer"
+                className="px-4 py-2 bg-[#C75A54] hover:bg-[#A7443E] text-white rounded-lg font-semibold transition cursor-pointer"
               >
                 Delete Product
               </button>

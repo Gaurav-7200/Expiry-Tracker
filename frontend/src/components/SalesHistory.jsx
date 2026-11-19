@@ -147,42 +147,42 @@ export const SalesHistory = ({ sales, settings }) => {
         </div>
 
         {/* Weekly Sales */}
-        <div className="bg-white rounded-xl p-5 border border-stone-200 shadow-xs">
+        <div className="bg-white rounded-xl p-5 border border-[#E8E3DA] shadow-xs">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-stone-500 uppercase tracking-wider">
+            <span className="text-xs font-bold text-[#737B83] uppercase tracking-wider font-heading">
               This Week's Revenue
             </span>
-            <div className="p-2 bg-blue-50 rounded-lg text-blue-700">
-              <Calendar className="w-4 h-4" />
+            <div className="p-2 bg-[#DCE8DF] rounded-lg text-[#26364A]">
+              <Calendar className="w-4 h-4 text-[#26364A]" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-extrabold text-stone-900">
+            <div className="text-2xl font-extrabold text-[#26364A]">
               {settings.currency}
               {weekRev.toFixed(2)}
             </div>
-            <p className="text-xs text-stone-500 mt-1">
+            <p className="text-xs text-[#737B83] mt-1">
               {weekCount} invoice{weekCount === 1 ? '' : 's'} this week
             </p>
           </div>
         </div>
 
         {/* Monthly Sales */}
-        <div className="bg-white rounded-xl p-5 border border-stone-200 shadow-xs">
+        <div className="bg-white rounded-xl p-5 border border-[#E8E3DA] shadow-xs">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-stone-500 uppercase tracking-wider">
+            <span className="text-xs font-bold text-[#737B83] uppercase tracking-wider font-heading">
               This Month's Revenue
             </span>
-            <div className="p-2 bg-purple-50 rounded-lg text-purple-700">
-              <ShoppingBag className="w-4 h-4" />
+            <div className="p-2 bg-[#FBF0EB] rounded-lg text-[#C76B45]">
+              <ShoppingBag className="w-4 h-4 text-[#C76B45]" />
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-extrabold text-stone-900">
+            <div className="text-2xl font-extrabold text-[#26364A]">
               {settings.currency}
               {monthRev.toFixed(2)}
             </div>
-            <p className="text-xs text-stone-500 mt-1">
+            <p className="text-xs text-[#737B83] mt-1">
               {monthCount} invoice{monthCount === 1 ? '' : 's'} in {today.toLocaleString('default', { month: 'long' })}
             </p>
           </div>
@@ -190,16 +190,16 @@ export const SalesHistory = ({ sales, settings }) => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white rounded-xl p-4 border border-stone-200 shadow-xs space-y-3">
+      <div className="bg-white rounded-xl p-4 border border-[#E8E3DA] shadow-xs space-y-3">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
           <div className="relative md:col-span-2">
-            <Search className="w-4 h-4 text-stone-400 absolute left-3 top-3" />
+            <Search className="w-4 h-4 text-[#737B83] absolute left-3 top-3" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search invoice number, customer name, or phone..."
-              className="w-full pl-9 pr-4 py-2 bg-stone-50 border border-stone-200 rounded-lg text-xs focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 transition"
+              className="w-full pl-9 pr-4 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-xs text-[#26364A] placeholder-[#737B83] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45] transition"
             />
           </div>
 
@@ -216,8 +216,8 @@ export const SalesHistory = ({ sales, settings }) => {
                 onClick={() => setPaymentFilter(f.id)}
                 className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-medium transition cursor-pointer text-center ${
                   paymentFilter === f.id
-                    ? 'bg-emerald-800 text-white shadow-xs'
-                    : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                    ? 'bg-[#C76B45] text-white shadow-xs font-semibold'
+                    : 'bg-[#F6F3EC] text-[#737B83] hover:text-[#26364A] hover:bg-[#E8E3DA]/60 border border-[#E8E3DA]'
                 }`}
               >
                 {f.label}
@@ -228,10 +228,10 @@ export const SalesHistory = ({ sales, settings }) => {
       </div>
 
       {/* Invoices Table */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-xs overflow-hidden">
+      <div className="bg-white rounded-2xl border border-[#E8E3DA] shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-stone-50 border-b border-stone-200 text-stone-600 uppercase text-[11px] font-semibold">
+            <thead className="bg-[#F6F3EC] border-b border-[#E8E3DA] text-[#26364A] uppercase text-[11px] font-semibold font-heading">
               <tr>
                 <th className="py-3 px-4">Invoice #</th>
                 <th className="py-3 px-4">Date & Time</th>
@@ -242,10 +242,10 @@ export const SalesHistory = ({ sales, settings }) => {
                 <th className="py-3 px-4 text-right">Reprint Receipt</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-stone-100">
+            <tbody className="divide-y divide-[#E8E3DA]/60">
               {filteredSales.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-stone-400">
+                  <td colSpan={7} className="py-12 text-center text-[#737B83]">
                     No sales invoices found matching your criteria.
                   </td>
                 </tr>
@@ -263,54 +263,54 @@ export const SalesHistory = ({ sales, settings }) => {
                   });
 
                   return (
-                    <tr key={sale.id} className="hover:bg-stone-50/80 transition">
-                      <td className="py-3.5 px-4 font-mono font-bold text-stone-900">
+                    <tr key={sale.id} className="hover:bg-[#F6F3EC]/50 transition">
+                      <td className="py-3.5 px-4 font-mono font-bold text-[#26364A]">
                         {sale.invoiceNumber}
                       </td>
 
                       <td className="py-3.5 px-4">
-                        <div className="font-medium text-stone-800">{dateStr}</div>
-                        <div className="text-[11px] text-stone-400">{timeStr}</div>
+                        <div className="font-medium text-[#26364A]">{dateStr}</div>
+                        <div className="text-[11px] text-[#737B83]">{timeStr}</div>
                       </td>
 
                       <td className="py-3.5 px-4">
-                        <div className="font-semibold text-stone-900">
+                        <div className="font-semibold text-[#26364A] font-heading">
                           {sale.customerName || 'Walk-in Customer'}
                         </div>
                         {sale.customerPhone && (
-                          <div className="text-[11px] text-stone-500 font-mono">
+                          <div className="text-[11px] text-[#737B83] font-mono">
                             {sale.customerPhone}
                           </div>
                         )}
                       </td>
 
                       <td className="py-3.5 px-4">
-                        <span className="font-semibold text-stone-800">
+                        <span className="font-semibold text-[#26364A]">
                           {sale.items.length} line item{sale.items.length === 1 ? '' : 's'}
                         </span>
-                        <div className="text-[10px] text-stone-400 truncate max-w-[200px]">
+                        <div className="text-[10px] text-[#737B83] truncate max-w-[200px]">
                           {sale.items.map((i) => `${i.productName} (${i.quantity})`).join(', ')}
                         </div>
                       </td>
 
                       <td className="py-3.5 px-4">
                         <span
-                          className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase ${
+                          className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase border ${
                             sale.paymentMethod === 'cash'
-                              ? 'bg-emerald-100 text-emerald-800'
+                              ? 'bg-[#DCE8DF] text-[#26364A] border-[#AEC7B4]'
                               : sale.paymentMethod === 'upi'
-                              ? 'bg-blue-100 text-blue-800'
-                              : 'bg-purple-100 text-purple-800'
+                              ? 'bg-sky-50 text-sky-800 border-sky-200'
+                              : 'bg-purple-50 text-purple-800 border-purple-200'
                           }`}
                         >
-                          {sale.paymentMethod === 'cash' && <Banknote className="w-3 h-3" />}
-                          {sale.paymentMethod === 'upi' && <QrCode className="w-3 h-3" />}
-                          {sale.paymentMethod === 'card' && <CreditCard className="w-3 h-3" />}
+                          {sale.paymentMethod === 'cash' && <Banknote className="w-3 h-3 text-[#39845D]" />}
+                          {sale.paymentMethod === 'upi' && <QrCode className="w-3 h-3 text-sky-700" />}
+                          {sale.paymentMethod === 'card' && <CreditCard className="w-3 h-3 text-purple-700" />}
                           <span>{sale.paymentMethod}</span>
                         </span>
                       </td>
 
-                      <td className="py-3.5 px-4 font-extrabold text-stone-900 text-sm">
+                      <td className="py-3.5 px-4 font-extrabold text-[#26364A] text-sm">
                         {settings.currency}
                         {sale.grandTotal.toFixed(2)}
                       </td>
@@ -319,9 +319,9 @@ export const SalesHistory = ({ sales, settings }) => {
                         <button
                           type="button"
                           onClick={() => setSelectedSaleForReprint(sale)}
-                          className="px-3 py-1.5 bg-stone-100 hover:bg-emerald-50 hover:text-emerald-800 border border-stone-200 rounded-lg text-xs font-semibold transition cursor-pointer inline-flex items-center gap-1.5"
+                          className="px-3 py-1.5 bg-[#F6F3EC] hover:bg-[#FBF0EB] hover:text-[#C76B45] border border-[#E8E3DA] hover:border-[#C76B45] text-[#26364A] rounded-lg text-xs font-semibold transition cursor-pointer inline-flex items-center gap-1.5"
                         >
-                          <Printer className="w-3.5 h-3.5" />
+                          <Printer className="w-3.5 h-3.5 text-[#C76B45]" />
                           Reprint Bill
                         </button>
                       </td>

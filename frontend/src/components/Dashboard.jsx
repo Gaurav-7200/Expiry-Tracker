@@ -23,15 +23,15 @@ export const Dashboard = ({
   if (loading || !stats) {
     return (
       <div className="space-y-6 animate-pulse p-6">
-        <div className="h-28 bg-stone-200/80 rounded-2xl w-full" />
+        <div className="h-28 bg-[#E8E3DA]/80 rounded-2xl w-full" />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-            <div key={i} className="h-32 bg-stone-200/60 rounded-xl" />
+            <div key={i} className="h-32 bg-[#E8E3DA]/60 rounded-xl" />
           ))}
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="h-80 bg-stone-200/60 rounded-xl lg:col-span-2" />
-          <div className="h-80 bg-stone-200/60 rounded-xl" />
+          <div className="h-80 bg-[#E8E3DA]/60 rounded-xl lg:col-span-2" />
+          <div className="h-80 bg-[#E8E3DA]/60 rounded-xl" />
         </div>
       </div>
     );

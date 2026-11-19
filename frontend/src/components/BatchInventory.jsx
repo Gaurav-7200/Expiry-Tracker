@@ -158,8 +158,8 @@ export const BatchInventory = ({
                 onClick={() => setStatusFilter(f.id)}
                 className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-medium transition cursor-pointer text-center ${
                   statusFilter === f.id
-                    ? 'bg-stone-800 text-white'
-                    : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                    ? 'bg-[#26364A] text-white shadow-xs font-semibold'
+                    : 'bg-[#F6F3EC] text-[#737B83] hover:text-[#26364A] hover:bg-[#E8E3DA]/60 border border-[#E8E3DA]'
                 }`}
               >
                 {f.label}
@@ -181,8 +181,8 @@ export const BatchInventory = ({
                 onClick={() => setExpiryFilter(f.id)}
                 className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-medium transition cursor-pointer text-center ${
                   expiryFilter === f.id
-                    ? 'bg-emerald-800 text-white'
-                    : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                    ? 'bg-[#C76B45] text-white shadow-xs font-semibold'
+                    : 'bg-[#F6F3EC] text-[#737B83] hover:text-[#26364A] hover:bg-[#E8E3DA]/60 border border-[#E8E3DA]'
                 }`}
               >
                 {f.label}
@@ -193,10 +193,10 @@ export const BatchInventory = ({
       </div>
 
       {/* Batches Table */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-xs overflow-hidden">
+      <div className="bg-white rounded-2xl border border-[#E8E3DA] shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-stone-50 border-b border-stone-200 text-stone-600 uppercase text-[11px] font-semibold">
+            <thead className="bg-[#F6F3EC] border-b border-[#E8E3DA] text-[#26364A] uppercase text-[11px] font-semibold font-heading">
               <tr>
                 <th className="py-3 px-4">Batch Number</th>
                 <th className="py-3 px-4">Product Name & Barcode</th>
@@ -207,63 +207,63 @@ export const BatchInventory = ({
                 <th className="py-3 px-4 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-stone-100">
+            <tbody className="divide-y divide-[#E8E3DA]/60">
               {filteredBatches.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-stone-400">
+                  <td colSpan={7} className="py-12 text-center text-[#737B83]">
                     No batches match the filters.
                   </td>
                 </tr>
               ) : (
                 filteredBatches.map((batch) => {
                   return (
-                    <tr key={batch.id} className="hover:bg-stone-50/80 transition">
-                      <td className="py-3.5 px-4 font-mono font-bold text-stone-900">
+                    <tr key={batch.id} className="hover:bg-[#F6F3EC]/50 transition">
+                      <td className="py-3.5 px-4 font-mono font-bold text-[#26364A]">
                         {batch.batchNumber}
                       </td>
 
                       <td className="py-3.5 px-4">
-                        <div className="font-bold text-stone-900">{batch.productName}</div>
-                        <div className="text-[11px] text-stone-500 font-mono">
+                        <div className="font-bold text-[#26364A] font-heading">{batch.productName}</div>
+                        <div className="text-[11px] text-[#737B83] font-mono">
                           {batch.barcode} • {batch.category}
                         </div>
                       </td>
 
                       <td className="py-3.5 px-4">
-                        <div className="font-extrabold text-stone-900">
+                        <div className="font-extrabold text-[#26364A]">
                           {batch.quantity} {batch.unit}
                         </div>
-                        <div className="text-[10px] text-stone-400">
+                        <div className="text-[10px] text-[#737B83]">
                           Received: {batch.initialQuantity} {batch.unit}
                         </div>
                       </td>
 
-                      <td className="py-3.5 px-4 font-medium text-stone-700">
+                      <td className="py-3.5 px-4 font-medium text-[#26364A]">
                         {settings.currency}
                         {batch.purchasePrice} / {batch.unit}
                       </td>
 
-                      <td className="py-3.5 px-4 text-stone-600">
+                      <td className="py-3.5 px-4 text-[#737B83]">
                         {batch.purchaseDate}
                       </td>
 
                       <td className="py-3.5 px-4">
-                        <div className="font-bold text-stone-900">{batch.expiryDate}</div>
+                        <div className="font-bold text-[#26364A]">{batch.expiryDate}</div>
                         <div>
                           {batch.daysUntilExpiry < 0 || batch.status === 'expired' ? (
-                            <span className="inline-block mt-0.5 px-2 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-200">
+                            <span className="inline-block mt-0.5 px-2 py-0.5 rounded text-[10px] font-bold bg-[#C75A54]/15 text-[#C75A54] border border-[#C75A54]/30">
                               EXPIRED ({Math.abs(batch.daysUntilExpiry)}d ago)
                             </span>
                           ) : batch.daysUntilExpiry <= 7 ? (
-                            <span className="inline-block mt-0.5 px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-200">
+                            <span className="inline-block mt-0.5 px-2 py-0.5 rounded text-[10px] font-bold bg-[#D99A38]/15 text-[#D99A38] border border-[#D99A38]/30">
                               Expires in {batch.daysUntilExpiry} days
                             </span>
                           ) : batch.daysUntilExpiry <= 30 ? (
-                            <span className="inline-block mt-0.5 px-2 py-0.5 rounded text-[10px] font-semibold bg-yellow-100 text-yellow-800 border border-yellow-200">
+                            <span className="inline-block mt-0.5 px-2 py-0.5 rounded text-[10px] font-semibold bg-amber-50 text-amber-800 border border-amber-200">
                               Expires in {batch.daysUntilExpiry} days
                             </span>
                           ) : (
-                            <span className="inline-block mt-0.5 px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-50 text-emerald-800 border border-emerald-200">
+                            <span className="inline-block mt-0.5 px-2 py-0.5 rounded text-[10px] font-medium bg-[#DCE8DF] text-[#26364A] border border-[#AEC7B4]">
                               Fresh ({batch.daysUntilExpiry}d left)
                             </span>
                           )}
@@ -275,7 +275,7 @@ export const BatchInventory = ({
                           <button
                             type="button"
                             onClick={() => openEditModal(batch)}
-                            className="p-1.5 text-stone-600 hover:text-stone-900 hover:bg-stone-100 rounded-lg transition cursor-pointer"
+                            className="p-1.5 text-[#737B83] hover:text-[#26364A] hover:bg-[#F6F3EC] rounded-lg transition cursor-pointer"
                             title="Adjust quantity or expiry"
                           >
                             <Edit2 className="w-3.5 h-3.5" />
@@ -284,7 +284,7 @@ export const BatchInventory = ({
                             <button
                               type="button"
                               onClick={() => setWriteOffCandidate(batch)}
-                              className="px-2 py-1 text-[10px] font-semibold text-rose-700 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded transition cursor-pointer"
+                              className="px-2 py-1 text-[10px] font-semibold text-[#C75A54] bg-[#C75A54]/10 hover:bg-[#C75A54]/20 border border-[#C75A54]/20 rounded transition cursor-pointer"
                               title="Dispose / Scrap remaining units"
                             >
                               Write Off
@@ -303,15 +303,15 @@ export const BatchInventory = ({
 
       {/* Global Error Banner */}
       {errorMessage && (
-        <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 text-xs flex items-center justify-between">
+        <div className="p-3 bg-[#C75A54]/10 border border-[#C75A54]/25 rounded-xl text-[#C75A54] text-xs flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <AlertTriangle className="w-4 h-4 text-rose-600 shrink-0" />
+            <AlertTriangle className="w-4 h-4 text-[#C75A54] shrink-0" />
             <span>{errorMessage}</span>
           </div>
           <button
             type="button"
             onClick={() => setErrorMessage(null)}
-            className="text-rose-500 hover:text-rose-700 p-1"
+            className="text-[#C75A54] hover:text-[#A7443E] p-1"
           >
             <X className="w-3.5 h-3.5" />
           </button>
@@ -320,17 +320,17 @@ export const BatchInventory = ({
 
       {/* Edit Batch Modal */}
       {editingBatch && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full border border-stone-200 shadow-2xl overflow-hidden">
-            <div className="p-4 bg-stone-800 text-white flex items-center justify-between">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-[#26364A]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full border border-[#E8E3DA] shadow-2xl overflow-hidden">
+            <div className="p-4 bg-[#26364A] text-white flex items-center justify-between">
               <div>
-                <h3 className="font-bold text-sm">Edit Batch: {editingBatch.batchNumber}</h3>
-                <p className="text-xs text-stone-300">{editingBatch.productName}</p>
+                <h3 className="font-bold text-sm font-heading">Edit Batch: {editingBatch.batchNumber}</h3>
+                <p className="text-xs text-[#DCE8DF]/80">{editingBatch.productName}</p>
               </div>
               <button
                 type="button"
                 onClick={() => setEditingBatch(null)}
-                className="p-1 rounded text-stone-300 hover:text-white cursor-pointer"
+                className="p-1 rounded text-[#DCE8DF] hover:text-white cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -338,7 +338,7 @@ export const BatchInventory = ({
 
             <form onSubmit={handleSaveBatch} className="p-5 space-y-4 text-xs">
               <div>
-                <label className="font-semibold text-stone-700 block mb-1">
+                <label className="font-semibold text-[#26364A] block mb-1">
                   Available Quantity ({editingBatch.unit}) *
                 </label>
                 <input
@@ -347,12 +347,12 @@ export const BatchInventory = ({
                   required
                   value={editQty}
                   onChange={(e) => setEditQty(e.target.value)}
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg font-bold focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                  className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg font-bold text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
                 />
               </div>
 
               <div>
-                <label className="font-semibold text-stone-700 block mb-1">
+                <label className="font-semibold text-[#26364A] block mb-1">
                   Expiry Date *
                 </label>
                 <input
@@ -360,16 +360,16 @@ export const BatchInventory = ({
                   required
                   value={editExpiry}
                   onChange={(e) => setEditExpiry(e.target.value)}
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                  className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
                 />
               </div>
 
               <div>
-                <label className="font-semibold text-stone-700 block mb-1">Status</label>
+                <label className="font-semibold text-[#26364A] block mb-1">Status</label>
                 <select
                   value={editStatus}
                   onChange={(e) => setEditStatus(e.target.value)}
-                  className="w-full px-3 py-2 bg-stone-50 border border-stone-300 rounded-lg focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600"
+                  className="w-full px-3 py-2 bg-[#F6F3EC]/50 border border-[#E8E3DA] rounded-lg text-[#26364A] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#C76B45]"
                 >
                   <option value="active">Active (Available for sale)</option>
                   <option value="depleted">Depleted (0 quantity)</option>
@@ -378,18 +378,18 @@ export const BatchInventory = ({
                 </select>
               </div>
 
-              <div className="pt-3 border-t border-stone-200 flex justify-end gap-2.5">
+              <div className="pt-3 border-t border-[#E8E3DA] flex justify-end gap-2.5">
                 <button
                   type="button"
                   onClick={() => setEditingBatch(null)}
-                  className="px-4 py-2 rounded-lg bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium transition cursor-pointer"
+                  className="px-4 py-2 rounded-lg bg-[#F6F3EC] hover:bg-[#E8E3DA] text-[#26364A] font-medium transition cursor-pointer border border-[#E8E3DA]"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSaving}
-                  className="px-5 py-2 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-bold transition shadow-xs cursor-pointer"
+                  className="px-5 py-2 rounded-lg bg-[#C76B45] hover:bg-[#B55D37] text-white font-bold transition shadow-xs cursor-pointer font-heading"
                 >
                   {isSaving ? 'Saving...' : 'Update Batch'}
                 </button>
@@ -401,23 +401,23 @@ export const BatchInventory = ({
 
       {/* In-App Confirmation Modal for Write-Off (No window.confirm) */}
       {writeOffCandidate && (
-        <div className="fixed inset-0 z-50 bg-stone-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-5 border border-stone-200 shadow-xl space-y-4 text-xs">
-            <div className="flex items-center gap-3 text-rose-600">
-              <div className="p-2.5 bg-rose-100 rounded-full">
-                <Trash2 className="w-5 h-5 text-rose-700" />
+        <div className="fixed inset-0 z-50 bg-[#26364A]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full p-5 border border-[#E8E3DA] shadow-xl space-y-4 text-xs">
+            <div className="flex items-center gap-3 text-[#C75A54]">
+              <div className="p-2.5 bg-[#C75A54]/15 rounded-full">
+                <Trash2 className="w-5 h-5 text-[#C75A54]" />
               </div>
-              <h3 className="font-bold text-base text-stone-900">Confirm Write Off Batch</h3>
+              <h3 className="font-bold text-base text-[#26364A] font-heading">Confirm Write Off Batch</h3>
             </div>
-            <p className="text-stone-600 leading-relaxed">
-              Are you sure you want to write off batch <span className="font-mono font-bold">{writeOffCandidate.batchNumber}</span> of <span className="font-bold">"{writeOffCandidate.productName}"</span>?
-              Its remaining <span className="font-bold">{writeOffCandidate.quantity} {writeOffCandidate.unit}</span> will be marked as disposed.
+            <p className="text-[#737B83] leading-relaxed">
+              Are you sure you want to write off batch <span className="font-mono font-bold text-[#26364A]">{writeOffCandidate.batchNumber}</span> of <span className="font-bold text-[#26364A]">"{writeOffCandidate.productName}"</span>?
+              Its remaining <span className="font-bold text-[#26364A]">{writeOffCandidate.quantity} {writeOffCandidate.unit}</span> will be marked as disposed.
             </p>
             <div className="flex justify-end gap-2.5 pt-2">
               <button
                 type="button"
                 onClick={() => setWriteOffCandidate(null)}
-                className="px-4 py-2 bg-stone-100 hover:bg-stone-200 text-stone-700 rounded-lg font-semibold transition cursor-pointer"
+                className="px-4 py-2 bg-[#F6F3EC] hover:bg-[#E8E3DA] text-[#26364A] rounded-lg font-semibold transition cursor-pointer border border-[#E8E3DA]"
               >
                 Cancel
               </button>
@@ -425,7 +425,7 @@ export const BatchInventory = ({
                 type="button"
                 disabled={isWritingOff}
                 onClick={executeWriteOff}
-                className="px-4 py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-lg font-semibold transition cursor-pointer"
+                className="px-4 py-2 bg-[#C75A54] hover:bg-[#A7443E] text-white rounded-lg font-semibold transition cursor-pointer"
               >
                 {isWritingOff ? 'Writing Off...' : 'Yes, Write Off'}
               </button>

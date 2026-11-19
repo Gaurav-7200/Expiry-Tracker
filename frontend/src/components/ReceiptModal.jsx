@@ -93,90 +93,90 @@ export const ReceiptModal = ({
         </div>
 
         {/* Receipt Container */}
-        <div className="overflow-y-auto p-6 bg-stone-100/70 flex justify-center flex-1">
+        <div className="overflow-y-auto p-6 bg-[#F6F3EC] flex justify-center flex-1">
           {/* Print container styling */}
           <div
             id="printable-receipt"
-            className={`print-container bg-white text-stone-900 shadow-sm border border-stone-200 transition-all ${
+            className={`print-container bg-white text-[#26364A] shadow-sm border border-[#E8E3DA] transition-all ${
               receiptType === 'thermal'
                 ? 'w-full max-w-[340px] p-4 text-xs font-mono rounded-lg'
                 : 'w-full max-w-[620px] p-6 text-sm rounded-lg'
             }`}
           >
             {/* Header info */}
-            <div className="text-center pb-3 border-b border-dashed border-stone-300">
-              <h2 className="font-extrabold text-base tracking-tight text-emerald-950 uppercase">
+            <div className="text-center pb-3 border-b border-dashed border-[#E8E3DA]">
+              <h2 className="font-extrabold text-base tracking-tight text-[#26364A] uppercase font-heading">
                 {settings.storeName}
               </h2>
               {settings.tagline && (
-                <p className="text-[11px] text-stone-600 mt-0.5">{settings.tagline}</p>
+                <p className="text-[11px] text-[#737B83] mt-0.5">{settings.tagline}</p>
               )}
-              <p className="text-[11px] text-stone-600 mt-1">{settings.address}</p>
-              <p className="text-[11px] text-stone-600">
+              <p className="text-[11px] text-[#737B83] mt-1">{settings.address}</p>
+              <p className="text-[11px] text-[#737B83]">
                 Tel: {settings.phone} {settings.email ? `• ${settings.email}` : ''}
               </p>
               {settings.gstNumber && (
-                <p className="text-[11px] font-semibold text-stone-700 mt-1">
+                <p className="text-[11px] font-semibold text-[#26364A] mt-1 font-mono">
                   Tax ID: {settings.gstNumber}
                 </p>
               )}
             </div>
 
             {/* Invoice Meta */}
-            <div className="py-2.5 border-b border-dashed border-stone-300 text-[11px] flex flex-col gap-1">
+            <div className="py-2.5 border-b border-dashed border-[#E8E3DA] text-[11px] flex flex-col gap-1">
               <div className="flex justify-between">
-                <span className="text-stone-500">Invoice:</span>
-                <span className="font-bold text-stone-800">{sale.invoiceNumber}</span>
+                <span className="text-[#737B83]">Invoice:</span>
+                <span className="font-bold text-[#26364A] font-mono">{sale.invoiceNumber}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-stone-500">Date & Time:</span>
+                <span className="text-[#737B83]">Date & Time:</span>
                 <span>
                   {formattedDate} {formattedTime}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-stone-500">Cashier:</span>
+                <span className="text-[#737B83]">Cashier:</span>
                 <span>{sale.cashier || 'Store Staff'}</span>
               </div>
               {sale.customerName && sale.customerName !== 'Walk-in Customer' && (
                 <div className="flex justify-between">
-                  <span className="text-stone-500">Customer:</span>
-                  <span className="font-medium">{sale.customerName}</span>
+                  <span className="text-[#737B83]">Customer:</span>
+                  <span className="font-medium text-[#26364A]">{sale.customerName}</span>
                 </div>
               )}
               <div className="flex justify-between">
-                <span className="text-stone-500">Payment:</span>
-                <span className="font-bold uppercase text-emerald-800">
+                <span className="text-[#737B83]">Payment:</span>
+                <span className="font-bold uppercase text-[#C76B45]">
                   {sale.paymentMethod}
                 </span>
               </div>
             </div>
 
             {/* Items Table */}
-            <div className="py-3 border-b border-dashed border-stone-300">
+            <div className="py-3 border-b border-dashed border-[#E8E3DA]">
               <table className="w-full text-left">
                 <thead>
-                  <tr className="border-b border-stone-300 text-[10px] text-stone-500 uppercase">
+                  <tr className="border-b border-[#E8E3DA] text-[10px] text-[#737B83] uppercase">
                     <th className="py-1">Item</th>
                     <th className="py-1 text-center">Qty</th>
                     <th className="py-1 text-right">Rate</th>
                     <th className="py-1 text-right">Amt</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-stone-100">
+                <tbody className="divide-y divide-[#E8E3DA]/60">
                   {sale.items.map((item, idx) => (
                     <tr key={idx} className="align-top">
                       <td className="py-1.5 pr-1">
-                        <div className="font-semibold text-stone-900 leading-tight">
+                        <div className="font-semibold text-[#26364A] leading-tight font-heading">
                           {item.productName}
                           {item.packSize && (
-                            <span className="text-stone-500 font-normal text-xs ml-1">
+                            <span className="text-[#737B83] font-normal text-xs ml-1">
                               ({item.packSize})
                             </span>
                           )}
                         </div>
                         {item.batchAllocations && item.batchAllocations.length > 0 && (
-                          <div className="text-[10px] text-stone-500">
+                          <div className="text-[10px] text-[#737B83] font-mono">
                             Batch:{' '}
                             {item.batchAllocations
                               .map((a) => `${a.batchNumber} (${a.quantity})`)
@@ -184,20 +184,20 @@ export const ReceiptModal = ({
                           </div>
                         )}
                         {item.discount > 0 && (
-                          <div className="text-[10px] text-emerald-600">
+                          <div className="text-[10px] text-[#39845D]">
                             Disc: -{settings.currency}
                             {item.discount}
                           </div>
                         )}
                       </td>
-                      <td className="py-1.5 text-center text-stone-700 whitespace-nowrap">
+                      <td className="py-1.5 text-center text-[#26364A] whitespace-nowrap">
                         {item.quantity} {item.unit}
                       </td>
-                      <td className="py-1.5 text-right text-stone-700 whitespace-nowrap">
+                      <td className="py-1.5 text-right text-[#26364A] whitespace-nowrap">
                         {settings.currency}
                         {item.sellingPrice}
                       </td>
-                      <td className="py-1.5 text-right font-medium text-stone-900 whitespace-nowrap">
+                      <td className="py-1.5 text-right font-medium text-[#26364A] whitespace-nowrap">
                         {settings.currency}
                         {item.total.toFixed(2)}
                       </td>
@@ -208,8 +208,8 @@ export const ReceiptModal = ({
             </div>
 
             {/* Calculations Breakdown */}
-            <div className="py-2.5 border-b border-dashed border-stone-300 space-y-1 text-[11px]">
-              <div className="flex justify-between text-stone-600">
+            <div className="py-2.5 border-b border-dashed border-[#E8E3DA] space-y-1 text-[11px]">
+              <div className="flex justify-between text-[#737B83]">
                 <span>Subtotal:</span>
                 <span>
                   {settings.currency}
@@ -218,7 +218,7 @@ export const ReceiptModal = ({
               </div>
 
               {sale.discountTotal > 0 && (
-                <div className="flex justify-between text-emerald-700 font-medium">
+                <div className="flex justify-between text-[#39845D] font-medium">
                   <span>Total Discount:</span>
                   <span>
                     -{settings.currency}
@@ -228,7 +228,7 @@ export const ReceiptModal = ({
               )}
 
               {sale.taxRate > 0 && (
-                <div className="flex justify-between text-stone-600">
+                <div className="flex justify-between text-[#737B83]">
                   <span>Tax ({sale.taxRate}%):</span>
                   <span>
                     {settings.currency}
@@ -237,9 +237,9 @@ export const ReceiptModal = ({
                 </div>
               )}
 
-              <div className="flex justify-between text-base font-extrabold text-stone-950 pt-1.5 border-t border-stone-300">
+              <div className="flex justify-between text-base font-extrabold text-[#26364A] pt-1.5 border-t border-[#E8E3DA] font-heading">
                 <span>GRAND TOTAL:</span>
-                <span>
+                <span className="text-[#C76B45]">
                   {settings.currency}
                   {sale.grandTotal.toFixed(2)}
                 </span>
@@ -247,15 +247,15 @@ export const ReceiptModal = ({
 
               {/* Cash payment tendered / change details */}
               {sale.paymentMethod === 'cash' && sale.amountTendered !== undefined && (
-                <div className="pt-1.5 border-t border-stone-100 text-[11px] text-stone-700 space-y-0.5">
-                  <div className="flex justify-between">
+                <div className="pt-1.5 border-t border-[#E8E3DA] text-[11px] text-[#26364A] space-y-0.5">
+                  <div className="flex justify-between text-[#737B83]">
                     <span>Cash Tendered:</span>
                     <span>
                       {settings.currency}
                       {sale.amountTendered.toFixed(2)}
                     </span>
                   </div>
-                  <div className="flex justify-between font-bold text-emerald-800">
+                  <div className="flex justify-between font-bold text-[#39845D]">
                     <span>Change Returned:</span>
                     <span>
                       {settings.currency}
@@ -267,22 +267,22 @@ export const ReceiptModal = ({
             </div>
 
             {/* Footer Notice */}
-            <div className="pt-3 text-center text-[10px] text-stone-500 space-y-1">
-              <p className="font-medium text-stone-700">{settings.receiptFooter}</p>
-              <div className="flex items-center justify-center gap-1 font-mono text-[9px] text-stone-400">
+            <div className="pt-3 text-center text-[10px] text-[#737B83] space-y-1">
+              <p className="font-medium text-[#26364A]">{settings.receiptFooter}</p>
+              <div className="flex items-center justify-center gap-1 font-mono text-[9px] text-[#737B83]/70">
                 <span>* * * * * * * * * * * * * * * * * *</span>
               </div>
-              <p className="text-[9px] text-stone-400">Powered by StockWise Grocery Engine</p>
+              <p className="text-[9px] text-[#737B83]/70">Powered by StockWise Grocery Engine</p>
             </div>
           </div>
         </div>
 
         {/* Action Buttons Toolbar (Hidden during print) */}
-        <div className="no-print p-4 bg-white border-t border-stone-200 flex items-center justify-between gap-3">
+        <div className="no-print p-4 bg-white border-t border-[#E8E3DA] flex items-center justify-between gap-3">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 text-sm font-medium text-stone-700 hover:text-stone-900 bg-stone-100 hover:bg-stone-200 rounded-lg transition flex items-center gap-2 cursor-pointer"
+            className="px-4 py-2 text-sm font-medium text-[#26364A] hover:text-[#C76B45] bg-[#F6F3EC] hover:bg-[#E8E3DA] rounded-lg transition flex items-center gap-2 cursor-pointer border border-[#E8E3DA]"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to System
@@ -292,9 +292,9 @@ export const ReceiptModal = ({
             <button
               type="button"
               onClick={handlePrint}
-              className="px-5 py-2.5 text-sm font-semibold text-white bg-emerald-700 hover:bg-emerald-800 active:bg-emerald-900 rounded-lg shadow-sm transition flex items-center gap-2 cursor-pointer"
+              className="px-5 py-2.5 text-sm font-semibold text-white bg-[#C76B45] hover:bg-[#B55D37] active:bg-[#C76B45] rounded-lg shadow-xs transition flex items-center gap-2 cursor-pointer font-heading"
             >
-              <Printer className="w-4 h-4" />
+              <Printer className="w-4 h-4 text-white" />
               Print Receipt
             </button>
           </div>

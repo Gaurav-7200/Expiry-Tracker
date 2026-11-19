@@ -44,13 +44,13 @@ const CATEGORY_COLORS = {
   'Bakery & Bread': 'bg-orange-50 text-orange-800 border-orange-200',
   'Beverages & Tea': 'bg-[#DCE8DF] text-[#26364A] border-[#AEC7B4]',
   'Snacks & Packaged': 'bg-purple-50 text-purple-800 border-purple-200',
-  'Pulses & Lentils': 'bg-stone-100 text-[#26364A] border-[#E8E3DA]',
+  'Pulses & Lentils': 'bg-[#F6F3EC] text-[#26364A] border-[#E8E3DA]',
   'Spices & Condiments': 'bg-[#FBF0EB] text-[#C76B45] border-[#E8E3DA]',
   'Personal & Household': 'bg-[#DCE8DF]/70 text-[#26364A] border-[#E8E3DA]',
 };
 
 function getCategoryColor(category) {
-  return CATEGORY_COLORS[category] || 'bg-stone-100 text-stone-700 border-stone-200';
+  return CATEGORY_COLORS[category] || 'bg-[#F6F3EC] text-[#26364A] border-[#E8E3DA]';
 }
 
 export const PosBilling = ({
