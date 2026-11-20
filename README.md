@@ -18,33 +18,34 @@ A modern Grocery Inventory Management and Point of Sale (POS) system with batch-
 The project has been separated into clean, independent **frontend** and **backend** folders:
 
 ```text
-Expiry-Tracker/
-├── backend/                  # Standalone Express REST API server
-│   ├── data/                 # JSON file-based database (stockwise-db.json)
+Expiry-Tracker
+│
+├── backend/
+│   ├── data/
+│   │   └── stockwise-db.json
+│   │
 │   ├── src/
-│   │   ├── server.ts         # Express server with REST API routes & CORS
-│   │   ├── db.ts             # Database layer (products, batches, sales, settings)
-│   │   └── types.ts          # Backend TypeScript interfaces
-│   ├── package.json          # Express, dotenv, tsx dependencies
-│   ├── tsconfig.json         # NodeNext TypeScript configuration
-│   └── .env.example          # Environment template (PORT=5000)
+│   │   ├── db.js
+│   │   └── server.js
+│   │
+│   └── package.json
 │
-├── frontend/                 # Standard React (Vite) Single Page App
-│   ├── index.html            # Entry HTML document
-│   ├── vite.config.ts        # Vite config with API proxy to http://localhost:5000
-│   ├── tsconfig.json         # React JSX TypeScript configuration
-│   ├── package.json          # React, Tailwind, Lucide React (icons)
-│   └── src/
-│       ├── main.tsx          # React application root mount
-│       ├── App.tsx           # Main application shell & tab navigation
-│       ├── index.css         # Tailwind styles & theme tokens
-│       ├── components/       # POS, Dashboard, Inventory, Expiry Tracker, etc.
-│       ├── services/         # api.ts (REST client configured with proxy)
-│       ├── types/            # Frontend TypeScript types
-│       └── utils/            # Audio effects & helpers
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── services/
+│   │   │   └── api.js
+│   │   │
+│   │   ├── utils/
+│   │   ├── App.jsx
+│   │   ├── main.jsx
+│   │   └── index.css
+│   │
+│   ├── index.html
+│   └── package.json
 │
-├── package.json              # Root orchestration scripts (runs both services)
-└── README.md                 # Project documentation
+├── package.json
+└── README.md
 ```
 
 ---
